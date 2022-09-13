@@ -7,6 +7,7 @@ import reportWebVitals from "./reportWebVitals";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import "./index.scss";
 import About from "./pages/About/About";
+import Header from "./features/header/Header";
 
 const container = document.getElementById("root")!;
 const root = createRoot(container);
@@ -15,6 +16,7 @@ root.render(
   <React.StrictMode>
     <Provider store={store}>
       <BrowserRouter>
+        <Header />
         <Routes>
           <Route path="/" element={<App />} />
           <Route path="about" element={<About />} />
