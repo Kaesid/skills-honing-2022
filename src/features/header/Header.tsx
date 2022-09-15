@@ -14,6 +14,10 @@ const MyLink = styled(Link)`
   text-decoration: none;
   color: black;
   font-weight: bold;
+
+  &:hover {
+    color: blue;
+  }
 `;
 
 const Header = () => {
@@ -34,14 +38,11 @@ const Header = () => {
         <MyLink
           className={path.url === location.pathname ? "active" : ""}
           to={path.url}
+          key={path.url}
         >
           {path.text}
         </MyLink>
       ))}
-      {/* <MyLink className={} to="/about">
-        About
-      </MyLink>
-      <MyLink to="/">Default</MyLink> */}
     </NavBar>
   );
 };
