@@ -2,12 +2,11 @@ import React from "react";
 import { createRoot } from "react-dom/client";
 import { Provider } from "react-redux";
 import { store } from "./app/store";
-import App from "./App";
 import reportWebVitals from "./reportWebVitals";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter } from "react-router-dom";
 import "./index.scss";
-import About from "./pages/About/About";
 import Header from "./features/header/Header";
+import AppRoutes from "./modules/AppRoutes/AppRoutes";
 
 const container = document.getElementById("root")!;
 const root = createRoot(container);
@@ -17,10 +16,7 @@ root.render(
     <Provider store={store}>
       <BrowserRouter>
         <Header />
-        <Routes>
-          <Route path="/" element={<App />} />
-          <Route path="about" element={<About />} />
-        </Routes>
+        <AppRoutes />
       </BrowserRouter>
     </Provider>
   </React.StrictMode>

@@ -1,6 +1,7 @@
 import "./style.scss";
 import { Link, useLocation } from "react-router-dom";
 import styled from "styled-components";
+import { routerPaths } from "../../utils/paths";
 
 const NavBar = styled.nav`
   width: 100vw;
@@ -22,25 +23,16 @@ const MyLink = styled(Link)`
 
 const Header = () => {
   const location = useLocation();
-  const paths = [
-    {
-      url: "/about",
-      text: "About",
-    },
-    {
-      url: "/",
-      text: "Default",
-    },
-  ];
+
   return (
     <NavBar className="nav">
-      {paths.map((path) => (
+      {routerPaths.map((route) => (
         <MyLink
-          className={path.url === location.pathname ? "active" : ""}
-          to={path.url}
-          key={path.url}
+          className={route.path === location.pathname ? "active" : ""}
+          to={route.path}
+          key={route.path}
         >
-          {path.text}
+          {route.text}
         </MyLink>
       ))}
     </NavBar>
