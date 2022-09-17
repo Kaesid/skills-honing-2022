@@ -1,7 +1,7 @@
 import "./style.scss";
 import { Link, useLocation } from "react-router-dom";
 import styled from "styled-components";
-import { routerPaths } from "../../utils/paths";
+import { routerPaths } from "../../modules/App/AppRoutes/paths";
 
 const NavBar = styled.nav`
   width: 100vw;

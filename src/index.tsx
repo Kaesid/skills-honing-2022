@@ -1,12 +1,9 @@
 import React from "react";
 import { createRoot } from "react-dom/client";
 import { Provider } from "react-redux";
-import { store } from "./app/store";
+import { store } from "./redux/store";
 import reportWebVitals from "./reportWebVitals";
-import { BrowserRouter } from "react-router-dom";
-import "./index.scss";
-import Header from "./features/header/Header";
-import AppRoutes from "./modules/AppRoutes/AppRoutes";
+import App from "./modules/App/App";
 
 const container = document.getElementById("root")!;
 const root = createRoot(container);
@@ -14,10 +11,7 @@ const root = createRoot(container);
 root.render(
   <React.StrictMode>
     <Provider store={store}>
-      <BrowserRouter>
-        <Header />
-        <AppRoutes />
-      </BrowserRouter>
+      <App />
     </Provider>
   </React.StrictMode>
 );

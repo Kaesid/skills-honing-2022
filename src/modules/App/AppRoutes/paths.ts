@@ -1,5 +1,5 @@
-import About from "../pages/About/About";
-import App from "./../App";
+import About from "../../About/About";
+import CountersPage from "../../Counters/Counters";
 
 export interface IRoute {
   path: string;
@@ -20,7 +20,7 @@ const routerPaths: IRoute[] = [
   {
     path: RoutesPath.ROOT,
     text: "Default",
-    Component: App,
+    Component: CountersPage,
   },
 ];
 
