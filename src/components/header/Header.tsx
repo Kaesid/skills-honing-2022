@@ -1,41 +1,23 @@
-import "./style.scss";
-import { Link, useLocation } from "react-router-dom";
-import styled from "styled-components";
-import { routerPaths } from "../../modules/App/AppRoutes/paths";
-
-const NavBar = styled.nav`
-  width: 100vw;
-  display: flex;
-  justify-content: space-evenly;
-  align-items: center;
-  background-color: green;
-`;
-
-const MyLink = styled(Link)`
-  text-decoration: none;
-  color: black;
-  font-weight: bold;
-
-  &:hover {
-    color: blue;
-  }
-`;
+import { useLocation } from "react-router-dom";
+import { routerPaths, RoutesPath } from "../../modules/App/AppRoutes/paths";
+import { AppHeader, HeaderLogo, LogoLink, NavBar, MyLink } from "./styled-components";
 
 const Header = () => {
   const location = useLocation();
 
   return (
-    <NavBar className="nav">
-      {routerPaths.map((route) => (
-        <MyLink
-          className={route.path === location.pathname ? "active" : ""}
-          to={route.path}
-          key={route.path}
-        >
-          {route.text}
-        </MyLink>
-      ))}
-    </NavBar>
+    <AppHeader>
+      <LogoLink to={RoutesPath.ROOT}>
+        <HeaderLogo />
+      </LogoLink>
+      <NavBar>
+        {routerPaths.map(route => (
+          <MyLink className={route.path === location.pathname ? "active" : ""} to={route.path} key={route.path}>
+            {route.text}
+          </MyLink>
+        ))}
+      </NavBar>
+    </AppHeader>
   );
 };
 

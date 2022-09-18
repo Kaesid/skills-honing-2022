@@ -1,14 +1,14 @@
 import "./styles.scss";
-import logo from "../../assets/images/logo.svg";
+import { ReactComponent as Logo } from "../../assets/images/logo.svg";
 import { Counter } from "./Counter/Counter";
 
 const CountersPage = () => {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
+      <section className="App-header">
+        <Logo className="App-logo" />
         <Counter />
-      </header>
+      </section>
     </div>
   );
 };
