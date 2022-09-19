@@ -2,6 +2,9 @@ import styled from "styled-components";
 import { ReactComponent as Logo } from "../../assets/images/logo.svg";
 import { Link } from "react-router-dom";
 
+const linkNonActiveColor = "ghostwhite";
+const linkActiveColor = "#53fbcd";
+
 const AppHeader = styled.header`
   display: flex;
   justify-content: space-between;
@@ -26,30 +29,29 @@ const LogoLink = styled(Link)`
 const HeaderLogo = styled(Logo)`
   height: 100%;
   object-fit: contain;
-  cursor: pointer;
 
   g {
-    fill: ghostwhite;
+    fill: ${linkNonActiveColor};
   }
 
   &:hover {
     g {
-      fill: red;
+      fill: ${linkActiveColor};
     }
   }
 `;
 
 const MyLink = styled(Link)`
   text-decoration: none;
-  color: blue;
+  color: ${linkNonActiveColor};
   font-weight: bold;
 
-  &:hover {
-    color: ghostwhite;
+  &:hover,
+  &.active {
+    color: ${linkActiveColor};
   }
 
   &.active {
-    color: ghostwhite;
     pointer-events: none;
   }
 `;

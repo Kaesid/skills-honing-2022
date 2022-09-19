@@ -3,7 +3,7 @@ import { routerPaths, RoutesPath } from "../../modules/App/AppRoutes/paths";
 import { AppHeader, HeaderLogo, LogoLink, NavBar, MyLink } from "./styled-components";
 
 const Header = () => {
-  const location = useLocation();
+  const { pathname } = useLocation();
 
   return (
     <AppHeader>
@@ -11,9 +11,9 @@ const Header = () => {
         <HeaderLogo />
       </LogoLink>
       <NavBar>
-        {routerPaths.map(route => (
-          <MyLink className={route.path === location.pathname ? "active" : ""} to={route.path} key={route.path}>
-            {route.text}
+        {routerPaths.map(({ path, text }) => (
+          <MyLink className={path === pathname ? "active" : ""} to={path} key={path}>
+            {text}
           </MyLink>
         ))}
       </NavBar>

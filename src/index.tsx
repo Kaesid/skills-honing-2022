@@ -5,7 +5,8 @@ import reportWebVitals from "./reportWebVitals";
 import { store } from "./redux/store";
 import App from "./modules/App/App";
 
-const container = document.getElementById("root")!;
+const container = document.getElementById("root");
+if (!container) throw new Error("Failed to find the root element");
 const root = createRoot(container);
 
 root.render(
