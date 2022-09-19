@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 import { ReactComponent as Logo } from "../../assets/images/logo.svg";
 import { Link } from "react-router-dom";
 import { GrClose } from "react-icons/gr";
@@ -23,9 +23,31 @@ const NavBar = styled.nav`
   gap: 20px;
 `;
 
+/* ${(props: { isBurgerOpen: boolean }) =>
+    props.isBurgerOpen &&
+    css`
+      height: 100vh;
+      width: 100%;
+      z-index: 100;
+      justify-content: flex-end;
+      background-color: gray;
+    `} */
+
+const IconWrap = styled.div`
+  width: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
+
 const LogoLink = styled(Link)`
   height: 100%;
   width: 40px;
+  ${(props: { isBurgerOpen: boolean }) =>
+    props.isBurgerOpen &&
+    css`
+      pointer-events: none;
+    `}
 `;
 
 const CloseIcon = styled(GrClose)`
@@ -48,6 +70,23 @@ const BurgerIcon = styled(FiAlignJustify)`
   &:hover {
     color: red;
   }
+`;
+
+const BurgerMenu = styled.div`
+  position: absolute;
+  z-index: 100;
+  right: 0;
+  top: 40px;
+  width: 100%;
+  height: 100%;
+  opacity: 0.9;
+  background-color: rgba(2, 0, 36, 1);
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 10%;
+  padding-top: 20%;
 `;
 
 const HeaderLogo = styled(Logo)`
@@ -80,4 +119,4 @@ const MyLink = styled(Link)`
   }
 `;
 
-export { NavBar, AppHeader, LogoLink, HeaderLogo, MyLink, CloseIcon, BurgerIcon };
+export { NavBar, AppHeader, LogoLink, HeaderLogo, MyLink, CloseIcon, BurgerIcon, IconWrap, BurgerMenu };

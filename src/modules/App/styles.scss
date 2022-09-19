@@ -1,5 +1,6 @@
 body {
-  margin: 0;
+  position: relative;
+  line-height: 1;
   min-height: 100vh;
   width: 100%;
   overflow-y: hidden;
@@ -11,4 +12,12 @@ body {
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New", monospace;
+}
+
+*,
+*:before,
+*:after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
