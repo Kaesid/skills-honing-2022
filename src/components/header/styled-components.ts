@@ -43,8 +43,8 @@ const IconWrap = styled.div`
 const LogoLink = styled(Link)`
   height: 100%;
   width: 40px;
-  ${(props: { isBurgerOpen: boolean }) =>
-    props.isBurgerOpen &&
+  ${(props: { $isLogoNonClickable: boolean }) =>
+    props.$isLogoNonClickable &&
     css`
       pointer-events: none;
     `}

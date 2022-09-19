@@ -1,11 +1,9 @@
 import React from "react";
 import { MyLink } from "../Header/styled-components";
 import { routerPaths } from "../RoutesList/paths";
-import { useLocation } from "react-router-dom";
 
-const RoutesLinksList = (props: { onClick?: () => void }) => {
-  const { pathname } = useLocation();
-  const { onClick } = props;
+const RoutesLinksList = (props: { onClick?: () => void; pathname: string }) => {
+  const { onClick, pathname } = props;
 
   return (
     <>

@@ -1,4 +1,3 @@
-import { useEffect, useState } from "react";
 import { RoutesPath } from "../RoutesList/paths";
 import {
   AppHeader,
@@ -12,19 +11,17 @@ import {
 } from "./styled-components";
 import { useMobileResolutionCheck } from "../../hooks/useMobileResolutionCheck";
 import RoutesLinksList from "./../RoutesLinksList/RoutesLinksList";
+import { useLocation } from "react-router-dom";
+import { useBurger } from "./useBurger";
 
 const Header = () => {
   const { isMobile } = useMobileResolutionCheck();
-  const [isBurgerOpen, setIsBurgerOpen] = useState(false);
-  const toggleBurger = () => setIsBurgerOpen(prevValue => !prevValue);
-
-  useEffect(() => {
-    if (!isMobile) setIsBurgerOpen(false);
-  }, [isMobile]);
+  const { isBurgerOpen, closeBurger, toggleBurger } = useBurger(isMobile);
+  const { pathname } = useLocation();
 
   return (
     <AppHeader>
-      <LogoLink isBurgerOpen={isBurgerOpen} to={RoutesPath.ROOT}>
+      <LogoLink $isLogoNonClickable={pathname === RoutesPath.ROOT} onClick={closeBurger} to={RoutesPath.ROOT}>
         <HeaderLogo />
       </LogoLink>
       <NavBar>
@@ -33,7 +30,7 @@ const Header = () => {
             <IconWrap>
               <CloseIcon onClick={toggleBurger} size={25} />
               <BurgerMenu>
-                <RoutesLinksList onClick={() => setIsBurgerOpen(false)} />
+                <RoutesLinksList pathname={pathname} onClick={closeBurger} />
               </BurgerMenu>
             </IconWrap>
           ) : (
@@ -42,7 +39,7 @@ const Header = () => {
             </IconWrap>
           )
         ) : (
-          <RoutesLinksList />
+          <RoutesLinksList pathname={pathname} />
         )}
       </NavBar>
     </AppHeader>
