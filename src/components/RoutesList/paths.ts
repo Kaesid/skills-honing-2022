@@ -1,5 +1,5 @@
-import About from "../../About/About";
-import CountersPage from "../../Counters/Counters";
+import About from "../../modules/About/About";
+import CountersPage from "../../modules/Counters/Counters";
 
 export interface IRoute {
   path: string;

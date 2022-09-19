@@ -1,6 +1,8 @@
 import styled from "styled-components";
 import { ReactComponent as Logo } from "../../assets/images/logo.svg";
 import { Link } from "react-router-dom";
+import { GrClose } from "react-icons/gr";
+import { FiAlignJustify } from "react-icons/fi";
 
 const linkNonActiveColor = "ghostwhite";
 const linkActiveColor = "#53fbcd";
@@ -24,6 +26,28 @@ const NavBar = styled.nav`
 const LogoLink = styled(Link)`
   height: 100%;
   width: 40px;
+`;
+
+const CloseIcon = styled(GrClose)`
+  cursor: pointer;
+  & path {
+    stroke: ${linkNonActiveColor};
+  }
+
+  &:hover {
+    & path {
+      stroke: red;
+    }
+  }
+`;
+
+const BurgerIcon = styled(FiAlignJustify)`
+  cursor: pointer;
+  color: ${linkNonActiveColor};
+
+  &:hover {
+    color: red;
+  }
 `;
 
 const HeaderLogo = styled(Logo)`
@@ -56,4 +80,4 @@ const MyLink = styled(Link)`
   }
 `;
 
-export { NavBar, AppHeader, LogoLink, HeaderLogo, MyLink };
+export { NavBar, AppHeader, LogoLink, HeaderLogo, MyLink, CloseIcon, BurgerIcon };
