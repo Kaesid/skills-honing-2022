@@ -1,5 +1,6 @@
 import About from "../../modules/About/About";
 import CountersPage from "../../modules/Counters/Counters";
+import Paint from "./../../modules/Paint/Paint";
 
 export interface IRoute {
   path: string;
@@ -10,6 +11,7 @@ export interface IRoute {
 export enum RoutesPath {
   ROOT = "/",
   ABOUT = "/about",
+  DEBUG = "/debug",
 }
 const routerPaths: IRoute[] = [
   {
@@ -18,9 +20,14 @@ const routerPaths: IRoute[] = [
     Component: About,
   },
   {
-    path: RoutesPath.ROOT,
-    text: "Default",
+    path: RoutesPath.DEBUG,
+    text: "Debug",
     Component: CountersPage,
+  },
+  {
+    path: RoutesPath.ROOT,
+    text: "Paint",
+    Component: Paint,
   },
 ];
 

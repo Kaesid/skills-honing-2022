@@ -14,6 +14,7 @@ const AppHeader = styled.header`
   background: linear-gradient(90deg, rgba(2, 0, 36, 1) 0%, rgba(9, 9, 121, 1) 68%, rgba(175, 0, 255, 1) 100%);
   height: 40px;
   padding: 0 40px;
+  margin-bottom: 40px;
 `;
 
 const NavBar = styled.nav`
@@ -100,6 +101,12 @@ const HeaderLogo = styled(Logo)`
   &:hover {
     g {
       fill: ${linkActiveColor};
+    }
+  }
+
+  &:active {
+    g {
+      fill: ${linkNonActiveColor};
     }
   }
 `;

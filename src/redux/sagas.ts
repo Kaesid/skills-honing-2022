@@ -1,6 +1,6 @@
-import { put, takeEvery } from "redux-saga/effects";
+import { all, call, spawn } from "redux-saga/effects";
+import { counterSaga } from "../modules/Counters/Counter/counterSaga";
 
-const delay = (ms: number) => new Promise((res) => setTimeout(res, ms));
 // import { Action } from "@reduxjs/toolkit";
 // // worker Saga: will be fired on USER_FETCH_REQUESTED actions
 // function* fetchUser(action: Action<number>) {
@@ -19,14 +19,28 @@ const delay = (ms: number) => new Promise((res) => setTimeout(res, ms));
 // function* mySaga() {
 //   yield takeEvery("USER_FETCH_REQUESTED", fetchUser);
 // }
-export function* incrementAsync() {
-  yield delay(1000);
-  yield put({ type: "counter/increment" });
+
+// const getProperty = <Type, Key extends keyof Type>(obj: Type, key: Key) => {
+//   return obj[key];
+// };
+
+function* rootSaga() {
+  const sagas = [counterSaga];
+
+  yield all(
+    sagas.map(saga =>
+      spawn(function* () {
+        while (true) {
+          try {
+            yield call(saga);
+            break;
+          } catch (e) {
+            console.log(e);
+          }
+        }
+      })
+    )
+  );
 }
 
-export function* mySaga() {
-  //   console.log("Hello Sagas!");
-  yield takeEvery("counter/incrementDelaySaga", incrementAsync);
-}
-
-export default mySaga;
+export default rootSaga;

@@ -21,7 +21,7 @@ const Header = () => {
 
   return (
     <AppHeader>
-      <LogoLink $isLogoNonClickable={pathname === RoutesPath.ROOT} onClick={closeBurger} to={RoutesPath.ROOT}>
+      <LogoLink $isLogoNonClickable={pathname === RoutesPath.ABOUT} onClick={closeBurger} to={RoutesPath.ABOUT}>
         <HeaderLogo />
       </LogoLink>
       <NavBar>

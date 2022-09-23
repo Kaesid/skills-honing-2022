@@ -6,7 +6,7 @@ const useBurger = (isMobile: boolean) => {
   const closeBurger = () => setIsBurgerOpen(false);
 
   useEffect(() => {
-    if (!isMobile) setIsBurgerOpen(false);
+    if (!isMobile) closeBurger();
   }, [isMobile]);
 
   return { isBurgerOpen, closeBurger, toggleBurger };
