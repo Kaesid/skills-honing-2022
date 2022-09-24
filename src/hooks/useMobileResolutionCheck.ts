@@ -1,8 +1,9 @@
 import { useState, useEffect } from "react";
+import { SCREEN_SIZES } from "../constants/screen";
 
 const checkIsMobileScreen = () => {
   const { innerWidth } = window;
-  return innerWidth < 500;
+  return innerWidth < SCREEN_SIZES.MOBILE;
 };
 
 const useMobileResolutionCheck = () => {

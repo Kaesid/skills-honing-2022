@@ -1,10 +1,14 @@
-import { Canvas, PaintPage, SideMenu } from "./styled-components";
+import { CanvasWrap, PaintPage } from "./styled-components";
+import SideMenu from "./SideMenu/SideMenu";
+import Canvas from "./Canvas/Canvas";
 
 const Paint = () => {
   return (
     <PaintPage>
       <SideMenu></SideMenu>
-      <Canvas></Canvas>
+      <CanvasWrap>
+        <Canvas></Canvas>
+      </CanvasWrap>
     </PaintPage>
   );
 };
