@@ -9,18 +9,19 @@ const SideMenu = () => {
   const piy = (src: string) => {
     console.log(cursor);
     // setCursor(`url(${pencil})`);
-    setCursor(`url(${src}), auto`);
+    // setCursor(`url(${src}), auto`);
+    setCursor(src);
   };
   // const { IconComponent } = buttonsList[0];
   return (
-    <SideMenuStyled style={cursor ? { cursor } : undefined}>
+    <SideMenuStyled style={cursor ? { cursor: `url(${cursor}), auto` } : undefined}>
       <ColorPickerWrap>
         <HexColorPicker color={color} onChange={setColor} />
       </ColorPickerWrap>
       <IconsBox>
         {buttonsList.map(({ IconComponent, src, size, tooltip }) => (
-          <IconBox key={src}>
-            <IconComponent onClick={() => piy(src)} />
+          <IconBox onClick={() => piy(src)} className={src === cursor ? "active" : ""} key={src}>
+            <IconComponent />
           </IconBox>
         ))}
       </IconsBox>

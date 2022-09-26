@@ -24,7 +24,7 @@ interface aa {
 }
 interface ButtonProps {
   tooltip: string;
-  IconComponent: React.FC<aa>;
+  IconComponent: React.FC;
   src: string;
   size?: number;
 }

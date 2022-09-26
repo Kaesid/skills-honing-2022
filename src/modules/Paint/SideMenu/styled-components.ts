@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import { SCREEN_SIZES } from "../../../constants/screen";
+import { linkActiveColor } from "../../../constants/styled-components";
 
 const SideMenuStyled = styled.div`
   background: rgba(9, 9, 121, 1);
@@ -33,6 +34,21 @@ const IconsBox = styled.div`
 
     path {
       fill: white;
+    }
+
+    circle {
+      stroke: white;
+    }
+  }
+
+  .active {
+    svg {
+      path {
+        fill: ${linkActiveColor};
+      }
+      circle {
+        stroke: ${linkActiveColor};
+      }
     }
   }
 `;
