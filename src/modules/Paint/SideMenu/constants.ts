@@ -1,39 +1,67 @@
-import { AiFillFormatPainter } from "react-icons/ai";
-import { BsFillBrushFill, BsFillChatLeftTextFill, BsFillClockFill, BsFillPencilFill } from "react-icons/bs";
-import { IconType } from "react-icons/lib";
-import { TbEraser } from "react-icons/tb";
+import {
+  Pencil,
+  pencil,
+  Eraser,
+  eraser,
+  Clock,
+  clock,
+  Caption,
+  caption,
+  Brush,
+  brush,
+  BigBrush,
+  bigBrush,
+  Square,
+  square,
+  Circle,
+  circle,
+} from "../../../assets/images/svgrepo";
 
+interface aa {
+  onClick: (arg0: string) => void;
+}
 interface ButtonProps {
   tooltip: string;
-  IconComponent: IconType;
+  IconComponent: React.FC<aa>;
+  src: string;
   size?: number;
 }
 
 const buttonsList: ButtonProps[] = [
   {
-    tooltip: "painter",
-    IconComponent: AiFillFormatPainter,
+    tooltip: "painter1",
+    IconComponent: BigBrush,
+    src: bigBrush,
   },
   {
-    tooltip: "painter",
-    IconComponent: BsFillBrushFill,
+    tooltip: "painter2",
+    IconComponent: Brush,
+    src: brush,
   },
   {
-    tooltip: "painter",
-    IconComponent: BsFillChatLeftTextFill,
+    tooltip: "painter3",
+    IconComponent: Caption,
+    src: caption,
   },
   {
-    tooltip: "painter",
-    IconComponent: BsFillClockFill,
+    tooltip: "painter4",
+    IconComponent: Square,
+    src: square,
   },
   {
-    tooltip: "painter",
-    IconComponent: BsFillPencilFill,
+    tooltip: "painter4",
+    IconComponent: Circle,
+    src: circle,
   },
   {
-    tooltip: "painter",
-    IconComponent: TbEraser,
-    size: 22,
+    tooltip: "painter5",
+    IconComponent: Pencil,
+    src: pencil,
+  },
+  {
+    tooltip: "painter6",
+    IconComponent: Eraser,
+    src: eraser,
   },
 ];
 
