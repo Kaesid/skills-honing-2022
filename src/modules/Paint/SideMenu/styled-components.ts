@@ -26,6 +26,15 @@ const IconsBox = styled.div`
   justify-content: center;
   gap: 10px;
   margin: 20px;
+
+  svg {
+    width: 30px;
+    height: 30px;
+
+    path {
+      fill: white;
+    }
+  }
 `;
 
 const IconBox = styled.div`

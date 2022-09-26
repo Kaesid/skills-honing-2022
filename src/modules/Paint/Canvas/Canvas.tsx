@@ -1,7 +1,7 @@
 import { CanvasStyled } from "./styled-components";
 
 const Canvas = () => {
-  return <CanvasStyled>Canvas</CanvasStyled>;
+  return <CanvasStyled></CanvasStyled>;
 };
 
 export default Canvas;

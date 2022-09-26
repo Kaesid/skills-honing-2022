@@ -15,6 +15,8 @@ import {
   square,
   Circle,
   circle,
+  line,
+  Line,
 } from "../../../assets/images/svgrepo";
 
 interface aa {
@@ -29,9 +31,14 @@ interface ButtonProps {
 
 const buttonsList: ButtonProps[] = [
   {
-    tooltip: "painter1",
-    IconComponent: BigBrush,
-    src: bigBrush,
+    tooltip: "painter5",
+    IconComponent: Pencil,
+    src: pencil,
+  },
+  {
+    tooltip: "painter6",
+    IconComponent: Eraser,
+    src: eraser,
   },
   {
     tooltip: "painter2",
@@ -39,9 +46,19 @@ const buttonsList: ButtonProps[] = [
     src: brush,
   },
   {
+    tooltip: "painter1",
+    IconComponent: BigBrush,
+    src: bigBrush,
+  },
+  {
     tooltip: "painter3",
     IconComponent: Caption,
     src: caption,
+  },
+  {
+    tooltip: "painter4",
+    IconComponent: Line,
+    src: line,
   },
   {
     tooltip: "painter4",
@@ -52,16 +69,6 @@ const buttonsList: ButtonProps[] = [
     tooltip: "painter4",
     IconComponent: Circle,
     src: circle,
-  },
-  {
-    tooltip: "painter5",
-    IconComponent: Pencil,
-    src: pencil,
-  },
-  {
-    tooltip: "painter6",
-    IconComponent: Eraser,
-    src: eraser,
   },
 ];
 

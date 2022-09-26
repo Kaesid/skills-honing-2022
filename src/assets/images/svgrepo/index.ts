@@ -6,6 +6,7 @@ import bigBrush from "./bigBrush.svg";
 import caption from "./caption.svg";
 import square from "./square.svg";
 import circle from "./circle.svg";
+import line from "./line.svg";
 import { ReactComponent as Pencil } from "./pencil.svg";
 import { ReactComponent as Eraser } from "./eraser.svg";
 import { ReactComponent as Clock } from "./clock.svg";
@@ -14,6 +15,7 @@ import { ReactComponent as BigBrush } from "./bigBrush.svg";
 import { ReactComponent as Caption } from "./caption.svg";
 import { ReactComponent as Square } from "./square.svg";
 import { ReactComponent as Circle } from "./circle.svg";
+import { ReactComponent as Line } from "./line.svg";
 
 export {
   pencil,
@@ -32,4 +34,6 @@ export {
   Square,
   circle,
   Circle,
+  line,
+  Line,
 };
