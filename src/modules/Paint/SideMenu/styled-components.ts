@@ -11,7 +11,6 @@ const SideMenuStyled = styled.div`
   /* width: 20%; */
   margin-top: -40px;
   /* border-top: 1px gray solid; */
-  padding-top: 5px;
 
   @media (max-width: ${SCREEN_SIZES.TABLET}px) {
     width: 100vw;
@@ -63,6 +62,12 @@ const IconBox = styled.div`
   cursor: pointer;
 `;
 
+const ColorPickerCollapsible = styled.div`
+  width: 100%;
+  object-fit: contain;
+  height: 40px;
+`;
+
 const ColorPickerWrap = styled.div`
   max-width: 100%;
   object-fit: contain;
@@ -76,4 +81,4 @@ const ColorPickerWrap = styled.div`
   }
 `;
 
-export { SideMenuStyled, IconsBox, IconBox, ColorPickerWrap };
+export { SideMenuStyled, IconsBox, IconBox, ColorPickerWrap, ColorPickerCollapsible };

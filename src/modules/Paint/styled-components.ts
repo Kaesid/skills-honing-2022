@@ -12,7 +12,6 @@ const PaintPage = styled.div`
 `;
 
 const CanvasWrap = styled.div`
-  margin-top: 20px;
   width: 100%;
   display: flex;
   justify-content: center;
