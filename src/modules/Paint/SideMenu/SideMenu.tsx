@@ -1,5 +1,12 @@
 import { buttonsList } from "./constants";
-import { IconBox, IconsBox, SideMenuStyled, ColorPickerWrap, ColorPickerCollapsible } from "./styled-components";
+import {
+  IconBox,
+  IconsBox,
+  SideMenuStyled,
+  ColorPickerWrap,
+  ColorPickerCollapsible,
+  ColorPickerCollapsibleColor,
+} from "./styled-components";
 import { HexColorPicker } from "react-colorful";
 import { useState } from "react";
 import pencil from "../../../assets/images/svgrepo/pencil.svg";

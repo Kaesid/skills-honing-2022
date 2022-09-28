@@ -1,9 +1,10 @@
 import styled from "styled-components";
 import { SCREEN_SIZES } from "../../../constants/screen";
 import { linkActiveColor } from "../../../constants/styled-components";
+import { downArrow } from "../../../assets/images/svgrepo";
 
 const SideMenuStyled = styled.div`
-  background: rgba(9, 9, 121, 1);
+  background: #484854;
   color: white;
   height: calc(100vh - 40px);
   width: max(15%, 100px);
@@ -66,6 +67,24 @@ const ColorPickerCollapsible = styled.div`
   width: 100%;
   object-fit: contain;
   height: 40px;
+  cursor: pointer;
+  border: 1px solid #44a1b5;
+
+  &::after {
+    content: "";
+    display: inline-block;
+    position: relative;
+    left: calc(100% - 25px);
+    width: 20px;
+    height: 40px;
+    background-image: url(${downArrow});
+    background-repeat: no-repeat;
+    background-position: center center;
+  }
+`;
+
+const ColorPickerCollapsibleColor = styled.div`
+  height: 30px;
 `;
 
 const ColorPickerWrap = styled.div`
@@ -81,4 +100,4 @@ const ColorPickerWrap = styled.div`
   }
 `;
 
-export { SideMenuStyled, IconsBox, IconBox, ColorPickerWrap, ColorPickerCollapsible };
+export { SideMenuStyled, IconsBox, IconBox, ColorPickerWrap, ColorPickerCollapsible, ColorPickerCollapsibleColor };

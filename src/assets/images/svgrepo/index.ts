@@ -7,6 +7,7 @@ import caption from "./caption.svg";
 import square from "./square.svg";
 import circle from "./circle.svg";
 import line from "./line.svg";
+import downArrow from "./down-arrow.svg";
 import { ReactComponent as Pencil } from "./pencil.svg";
 import { ReactComponent as Eraser } from "./eraser.svg";
 import { ReactComponent as Clock } from "./clock.svg";
@@ -36,4 +37,5 @@ export {
   Circle,
   line,
   Line,
+  downArrow,
 };
