@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 import { SCREEN_SIZES } from "../../../constants/screen";
 import { linkActiveColor } from "../../../constants/styled-components";
 import { downArrow } from "../../../assets/images/svgrepo";
@@ -18,6 +18,10 @@ const SideMenuStyled = styled.div`
     height: fit-content;
     border-bottom-right-radius: 5px;
     border-bottom-left-radius: 5px;
+  }
+
+  & .react-colorful__saturation {
+    border-radius: 0;
   }
 `;
 
@@ -81,6 +85,14 @@ const ColorPickerCollapsible = styled.div`
     background-repeat: no-repeat;
     background-position: center center;
   }
+
+  ${(props: { $isOpen: boolean }) =>
+    props.$isOpen &&
+    css`
+      &::after {
+        transform: rotate(180deg);
+      }
+    `}
 `;
 
 const ColorPickerCollapsibleColor = styled.div`

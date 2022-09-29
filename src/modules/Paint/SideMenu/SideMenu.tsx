@@ -20,18 +20,16 @@ interface ISideMenu {
 }
 const SideMenu = (props: ISideMenu) => {
   const { setColor, color, cursor, setCursor } = props;
+  const [isOpen, setIsOpen] = useState(false);
 
-  // const [cursor, setCursor] = useState<null | string>(null);
-  const piy = (src: string) => {
-    console.log(cursor);
-    // setCursor(`url(${pencil})`);
-    // setCursor(`url(${src}), auto`);
-    setCursor(src);
-  };
-  // const { IconComponent } = buttonsList[0];
   return (
     <SideMenuStyled>
-      <Collapsible trigger={<ColorPickerCollapsible style={{ background: color }} />}>
+      <Collapsible
+        open={isOpen}
+        onOpening={() => setIsOpen(true)}
+        onClosing={() => setIsOpen(false)}
+        trigger={<ColorPickerCollapsible $isOpen={isOpen} style={{ background: color }} />}
+      >
         <ColorPickerWrap>
           <HexColorPicker color={color} onChange={setColor} />
         </ColorPickerWrap>
@@ -39,7 +37,7 @@ const SideMenu = (props: ISideMenu) => {
 
       <IconsBox>
         {buttonsList.map(({ IconComponent, src, size, tooltip }) => (
-          <IconBox onClick={() => piy(src)} className={src === cursor ? "active" : ""} key={src}>
+          <IconBox onClick={() => setCursor(src)} className={src === cursor ? "active" : ""} key={src}>
             <IconComponent />
           </IconBox>
         ))}
