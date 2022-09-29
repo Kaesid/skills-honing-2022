@@ -20,7 +20,7 @@ export const paintSlice = createSlice({
       state.color = action.payload;
     },
 
-    setCursor: (state, action: PayloadAction<string>) => {
+    setPaintCursor: (state, action: PayloadAction<string>) => {
       state.cursor = action.payload;
     },
 
@@ -30,7 +30,7 @@ export const paintSlice = createSlice({
   },
 });
 export const getPaintColor = (state: RootState) => state.paint.color;
-export const getCursor = (state: RootState) => state.paint.cursor;
-export const { setPaintColor, setCursor } = paintSlice.actions;
+export const getPaintCursor = (state: RootState) => state.paint.cursor;
+export const { setPaintColor, setPaintCursor } = paintSlice.actions;
 
 export default paintSlice.reducer;
