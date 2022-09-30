@@ -1,3 +1,4 @@
+import { useMobileResolutionCheck } from "../../../hooks/useMobileResolutionCheck";
 import { usePainting } from "../../../hooks/usePainting";
 import { CanvasStyled } from "./styled-components";
 
@@ -7,16 +8,17 @@ interface ICanvas {
 
 const Canvas = (props: ICanvas) => {
   const { cursor } = props;
-  const { canvasRef } = usePainting();
-  console.log(canvasRef);
-  console.log(window.innerWidth);
-  console.log(window.innerHeight);
+  const { canvasRef, width, height } = usePainting();
+  const { isMobile } = useMobileResolutionCheck();
+  console.log(canvasRef.current?.clientWidth);
+  // console.log(canvasRef);
+  // console.log(window.innerWidth);
+  // console.log(window.innerHeight);
+
   return (
     <CanvasStyled
-      // width={window.innerWidth}
-      // height={window.innerHeight}
-      width={600}
-      height={800}
+      width={width}
+      height={height}
       style={cursor ? { cursor: `url(${cursor}), auto` } : undefined}
       ref={canvasRef}
     ></CanvasStyled>
