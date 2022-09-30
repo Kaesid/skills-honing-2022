@@ -20,7 +20,7 @@ interface ISideMenu {
 }
 const SideMenu = (props: ISideMenu) => {
   const { setColor, color, cursor, setCursor } = props;
-  const [isOpen, setIsOpen] = useState(false);
+  const [isOpen, setIsOpen] = useState(true);
 
   return (
     <SideMenuStyled>
