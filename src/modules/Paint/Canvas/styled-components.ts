@@ -4,8 +4,9 @@ import { SCREEN_SIZES } from "../../../constants/screen";
 const CanvasStyled = styled.canvas`
   background: white;
   max-width: 100%;
-  width: 600px;
+  width: 600px; //TODO: adaptive size
   height: 80vh;
+  height: 800px;
   border: 1px black solid;
   box-shadow: 5px 6px 3px 1px #0000001f;
 
