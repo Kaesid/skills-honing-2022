@@ -3,13 +3,12 @@ import { useRef, useEffect, useState } from "react";
 const usePainting = () => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   // const ctx = useRef(canvasRef.current?.getContext("2d"));
-  const [canvasParams, setCanvasParams] = useState({ width: 0, height: 0 });
-  const { width, height } = canvasParams;
+  const [{ width, height }, setCanvasParams] = useState({ width: 0, height: 0 });
 
   useEffect(() => {
     if (!canvasRef.current) return;
-    setCanvasParams({ width: canvasRef.current.clientWidth, height: canvasRef.current.clientHeight });
     const ref = canvasRef.current;
+    setCanvasParams({ width: ref.clientWidth, height: ref.clientHeight });
     const ctx = ref.getContext("2d");
 
     const mouseMoveCheck = (e: MouseEvent) => {

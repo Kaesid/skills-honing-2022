@@ -9,11 +9,6 @@ interface ICanvas {
 const Canvas = (props: ICanvas) => {
   const { cursor } = props;
   const { canvasRef, width, height } = usePainting();
-  const { isMobile } = useMobileResolutionCheck();
-  console.log(canvasRef.current?.clientWidth);
-  // console.log(canvasRef);
-  // console.log(window.innerWidth);
-  // console.log(window.innerHeight);
 
   return (
     <CanvasStyled
