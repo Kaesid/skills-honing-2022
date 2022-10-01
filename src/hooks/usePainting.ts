@@ -28,13 +28,17 @@ const usePainting = () => {
     ctx.fill();
   };
 
+  const setCanvasParamsValues = (ref: HTMLCanvasElement | null) => {
+    return ref ? { width: ref.clientWidth, height: ref.clientHeight } : { width: 0, height: 0 };
+  };
+
   const canvasRef = useRef<HTMLCanvasElement>(null);
-  const [{ width, height }, setCanvasParams] = useState({ width: 0, height: 0 });
+  const [{ width, height }, setCanvasParams] = useState(setCanvasParamsValues(canvasRef.current));
 
   useEffect(() => {
     if (!canvasRef.current) return;
     const ref = canvasRef.current;
-    setCanvasParams({ width: ref.clientWidth, height: ref.clientHeight });
+    setCanvasParams(setCanvasParamsValues(ref));
     const ctx = ref.getContext("2d");
 
     const mouseMoveCheck = (e: MouseEvent) => {
@@ -42,9 +46,7 @@ const usePainting = () => {
       draw({ x, y, ctx });
     };
 
-    const adjustCanvasParams = () => {
-      setCanvasParams({ width: ref.clientWidth, height: ref.clientHeight });
-    };
+    const adjustCanvasParams = () => setCanvasParams(setCanvasParamsValues(ref));
 
     window.addEventListener("resize", adjustCanvasParams);
 
