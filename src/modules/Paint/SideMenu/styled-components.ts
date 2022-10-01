@@ -20,6 +20,10 @@ const SideMenuStyled = styled.div`
     border-bottom-left-radius: 5px;
   }
 
+  & .react-colorful {
+    width: 100%;
+  }
+
   & .react-colorful__saturation {
     border-radius: 0;
   }

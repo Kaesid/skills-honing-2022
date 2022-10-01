@@ -2,20 +2,22 @@ import { CanvasWrap, PaintPage } from "./styled-components";
 import SideMenu from "./SideMenu/SideMenu";
 import Canvas from "./Canvas/Canvas";
 import { useAppSelector, useAppDispatch } from "../../redux/hooks";
-import { getPaintColor, getPaintCursor, setPaintColor, setPaintCursor } from "./paintSlice";
+import { getPaintCursor, setPaintCursor } from "./paintSlice";
+import { usePainting } from "../../hooks/usePainting";
 
 const Paint = () => {
   const dispatch = useAppDispatch();
-  const color = useAppSelector(getPaintColor);
+
   const cursor = useAppSelector(getPaintCursor);
-  const setColor = (color: string) => dispatch(setPaintColor(color));
-  const setCursor = (color: string) => dispatch(setPaintCursor(color));
-  console.log(color);
+
+  const setCursor = (cursor: string) => dispatch(setPaintCursor(cursor));
+  const { canvasRef, width, height, color, setColor } = usePainting();
+
   return (
     <PaintPage>
-      <SideMenu color={color} setColor={setColor} cursor={cursor} setCursor={setCursor}></SideMenu>
+      <SideMenu color={color} setColor={setColor} cursor={cursor} setCursor={setCursor} />
       <CanvasWrap>
-        <Canvas cursor={cursor}></Canvas>
+        <Canvas canvasRef={canvasRef} width={width} height={height} cursor={cursor} />
       </CanvasWrap>
     </PaintPage>
   );

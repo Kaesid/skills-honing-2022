@@ -1,15 +1,7 @@
 import { buttonsList } from "./constants";
-import {
-  IconBox,
-  IconsBox,
-  SideMenuStyled,
-  ColorPickerWrap,
-  ColorPickerCollapsible,
-  ColorPickerCollapsibleColor,
-} from "./styled-components";
+import { IconBox, IconsBox, SideMenuStyled, ColorPickerWrap, ColorPickerCollapsible } from "./styled-components";
 import { HexColorPicker } from "react-colorful";
 import { useState } from "react";
-import pencil from "../../../assets/images/svgrepo/pencil.svg";
 import Collapsible from "react-collapsible";
 
 interface ISideMenu {
@@ -19,7 +11,7 @@ interface ISideMenu {
   setCursor: (cursor: string) => void;
 }
 const SideMenu = (props: ISideMenu) => {
-  const { setColor, color, cursor, setCursor } = props;
+  const { cursor, setCursor, setColor, color } = props;
   const [isOpen, setIsOpen] = useState(true);
 
   return (

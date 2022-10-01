@@ -1,14 +1,22 @@
-import { useMobileResolutionCheck } from "../../../hooks/useMobileResolutionCheck";
-import { usePainting } from "../../../hooks/usePainting";
 import { CanvasStyled } from "./styled-components";
 
 interface ICanvas {
   cursor: string;
+  // color: string;
+  // currentColor: React.MutableRefObject<string>;
+  width: number;
+  height: number;
+  canvasRef: React.RefObject<HTMLCanvasElement>;
+}
+
+export interface IDraw {
+  x: number;
+  y: number;
+  ctx: CanvasRenderingContext2D | null;
 }
 
 const Canvas = (props: ICanvas) => {
-  const { cursor } = props;
-  const { canvasRef, width, height } = usePainting();
+  const { cursor, width, height, canvasRef } = props;
 
   return (
     <CanvasStyled
