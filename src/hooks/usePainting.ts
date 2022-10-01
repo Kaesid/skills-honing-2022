@@ -32,6 +32,14 @@ const usePainting = () => {
     return ref ? { width: ref.clientWidth, height: ref.clientHeight } : { width: 0, height: 0 };
   };
 
+  const [dataUrl, setDataUrl] = useState("#");
+
+  const download = () => {
+    if (!canvasRef.current) return;
+
+    setDataUrl(canvasRef.current.toDataURL("image/png"));
+  };
+
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const [{ width, height }, setCanvasParams] = useState(setCanvasParamsValues(canvasRef.current));
 
@@ -58,7 +66,7 @@ const usePainting = () => {
     };
   }, [canvasRef]);
 
-  return { canvasRef, width, height, color, currentColor, setColor };
+  return { canvasRef, width, height, color, currentColor, setColor, download, dataUrl };
 };
 
 export { usePainting };

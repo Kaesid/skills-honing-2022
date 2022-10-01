@@ -9,9 +9,11 @@ interface ISideMenu {
   cursor: string;
   setColor: (color: string) => void;
   setCursor: (cursor: string) => void;
+  download: () => void;
+  dataUrl: string;
 }
 const SideMenu = (props: ISideMenu) => {
-  const { cursor, setCursor, setColor, color } = props;
+  const { cursor, setCursor, setColor, color, download, dataUrl } = props;
   const [isOpen, setIsOpen] = useState(true);
 
   return (
@@ -34,6 +36,9 @@ const SideMenu = (props: ISideMenu) => {
           </IconBox>
         ))}
       </IconsBox>
+      <a download="image.png" onClick={download} href={dataUrl}>
+        Save
+      </a>
     </SideMenuStyled>
   );
 };

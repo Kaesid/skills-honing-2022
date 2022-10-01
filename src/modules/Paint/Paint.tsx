@@ -11,11 +11,18 @@ const Paint = () => {
   const cursor = useAppSelector(getPaintCursor);
 
   const setCursor = (cursor: string) => dispatch(setPaintCursor(cursor));
-  const { canvasRef, width, height, color, setColor } = usePainting();
+  const { canvasRef, width, height, color, setColor, download, dataUrl } = usePainting();
 
   return (
     <PaintPage>
-      <SideMenu color={color} setColor={setColor} cursor={cursor} setCursor={setCursor} />
+      <SideMenu
+        dataUrl={dataUrl}
+        download={download}
+        color={color}
+        setColor={setColor}
+        cursor={cursor}
+        setCursor={setCursor}
+      />
       <CanvasWrap>
         <Canvas canvasRef={canvasRef} width={width} height={height} cursor={cursor} />
       </CanvasWrap>
