@@ -1,17 +1,13 @@
-import styled, { css } from "styled-components";
+import styled from "styled-components";
 import { SCREEN_SIZES } from "../../../constants/screen";
 import { linkActiveColor } from "../../../constants/styled-components";
-import { downArrow } from "../../../assets/images/svgrepo";
 
 const SideMenuStyled = styled.div`
   background: #484854;
   color: white;
   height: calc(100vh - 40px);
   width: max(15%, 100px);
-  /* width: fit-content; */
-  /* width: 20%; */
   margin-top: -40px;
-  /* border-top: 1px gray solid; */
 
   @media (max-width: ${SCREEN_SIZES.TABLET}px) {
     width: 100vw;

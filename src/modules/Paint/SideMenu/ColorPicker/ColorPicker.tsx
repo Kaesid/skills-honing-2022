@@ -1,44 +1,47 @@
+import { memo } from "react";
 import Collapsible from "react-collapsible";
-import { useState } from "react";
-import { useColorPicker } from "./useColorPicker";
 import { HexColorPicker } from "react-colorful";
+import { useColorPicker } from "./useColorPicker";
 import { ISideMenu } from "./../SideMenu";
-import { ColorPickerCollapsible, ColorPickerWrap } from "./styled-components";
+import { ColorPickerCollapsible, ColorPickerWrap, HexColorPickerWrap, Palette, PaletteSlot } from "./styled-components";
 import { defaultColors } from "./constants";
 
 const ColorPicker = (props: Pick<ISideMenu, "colorRef">) => {
   const { colorRef } = props;
-  const [isOpen, setIsOpen] = useState(true);
-  const { renderedColor, setActiveColor, paletteColors, setActivePaletteSlot } = useColorPicker({
+
+  const { renderedColor, setActiveColor, paletteColors, setActivePaletteSlot, collapsibleParams } = useColorPicker({
     colorRef,
     defaultColors,
   });
 
+  const { isCollapsibleOpen, onCollapsibleOpen, onCollapsibleClose } = collapsibleParams;
+
   return (
-    <>
+    <ColorPickerWrap $isOpen={isCollapsibleOpen}>
       <Collapsible
-        open={isOpen}
-        onOpening={() => setIsOpen(true)}
-        onClosing={() => setIsOpen(false)}
-        trigger={<ColorPickerCollapsible $isOpen={isOpen} style={{ background: renderedColor }} />}
+        open={isCollapsibleOpen}
+        onOpening={onCollapsibleOpen}
+        onClosing={onCollapsibleClose}
+        trigger={<ColorPickerCollapsible $isOpen={isCollapsibleOpen} style={{ background: renderedColor }} />}
       >
-        <ColorPickerWrap>
+        <HexColorPickerWrap>
           <HexColorPicker color={renderedColor} onChange={setActiveColor} />
-        </ColorPickerWrap>
+        </HexColorPickerWrap>
       </Collapsible>
-      {Object.keys(paletteColors).map(key => (
-        <button
-          data-name={key}
-          data-color={paletteColors[key]}
-          key={key}
-          style={{ background: paletteColors[key] }}
-          onClick={setActivePaletteSlot}
-        >
-          {key}
-        </button>
-      ))}
-    </>
+      <Palette>
+        {Object.keys(paletteColors).map(key => (
+          <PaletteSlot
+            data-name={key}
+            data-color={paletteColors[key]}
+            $isSelected={paletteColors[key] === renderedColor}
+            $color={paletteColors[key]}
+            key={key}
+            onClick={setActivePaletteSlot}
+          />
+        ))}
+      </Palette>
+    </ColorPickerWrap>
   );
 };
 
-export default ColorPicker;
+export default memo(ColorPicker);

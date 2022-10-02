@@ -8,6 +8,7 @@ const useColorPicker = (props: IColorPicker) => {
   const activeButton = useRef("");
   const [renderedColor, setRenderedColor] = useState(colorRef.current);
   const [paletteColors, setPaletteColors] = useState(defaultColors);
+  const [isCollapsibleOpen, setIsCollapasibleOpen] = useState(true);
 
   const setActiveColor = (newColor: string) => {
     colorRef.current = newColor;
@@ -29,7 +30,13 @@ const useColorPicker = (props: IColorPicker) => {
     setActiveColor(color);
   };
 
-  return { setActivePaletteSlot, setActiveColor, paletteColors, renderedColor };
+  const collapsibleParams = {
+    isCollapsibleOpen,
+    onCollapsibleOpen: () => setIsCollapasibleOpen(true),
+    onCollapsibleClose: () => setIsCollapasibleOpen(false),
+  };
+
+  return { setActivePaletteSlot, setActiveColor, paletteColors, renderedColor, collapsibleParams };
 };
 
 export { useColorPicker };

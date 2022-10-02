@@ -21,3 +21,8 @@ code {
   padding: 0;
   box-sizing: border-box;
 }
+
+*:before,
+*:after {
+  display: inline-block;
+}
