@@ -72,4 +72,16 @@ const buttonsList: ButtonProps[] = [
   },
 ];
 
-export { buttonsList };
+interface IColors {
+  [key: string]: string;
+}
+
+const defaultColors: IColors = {
+  first: "#000000",
+  second: "#FFFFFF",
+  third: "#932020",
+  fourth: "#0000ff",
+  fifth: "#007400",
+};
+
+export { buttonsList, defaultColors };

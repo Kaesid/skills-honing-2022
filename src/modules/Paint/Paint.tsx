@@ -3,7 +3,7 @@ import SideMenu from "./SideMenu/SideMenu";
 import Canvas from "./Canvas/Canvas";
 import { useAppSelector, useAppDispatch } from "../../redux/hooks";
 import { getPaintCursor, setPaintCursor } from "./paintSlice";
-import { usePainting } from "../../hooks/usePainting";
+import { usePaint } from "../../hooks/usePaint/usePaint";
 
 const Paint = () => {
   const dispatch = useAppDispatch();
@@ -11,13 +11,14 @@ const Paint = () => {
   const cursor = useAppSelector(getPaintCursor);
 
   const setCursor = (cursor: string) => dispatch(setPaintCursor(cursor));
-  const { canvasRef, width, height, color, setColor, download, dataUrl } = usePainting();
+  const { canvasRef, width, height, color, setColor, saveCanvas, dataUrl, colorRef } = usePaint();
 
   return (
     <PaintPage>
       <SideMenu
+        colorRef={colorRef}
         dataUrl={dataUrl}
-        download={download}
+        saveCanvas={saveCanvas}
         color={color}
         setColor={setColor}
         cursor={cursor}
