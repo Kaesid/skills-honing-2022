@@ -1,15 +1,12 @@
 import Collapsible from "react-collapsible";
 import { useState } from "react";
-import { useColorPicker } from "../useColorPicker";
-import { defaultColors } from "../constants";
-import { ColorPickerCollapsible, ColorPickerWrap } from "../styled-components";
+import { useColorPicker } from "./useColorPicker";
 import { HexColorPicker } from "react-colorful";
+import { ISideMenu } from "./../SideMenu";
+import { ColorPickerCollapsible, ColorPickerWrap } from "./styled-components";
+import { defaultColors } from "./constants";
 
-interface IColorPicker {
-  colorRef: React.MutableRefObject<string>;
-}
-
-const ColorPicker = (props: IColorPicker) => {
+const ColorPicker = (props: Pick<ISideMenu, "colorRef">) => {
   const { colorRef } = props;
   const [isOpen, setIsOpen] = useState(true);
   const { renderedColor, setActiveColor, paletteColors, setActivePaletteSlot } = useColorPicker({

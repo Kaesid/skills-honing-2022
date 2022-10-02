@@ -19,9 +19,6 @@ import {
   Line,
 } from "../../../assets/images/svgrepo";
 
-interface aa {
-  onClick: (arg0: string) => void;
-}
 interface ButtonProps {
   tooltip: string;
   IconComponent: React.FC;
@@ -72,16 +69,4 @@ const buttonsList: ButtonProps[] = [
   },
 ];
 
-export interface IColors {
-  [key: string]: string;
-}
-
-const defaultColors: IColors = {
-  first: "#000000",
-  second: "#FFFFFF",
-  third: "#932020",
-  fourth: "#0000ff",
-  fifth: "#007400",
-};
-
-export { buttonsList, defaultColors };
+export { buttonsList };

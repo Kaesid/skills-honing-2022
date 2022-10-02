@@ -2,7 +2,7 @@ import { buttonsList } from "./constants";
 import { IconBox, IconsBox, SideMenuStyled } from "./styled-components";
 import ColorPicker from "./ColorPicker/ColorPicker";
 
-interface ISideMenu {
+export interface ISideMenu {
   // color: string;
   cursor: string;
   // setColor: (color: string) => void;
