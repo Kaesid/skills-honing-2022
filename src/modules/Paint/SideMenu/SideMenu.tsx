@@ -1,13 +1,14 @@
 import { buttonsList, defaultColors } from "./constants";
 import { IconBox, IconsBox, SideMenuStyled, ColorPickerWrap, ColorPickerCollapsible } from "./styled-components";
 import { HexColorPicker } from "react-colorful";
-import { MouseEventHandler, useState } from "react";
+import { MouseEventHandler, useRef, useState } from "react";
 import Collapsible from "react-collapsible";
+import { useColorPicker } from "./useColorPicker";
 
 interface ISideMenu {
-  color: string;
+  // color: string;
   cursor: string;
-  setColor: (color: string) => void;
+  // setColor: (color: string) => void;
   setCursor: (cursor: string) => void;
   saveCanvas: () => void;
   dataUrl: string;
@@ -16,22 +17,10 @@ interface ISideMenu {
 const SideMenu = (props: ISideMenu) => {
   const { cursor, setCursor, saveCanvas, dataUrl, colorRef } = props;
   const [isOpen, setIsOpen] = useState(true);
-  const [renderedColor, setRenderedColor] = useState(colorRef.current);
-  // const;
-
-  const [colorsList, setColorList] = useState(defaultColors);
-
-  const setActiveColor = (newColor: string) => {
-    colorRef.current = newColor;
-    setRenderedColor(newColor);
-  };
-
-  const onClick = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
-    const { name, color } = e.currentTarget.dataset;
-    if (color) setActiveColor(color);
-    console.log(name);
-    console.log(color);
-  };
+  const { renderedColor, setActiveColor, paletteColors, setActivePaletteSlot } = useColorPicker({
+    colorRef,
+    defaultColors,
+  });
 
   return (
     <SideMenuStyled>
@@ -45,13 +34,13 @@ const SideMenu = (props: ISideMenu) => {
           <HexColorPicker color={renderedColor} onChange={setActiveColor} />
         </ColorPickerWrap>
       </Collapsible>
-      {Object.keys(colorsList).map(key => (
+      {Object.keys(paletteColors).map(key => (
         <button
           data-name={key}
-          data-color={colorsList[key]}
+          data-color={paletteColors[key]}
           key={key}
-          style={{ background: colorsList[key] }}
-          onClick={onClick}
+          style={{ background: paletteColors[key] }}
+          onClick={setActivePaletteSlot}
         >
           {key}
         </button>

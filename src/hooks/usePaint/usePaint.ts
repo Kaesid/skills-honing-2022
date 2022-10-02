@@ -1,9 +1,9 @@
 import { useRef, useEffect, useState } from "react";
-import { getPaintColor, setPaintColor } from "../../modules/Paint/paintSlice";
-import { useAppSelector } from "../../redux/hooks";
+// import { getPaintColor, setPaintColor } from "../../modules/Paint/paintSlice";
+// import { useAppSelector } from "../../redux/hooks";
 
 import { IDraw } from "../../modules/Paint/Canvas/Canvas";
-import { useAppDispatch } from "../../redux/hooks";
+// import { useAppDispatch } from "../../redux/hooks";
 import { useSaveCanvas } from "./useSaveCanvas";
 
 // interface IPainting {
@@ -11,14 +11,14 @@ import { useSaveCanvas } from "./useSaveCanvas";
 // }
 
 const usePaint = () => {
-  const dispatch = useAppDispatch();
-  const color = useAppSelector(getPaintColor);
+  // const dispatch = useAppDispatch();
+  // const color = useAppSelector(getPaintColor);
   const currentColor = useRef("#aabbcc");
 
-  const setColor = (color: string) => {
-    currentColor.current = color;
-    dispatch(setPaintColor(color));
-  };
+  // const setColor = (color: string) => {
+  //   currentColor.current = color;
+  //   dispatch(setPaintColor(color));
+  // };
 
   const draw = (props: IDraw) => {
     const { x, y, ctx } = props;
@@ -61,7 +61,7 @@ const usePaint = () => {
     };
   }, [canvasRef]);
 
-  return { canvasRef, width, height, color, colorRef: currentColor, setColor, saveCanvas, dataUrl };
+  return { canvasRef, width, height, colorRef: currentColor, saveCanvas, dataUrl };
 };
 
 export { usePaint };

@@ -72,7 +72,7 @@ const buttonsList: ButtonProps[] = [
   },
 ];
 
-interface IColors {
+export interface IColors {
   [key: string]: string;
 }
 
