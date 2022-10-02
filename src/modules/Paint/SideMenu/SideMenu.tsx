@@ -1,9 +1,6 @@
-import { buttonsList, defaultColors } from "./constants";
-import { IconBox, IconsBox, SideMenuStyled, ColorPickerWrap, ColorPickerCollapsible } from "./styled-components";
-import { HexColorPicker } from "react-colorful";
-import { MouseEventHandler, useRef, useState } from "react";
-import Collapsible from "react-collapsible";
-import { useColorPicker } from "./useColorPicker";
+import { buttonsList } from "./constants";
+import { IconBox, IconsBox, SideMenuStyled } from "./styled-components";
+import ColorPicker from "./ColorPicker/ColorPicker";
 
 interface ISideMenu {
   // color: string;
@@ -16,35 +13,10 @@ interface ISideMenu {
 }
 const SideMenu = (props: ISideMenu) => {
   const { cursor, setCursor, saveCanvas, dataUrl, colorRef } = props;
-  const [isOpen, setIsOpen] = useState(true);
-  const { renderedColor, setActiveColor, paletteColors, setActivePaletteSlot } = useColorPicker({
-    colorRef,
-    defaultColors,
-  });
 
   return (
     <SideMenuStyled>
-      <Collapsible
-        open={isOpen}
-        onOpening={() => setIsOpen(true)}
-        onClosing={() => setIsOpen(false)}
-        trigger={<ColorPickerCollapsible $isOpen={isOpen} style={{ background: renderedColor }} />}
-      >
-        <ColorPickerWrap>
-          <HexColorPicker color={renderedColor} onChange={setActiveColor} />
-        </ColorPickerWrap>
-      </Collapsible>
-      {Object.keys(paletteColors).map(key => (
-        <button
-          data-name={key}
-          data-color={paletteColors[key]}
-          key={key}
-          style={{ background: paletteColors[key] }}
-          onClick={setActivePaletteSlot}
-        >
-          {key}
-        </button>
-      ))}
+      <ColorPicker colorRef={colorRef} />
       <IconsBox>
         {buttonsList.map(({ IconComponent, src, size, tooltip }) => (
           <IconBox onClick={() => setCursor(src)} className={src === cursor ? "active" : ""} key={src}>

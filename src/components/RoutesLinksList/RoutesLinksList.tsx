@@ -1,5 +1,5 @@
 import React from "react";
-import { MyLink } from "../Header/styled-components";
+import { MyLink } from "../Header1/styled-components";
 import { routerPaths } from "../RoutesList/paths";
 
 const RoutesLinksList = (props: { onClick?: () => void; pathname: string }) => {

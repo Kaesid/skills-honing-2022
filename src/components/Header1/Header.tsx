@@ -10,7 +10,7 @@ import {
   BurgerMenu,
 } from "./styled-components";
 import { useMobileResolutionCheck } from "../../hooks/useMobileResolutionCheck";
-import RoutesLinksList from "./../RoutesLinksList/RoutesLinksList";
+import RoutesLinksList from "../RoutesLinksList/RoutesLinksList";
 import { useLocation } from "react-router-dom";
 import { useBurger } from "./useBurger";
 
