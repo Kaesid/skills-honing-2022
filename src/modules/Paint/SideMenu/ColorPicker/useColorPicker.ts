@@ -36,7 +36,14 @@ const useColorPicker = (props: IColorPicker) => {
     onCollapsibleClose: () => setIsCollapasibleOpen(false),
   };
 
-  return { setActivePaletteSlot, setActiveColor, paletteColors, renderedColor, collapsibleParams };
+  return {
+    setActivePaletteSlot,
+    setActiveColor,
+    paletteColors,
+    renderedColor,
+    collapsibleParams,
+    activePaletteSlot: activeButton.current,
+  };
 };
 
 export { useColorPicker };

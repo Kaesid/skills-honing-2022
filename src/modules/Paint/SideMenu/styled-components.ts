@@ -5,12 +5,13 @@ import { linkActiveColor } from "../../../constants/styled-components";
 const SideMenuStyled = styled.div`
   background: #484854;
   color: white;
-  height: calc(100vh - 40px);
-  width: max(15%, 100px);
+  min-height: calc(100vh - 40px);
+  width: 200px;
   margin-top: -40px;
 
   @media (max-width: ${SCREEN_SIZES.TABLET}px) {
     width: 100vw;
+    min-height: unset;
     height: fit-content;
     border-bottom-right-radius: 5px;
     border-bottom-left-radius: 5px;
@@ -67,4 +68,22 @@ const IconBox = styled.div`
   cursor: pointer;
 `;
 
-export { SideMenuStyled, IconsBox, IconBox };
+const SideMenuButton = styled.a`
+  padding: 8px 40px;
+  max-width: 200px;
+  background-color: #abe3ab;
+  border-radius: 8px;
+  color: black;
+  cursor: pointer;
+`;
+
+const SideMenuButtons = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  padding-bottom: 10px;
+`;
+
+export { SideMenuStyled, IconsBox, IconBox, SideMenuButton, SideMenuButtons };

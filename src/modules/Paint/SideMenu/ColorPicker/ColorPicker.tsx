@@ -9,10 +9,11 @@ import { defaultColors } from "./constants";
 const ColorPicker = (props: Pick<ISideMenu, "colorRef">) => {
   const { colorRef } = props;
 
-  const { renderedColor, setActiveColor, paletteColors, setActivePaletteSlot, collapsibleParams } = useColorPicker({
-    colorRef,
-    defaultColors,
-  });
+  const { renderedColor, setActiveColor, paletteColors, setActivePaletteSlot, collapsibleParams, activePaletteSlot } =
+    useColorPicker({
+      colorRef,
+      defaultColors,
+    });
 
   const { isCollapsibleOpen, onCollapsibleOpen, onCollapsibleClose } = collapsibleParams;
 
@@ -22,7 +23,7 @@ const ColorPicker = (props: Pick<ISideMenu, "colorRef">) => {
         open={isCollapsibleOpen}
         onOpening={onCollapsibleOpen}
         onClosing={onCollapsibleClose}
-        trigger={<ColorPickerCollapsible $isOpen={isCollapsibleOpen} style={{ background: renderedColor }} />}
+        trigger={<ColorPickerCollapsible $isOpen={isCollapsibleOpen} $color={renderedColor} />}
       >
         <HexColorPickerWrap>
           <HexColorPicker color={renderedColor} onChange={setActiveColor} />
@@ -33,7 +34,8 @@ const ColorPicker = (props: Pick<ISideMenu, "colorRef">) => {
           <PaletteSlot
             data-name={key}
             data-color={paletteColors[key]}
-            $isSelected={paletteColors[key] === renderedColor}
+            // $isSelected={paletteColors[key] === renderedColor}
+            $isSelected={key === activePaletteSlot}
             $color={paletteColors[key]}
             key={key}
             onClick={setActivePaletteSlot}

@@ -1,5 +1,5 @@
 interface IColors {
-  [key: string]: string;
+  [key: string | number]: string;
 }
 
 interface IColorPicker {

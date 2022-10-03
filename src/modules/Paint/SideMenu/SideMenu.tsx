@@ -1,5 +1,5 @@
 import { buttonsList } from "./constants";
-import { IconBox, IconsBox, SideMenuStyled } from "./styled-components";
+import { IconBox, IconsBox, SideMenuButton, SideMenuButtons, SideMenuStyled } from "./styled-components";
 import ColorPicker from "./ColorPicker/ColorPicker";
 
 export interface ISideMenu {
@@ -24,9 +24,12 @@ const SideMenu = (props: ISideMenu) => {
           </IconBox>
         ))}
       </IconsBox>
-      <a download="image.png" onClick={saveCanvas} href={dataUrl}>
-        Save
-      </a>
+      <SideMenuButtons>
+        <SideMenuButton download="image.png" onClick={saveCanvas} href={dataUrl}>
+          Save
+        </SideMenuButton>
+        <SideMenuButton>Reset</SideMenuButton>
+      </SideMenuButtons>
     </SideMenuStyled>
   );
 };

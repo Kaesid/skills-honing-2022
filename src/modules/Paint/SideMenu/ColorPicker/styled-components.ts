@@ -1,7 +1,7 @@
 import styled, { css, keyframes } from "styled-components";
 import { downArrow } from "../../../../assets/images/svgrepo";
 import { SCREEN_SIZES } from "../../../../constants/screen";
-const borderWidth = "3px";
+
 const ColorPickerWrap = styled.div`
   ${(props: { $isOpen: boolean }) =>
     props.$isOpen &&
@@ -14,10 +14,9 @@ const ColorPickerWrap = styled.div`
 
 const ColorPickerCollapsible = styled.div`
   width: 100%;
-  object-fit: contain;
   height: 40px;
   cursor: pointer;
-  /* border: 1px solid #44a1b5; */
+  background-color: ${props => props.$color};
 
   &::after {
     content: "";
@@ -30,7 +29,7 @@ const ColorPickerCollapsible = styled.div`
     background-position: center center;
   }
 
-  ${(props: { $isOpen: boolean }) =>
+  ${(props: { $isOpen: boolean; $color: string }) =>
     props.$isOpen &&
     css`
       &::after {
@@ -41,7 +40,6 @@ const ColorPickerCollapsible = styled.div`
 
 const HexColorPickerWrap = styled.div`
   max-width: 100%;
-  object-fit: contain;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -58,19 +56,9 @@ const Palette = styled.div`
   flex-wrap: wrap;
   justify-content: center;
   gap: 5px;
-  border: 1px white solid;
+  /* border: 1px white solid; */
   padding: 2px 5px;
 `;
-
-// const rotate = keyframes`
-//   from {
-//     transform: rotate(0deg);
-//   }
-
-//   to {
-//     transform: rotate(360deg);
-//   }
-// `;
 
 const animatedgradient = keyframes`
    0% {
@@ -85,15 +73,13 @@ const animatedgradient = keyframes`
 `;
 
 const PaletteSlot = styled.button`
+  position: relative;
   width: 30px;
   height: 30px;
   background: ${props => props.$color};
   ${(props: { $isSelected: boolean; $color: string }) =>
     props.$isSelected &&
     css`
-      position: relative;
-      border-radius: ${borderWidth};
-
       &::before {
         content: "";
         position: absolute;
