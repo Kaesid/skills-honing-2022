@@ -21,7 +21,8 @@ const usePaint = () => {
   // };
 
   const draw = (props: IDraw) => {
-    const { x, y, ctx } = props;
+    const { position, ctx } = props;
+    const { x, y } = position;
     if (!ctx) return;
     ctx.fillStyle = currentColor.current;
     ctx.beginPath();
@@ -34,6 +35,8 @@ const usePaint = () => {
   };
 
   const canvasRef = useRef<HTMLCanvasElement>(null);
+  const position = useRef({ x: 0, y: 0 });
+  const isDrawing = useRef(false);
 
   const { dataUrl, saveCanvas } = useSaveCanvas({ canvasRef });
   const [{ width, height }, setCanvasParams] = useState(setCanvasParamsValues(canvasRef.current));
@@ -41,12 +44,13 @@ const usePaint = () => {
   useEffect(() => {
     if (!canvasRef.current) return;
     const ref = canvasRef.current;
+
     setCanvasParams(setCanvasParamsValues(ref));
     const ctx = ref.getContext("2d");
 
     const mouseMoveCheck = (e: MouseEvent) => {
-      const { x, y } = { x: e.offsetX, y: e.offsetY };
-      draw({ x, y, ctx });
+      position.current = { x: e.offsetX, y: e.offsetY };
+      if (isDrawing.current) draw({ position: position.current, ctx });
     };
 
     const adjustCanvasParams = () => setCanvasParams(setCanvasParamsValues(ref));
@@ -54,6 +58,12 @@ const usePaint = () => {
     window.addEventListener("resize", adjustCanvasParams);
 
     ref.addEventListener("mousemove", mouseMoveCheck);
+
+    ref.addEventListener("mousedown", () => (isDrawing.current = true));
+
+    ref.addEventListener("mouseup", () => (isDrawing.current = false));
+
+    ref.addEventListener("mouseout", () => (isDrawing.current = false));
 
     return () => {
       window.removeEventListener("resize", adjustCanvasParams);

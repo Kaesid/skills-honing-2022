@@ -14,7 +14,7 @@ const Paint = () => {
   const { canvasRef, width, height, saveCanvas, dataUrl, colorRef } = usePaint();
 
   return (
-    <PaintPage>
+    <PaintPage onContextMenu={e => e.preventDefault()}>
       <SideMenu colorRef={colorRef} dataUrl={dataUrl} saveCanvas={saveCanvas} cursor={cursor} setCursor={setCursor} />
       <CanvasWrap>
         <Canvas canvasRef={canvasRef} width={width} height={height} cursor={cursor} />

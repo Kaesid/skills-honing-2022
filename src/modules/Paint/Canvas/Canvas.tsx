@@ -10,8 +10,7 @@ interface ICanvas {
 }
 
 export interface IDraw {
-  x: number;
-  y: number;
+  position: { x: number; y: number };
   ctx: CanvasRenderingContext2D | null;
 }
 
