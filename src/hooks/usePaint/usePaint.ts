@@ -25,9 +25,12 @@ const usePaint = () => {
     const { x, y } = position;
     if (!ctx) return;
     ctx.fillStyle = currentColor.current;
-    ctx.beginPath();
-    ctx.arc(x, y, 3, 0, Math.PI * 3);
-    ctx.fill();
+    ctx.strokeStyle = currentColor.current;
+    // ctx.beginPath();
+    ctx.lineTo(x, y);
+    ctx.stroke();
+    // ctx.arc(x, y, 3, 0, Math.PI * 3);
+    // ctx.fill();
   };
 
   const setCanvasParamsValues = (ref: HTMLCanvasElement | null) => {
@@ -59,11 +62,21 @@ const usePaint = () => {
 
     ref.addEventListener("mousemove", mouseMoveCheck);
 
-    ref.addEventListener("mousedown", () => (isDrawing.current = true));
+    ref.addEventListener("mousedown", () => {
+      isDrawing.current = true;
+      ctx?.beginPath();
+      ctx?.lineTo(position.current.x, position.current.y);
+    });
 
-    ref.addEventListener("mouseup", () => (isDrawing.current = false));
+    ref.addEventListener("mouseup", () => {
+      isDrawing.current = false;
+      ctx?.closePath();
+    });
 
-    ref.addEventListener("mouseout", () => (isDrawing.current = false));
+    ref.addEventListener("mouseout", () => {
+      isDrawing.current = false;
+      ctx?.closePath();
+    });
 
     return () => {
       window.removeEventListener("resize", adjustCanvasParams);
