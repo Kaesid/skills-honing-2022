@@ -1,8 +1,7 @@
 import { buttonsList } from "./constants";
 import { IconBox, IconsBox, SideMenuButton, SideMenuButtons, SideMenuStyled } from "./styled-components";
 import ColorPicker from "./ColorPicker/ColorPicker";
-import { useAppSelector } from "../../../redux/hooks";
-import { getPaintToolName, setPaintToolName } from "./../paintSlice";
+import { setPaintToolName } from "./../paintSlice";
 import { useAppDispatch } from "./../../../redux/hooks";
 
 export interface ISideMenu {
@@ -10,11 +9,11 @@ export interface ISideMenu {
   saveCanvas: () => void;
   dataUrl: string;
   colorRef: React.MutableRefObject<string>;
-  clear: () => void;
+  resetCanvas: () => void;
 }
 const SideMenu = (props: ISideMenu) => {
-  const { toolName, saveCanvas, dataUrl, colorRef, clear } = props;
   const dispatch = useAppDispatch();
+  const { toolName, saveCanvas, dataUrl, colorRef, resetCanvas } = props;
   const setToolName = (cursor: string) => dispatch(setPaintToolName(cursor));
 
   return (
@@ -31,7 +30,7 @@ const SideMenu = (props: ISideMenu) => {
         <SideMenuButton download="image.png" onClick={saveCanvas} href={dataUrl}>
           Save
         </SideMenuButton>
-        <SideMenuButton onClick={clear}>Reset</SideMenuButton>
+        <SideMenuButton onClick={resetCanvas}>Reset</SideMenuButton>
       </SideMenuButtons>
     </SideMenuStyled>
   );

@@ -11,7 +11,7 @@ interface ICanvas {
 
 export interface IDraw {
   position: { x: number; y: number };
-  ctx: CanvasRenderingContext2D | null;
+  // ctx: CanvasRenderingContext2D | null;
 }
 
 const Canvas = (props: ICanvas) => {

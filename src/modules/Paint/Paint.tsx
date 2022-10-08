@@ -8,13 +8,19 @@ import { usePaint } from "../../hooks/usePaint/usePaint";
 const Paint = () => {
   const toolName = useAppSelector(getPaintToolName);
 
-  const { canvasRef, width, height, saveCanvas, dataUrl, colorRef, clear } = usePaint({ toolName });
+  const { canvasRef, width, height, saveCanvas, dataUrl, colorRef, resetCanvas } = usePaint({ toolName });
 
   return (
     <PaintPage
     //  onContextMenu={e => e.preventDefault()}
     >
-      <SideMenu clear={clear} toolName={toolName} colorRef={colorRef} dataUrl={dataUrl} saveCanvas={saveCanvas} />
+      <SideMenu
+        resetCanvas={resetCanvas}
+        toolName={toolName}
+        colorRef={colorRef}
+        dataUrl={dataUrl}
+        saveCanvas={saveCanvas}
+      />
       <CanvasWrap>
         <Canvas canvasRef={canvasRef} width={width} height={height} />
       </CanvasWrap>
