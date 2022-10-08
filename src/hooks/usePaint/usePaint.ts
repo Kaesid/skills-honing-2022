@@ -1,22 +1,12 @@
-import { useRef, useEffect, useState } from "react";
-// import { getPaintColor, setPaintColor } from "../../modules/Paint/paintSlice";
-// import { useAppSelector } from "../../redux/hooks";
-
-import { IDraw } from "../../modules/Paint/Canvas/Canvas";
 import { ToolNames } from "../../modules/Paint/SideMenu/constants";
 import { usePaintInitialisation } from "./usePaintInitialisation";
-// import { useAppDispatch } from "../../redux/hooks";
 import { useSaveCanvas } from "./useSaveCanvas";
 
-interface IPainting {
-  toolName: string;
-}
+// interface IPainting {
+//   toolName: string;
+// }
 
 const usePaint = () => {
-  // const { toolName } = props;
-  // const dispatch = useAppDispatch();
-  // const color = useAppSelector(getPaintColor);
-  // const colorRef = useRef("#aabbcc");
   const handleDraw = () => {
     if (!ctxRef.current) return;
     const { x, y } = position.current;
@@ -29,20 +19,14 @@ const usePaint = () => {
         break;
       case ToolNames.ERASER:
         ctxRef.current.fillStyle = "white";
-
         ctxRef.current.beginPath();
-        ctxRef.current.arc(x, y, 3, 0, Math.PI * 3);
+        ctxRef.current.arc(x, y, 10, 0, Math.PI * 3);
         ctxRef.current.fill();
         break;
       case ToolNames.BRUSH:
         break;
       default:
     }
-    // ctxRef.current.fillStyle = colorRef.current;
-
-    // ctx.beginPath();
-    // ctx.arc(x, y, 3, 0, Math.PI * 3);
-    // ctx.fill();
   };
 
   const handleMouseDown = () => {

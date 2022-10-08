@@ -1,8 +1,8 @@
 import { CanvasWrap, PaintPage } from "./styled-components";
 import SideMenu from "./SideMenu/SideMenu";
 import Canvas from "./Canvas/Canvas";
-import { useAppSelector, useAppDispatch } from "../../redux/hooks";
-import { getPaintToolName, setPaintToolName } from "./paintSlice";
+import { useAppSelector } from "../../redux/hooks";
+import { getPaintToolName } from "./paintSlice";
 import { usePaint } from "../../hooks/usePaint/usePaint";
 
 const Paint = () => {
