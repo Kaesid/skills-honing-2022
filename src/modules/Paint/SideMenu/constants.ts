@@ -26,47 +26,53 @@ interface ButtonProps {
   size?: number;
 }
 
+enum ToolNames {
+  PENCIL = "pencil",
+  ERASER = "eraser",
+  BRUSH = "brush",
+}
+
 const buttonsList: ButtonProps[] = [
   {
-    tooltip: "painter5",
+    tooltip: ToolNames.PENCIL,
     IconComponent: Pencil,
     src: pencil,
   },
   {
-    tooltip: "painter6",
+    tooltip: ToolNames.ERASER,
     IconComponent: Eraser,
     src: eraser,
   },
   {
-    tooltip: "painter2",
+    tooltip: ToolNames.BRUSH,
     IconComponent: Brush,
     src: brush,
   },
   {
-    tooltip: "painter1",
+    tooltip: "bigBrush",
     IconComponent: BigBrush,
     src: bigBrush,
   },
   {
-    tooltip: "painter3",
+    tooltip: "caption",
     IconComponent: Caption,
     src: caption,
   },
   {
-    tooltip: "painter4",
+    tooltip: "line",
     IconComponent: Line,
     src: line,
   },
   {
-    tooltip: "painter4",
+    tooltip: "square",
     IconComponent: Square,
     src: square,
   },
   {
-    tooltip: "painter4",
+    tooltip: "circle",
     IconComponent: Circle,
     src: circle,
   },
 ];
 
-export { buttonsList };
+export { buttonsList, ToolNames };

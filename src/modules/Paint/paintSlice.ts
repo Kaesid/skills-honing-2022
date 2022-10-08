@@ -1,14 +1,13 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { RootState } from "../../redux/store";
+import { ToolNames } from "./SideMenu/constants";
 
 interface IPaintState {
-  cursor: string;
-  color: string;
+  toolName: string;
 }
 
 const initialState: IPaintState = {
-  cursor: "",
-  color: "#aabbcc",
+  toolName: ToolNames.PENCIL,
 };
 
 export const paintSlice = createSlice({
@@ -16,12 +15,12 @@ export const paintSlice = createSlice({
   initialState,
 
   reducers: {
-    setPaintColor: (state, action: PayloadAction<string>) => {
-      state.color = action.payload;
-    },
+    // setPaintColor: (state, action: PayloadAction<string>) => {
+    //   state.color = action.payload;
+    // },
 
-    setPaintCursor: (state, action: PayloadAction<string>) => {
-      state.cursor = action.payload;
+    setPaintToolName: (state, action: PayloadAction<string>) => {
+      state.toolName = action.payload;
     },
 
     // setCursor: state => {
@@ -29,8 +28,11 @@ export const paintSlice = createSlice({
     // },
   },
 });
-export const getPaintColor = (state: RootState) => state.paint.color;
-export const getPaintCursor = (state: RootState) => state.paint.cursor;
-export const { setPaintColor, setPaintCursor } = paintSlice.actions;
+// export const getPaintColor = (state: RootState) => state.paint.color;
+export const getPaintToolName = (state: RootState) => state.paint.toolName;
+export const {
+  //  setPaintColor,
+  setPaintToolName,
+} = paintSlice.actions;
 
 export default paintSlice.reducer;

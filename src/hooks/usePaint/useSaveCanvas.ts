@@ -6,7 +6,7 @@ const useSaveCanvas = (props: { canvasRef: React.RefObject<HTMLCanvasElement> })
   const saveCanvas = () => {
     if (!canvasRef.current) return;
 
-    setDataUrl(canvasRef.current.toDataURL("image/png"));
+    setDataUrl(canvasRef.current.toDataURL("image/jpg"));
   };
 
   return { saveCanvas, dataUrl };

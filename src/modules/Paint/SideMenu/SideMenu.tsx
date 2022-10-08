@@ -1,25 +1,28 @@
 import { buttonsList } from "./constants";
 import { IconBox, IconsBox, SideMenuButton, SideMenuButtons, SideMenuStyled } from "./styled-components";
 import ColorPicker from "./ColorPicker/ColorPicker";
+import { useAppSelector } from "../../../redux/hooks";
+import { getPaintToolName, setPaintToolName } from "./../paintSlice";
+import { useAppDispatch } from "./../../../redux/hooks";
 
 export interface ISideMenu {
-  // color: string;
-  cursor: string;
-  // setColor: (color: string) => void;
-  setCursor: (cursor: string) => void;
+  toolName: string;
   saveCanvas: () => void;
   dataUrl: string;
   colorRef: React.MutableRefObject<string>;
+  clear: () => void;
 }
 const SideMenu = (props: ISideMenu) => {
-  const { cursor, setCursor, saveCanvas, dataUrl, colorRef } = props;
+  const { toolName, saveCanvas, dataUrl, colorRef, clear } = props;
+  const dispatch = useAppDispatch();
+  const setToolName = (cursor: string) => dispatch(setPaintToolName(cursor));
 
   return (
     <SideMenuStyled>
       <ColorPicker colorRef={colorRef} />
       <IconsBox>
-        {buttonsList.map(({ IconComponent, src, size, tooltip }) => (
-          <IconBox onClick={() => setCursor(src)} className={src === cursor ? "active" : ""} key={src}>
+        {buttonsList.map(({ IconComponent, tooltip }) => (
+          <IconBox onClick={() => setToolName(tooltip)} className={tooltip === toolName ? "active" : ""} key={tooltip}>
             <IconComponent />
           </IconBox>
         ))}
@@ -28,7 +31,7 @@ const SideMenu = (props: ISideMenu) => {
         <SideMenuButton download="image.png" onClick={saveCanvas} href={dataUrl}>
           Save
         </SideMenuButton>
-        <SideMenuButton>Reset</SideMenuButton>
+        <SideMenuButton onClick={clear}>Reset</SideMenuButton>
       </SideMenuButtons>
     </SideMenuStyled>
   );

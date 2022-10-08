@@ -1,7 +1,7 @@
 import { CanvasStyled } from "./styled-components";
 
 interface ICanvas {
-  cursor: string;
+  cursor?: string;
   // color: string;
   // currentColor: React.MutableRefObject<string>;
   width: number;
@@ -21,7 +21,7 @@ const Canvas = (props: ICanvas) => {
     <CanvasStyled
       width={width}
       height={height}
-      style={cursor ? { cursor: `url(${cursor}), auto` } : undefined}
+      // style={cursor ? { cursor: `url(${cursor}), auto` } : undefined}
       ref={canvasRef}
     ></CanvasStyled>
   );

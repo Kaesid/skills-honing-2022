@@ -6,11 +6,11 @@ import { IDraw } from "../../modules/Paint/Canvas/Canvas";
 // import { useAppDispatch } from "../../redux/hooks";
 import { useSaveCanvas } from "./useSaveCanvas";
 
-// interface IPainting {
-//   draw: (props: IDraw) => void;
-// }
+interface IPainting {
+  toolName: string;
+}
 
-const usePaint = () => {
+const usePaint = (props: IPainting) => {
   // const dispatch = useAppDispatch();
   // const color = useAppSelector(getPaintColor);
   const currentColor = useRef("#aabbcc");
@@ -34,7 +34,13 @@ const usePaint = () => {
   };
 
   const setCanvasParamsValues = (ref: HTMLCanvasElement | null) => {
-    return ref ? { width: ref.clientWidth, height: ref.clientHeight } : { width: 0, height: 0 };
+    const ratio = Math.max(window.devicePixelRatio || 1, 1);
+    // if (ref) {
+    //   ref.width = ref.offsetWidth * ratio;
+    //   ref.height = ref.offsetHeight * ratio;
+    // }
+
+    return ref ? { width: ref.clientWidth * ratio, height: ref.clientHeight * ratio } : { width: 0, height: 0 };
   };
 
   const canvasRef = useRef<HTMLCanvasElement>(null);
@@ -44,19 +50,36 @@ const usePaint = () => {
   const { dataUrl, saveCanvas } = useSaveCanvas({ canvasRef });
   const [{ width, height }, setCanvasParams] = useState(setCanvasParamsValues(canvasRef.current));
 
+  const ctxRef = useRef<CanvasRenderingContext2D | null>(null);
+
+  const clear = () => {
+    if (!ctxRef.current || !canvasRef.current) return;
+    ctxRef.current.clearRect(0, 0, width, height);
+  };
+
+  useEffect(() => {
+    if (!width || !height || !ctxRef.current || !canvasRef.current) return;
+    console.log(width);
+    ctxRef.current.fillStyle = "white";
+    ctxRef.current.fillRect(0, 0, canvasRef.current.width, canvasRef.current.height);
+  }, [width, height]);
+
   useEffect(() => {
     if (!canvasRef.current) return;
     const ref = canvasRef.current;
 
     setCanvasParams(setCanvasParamsValues(ref));
     const ctx = ref.getContext("2d");
+    ctxRef.current = ctx;
 
     const mouseMoveCheck = (e: MouseEvent) => {
       position.current = { x: e.offsetX, y: e.offsetY };
       if (isDrawing.current) draw({ position: position.current, ctx });
     };
 
-    const adjustCanvasParams = () => setCanvasParams(setCanvasParamsValues(ref));
+    const adjustCanvasParams = () => {
+      setCanvasParams(setCanvasParamsValues(ref));
+    };
 
     window.addEventListener("resize", adjustCanvasParams);
 
@@ -75,7 +98,6 @@ const usePaint = () => {
 
     ref.addEventListener("mouseout", () => {
       isDrawing.current = false;
-      ctx?.closePath();
     });
 
     return () => {
@@ -84,7 +106,7 @@ const usePaint = () => {
     };
   }, [canvasRef]);
 
-  return { canvasRef, width, height, colorRef: currentColor, saveCanvas, dataUrl };
+  return { canvasRef, width, height, colorRef: currentColor, saveCanvas, dataUrl, clear };
 };
 
 export { usePaint };
