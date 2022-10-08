@@ -9,12 +9,16 @@ export interface ISideMenu {
   saveCanvas: () => void;
   dataUrl: string;
   colorRef: React.MutableRefObject<string>;
+  toolRef: React.MutableRefObject<string>;
   resetCanvas: () => void;
 }
 const SideMenu = (props: ISideMenu) => {
   const dispatch = useAppDispatch();
-  const { toolName, saveCanvas, dataUrl, colorRef, resetCanvas } = props;
-  const setToolName = (cursor: string) => dispatch(setPaintToolName(cursor));
+  const { toolName, saveCanvas, dataUrl, colorRef, resetCanvas, toolRef } = props;
+  const setToolName = (toolName: string) => {
+    toolRef.current = toolName;
+    dispatch(setPaintToolName(toolName));
+  };
 
   return (
     <SideMenuStyled>
