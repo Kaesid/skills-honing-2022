@@ -1,5 +1,6 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 import { useRef } from "react";
+import { DefaultColors } from "../../modules/Paint/SideMenu/ColorPicker/constants";
 import { ToolNames } from "../../modules/Paint/SideMenu/constants";
 
 interface IHandlers {
@@ -12,16 +13,19 @@ const usePaintInitialisation = (props: IHandlers) => {
   const { handleDraw, handleMouseDown, handleMouseUp, handleMouseOut } = props;
 
   const toolRef = useRef(ToolNames.PENCIL);
-  const colorRef = useRef("#aabbcc");
+  const colorRef = useRef(DefaultColors.BLACK);
   const position = useRef({ x: 0, y: 0 });
   const isDrawing = useRef(false);
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const ctxRef = useRef<CanvasRenderingContext2D | null>(null);
+  const canvasParams = useRef<{ width: number; height: number }>({ width: 0, height: 0 });
 
   const setCanvasParamsValues = (ref: HTMLCanvasElement | null) => {
     const ratio = Math.max(window.devicePixelRatio || 1, 1);
+    const params = ref ? { width: ref.clientWidth * ratio, height: ref.clientHeight * ratio } : { width: 0, height: 0 };
+    canvasParams.current = params;
 
-    return ref ? { width: ref.clientWidth * ratio, height: ref.clientHeight * ratio } : { width: 0, height: 0 };
+    return params;
   };
 
   const [{ width, height }, setCanvasParams] = useState(setCanvasParamsValues(canvasRef.current));
@@ -50,7 +54,7 @@ const usePaintInitialisation = (props: IHandlers) => {
   useEffect(() => {
     if (!canvasRef.current) return;
     const ref = canvasRef.current;
-    setCanvasParams(setCanvasParamsValues(ref));
+    adjustCanvasParams();
     ctxRef.current = ref.getContext("2d");
 
     window.addEventListener("resize", adjustCanvasParams);
@@ -73,7 +77,7 @@ const usePaintInitialisation = (props: IHandlers) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  return { canvasRef, ctxRef, width, height, colorRef, position, isDrawing, resetCanvas, toolRef };
+  return { canvasRef, ctxRef, width, height, colorRef, position, isDrawing, resetCanvas, toolRef, canvasParams };
 };
 
 export { usePaintInitialisation };

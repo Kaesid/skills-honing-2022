@@ -1,24 +1,21 @@
 import { useRef } from "react";
 import { useState } from "react";
 import { IColorPicker } from "./interfaces";
+import { DefaultColors } from "./constants";
 
 const useColorPicker = (props: IColorPicker) => {
-  const { colorRef, defaultColors } = props;
-
-  const activeButton = useRef("");
+  const { colorRef } = props;
+  const activeButton = useRef(Object.keys(DefaultColors)[0]);
   const [renderedColor, setRenderedColor] = useState(colorRef.current);
-  const [paletteColors, setPaletteColors] = useState(defaultColors);
+  const [paletteColors, setPaletteColors] = useState(DefaultColors);
   const [isCollapsibleOpen, setIsCollapasibleOpen] = useState(true);
 
-  const setActiveColor = (newColor: string) => {
+  const setActiveColor = (newColor: any) => {
     colorRef.current = newColor;
     setRenderedColor(newColor);
-
     if (!activeButton.current) return;
 
-    setPaletteColors(prev => {
-      return { ...prev, [activeButton.current]: newColor };
-    });
+    setPaletteColors(prev => ({ ...prev, [activeButton.current]: newColor }));
   };
 
   const setActivePaletteSlot = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {

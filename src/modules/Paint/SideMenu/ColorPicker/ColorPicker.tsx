@@ -4,7 +4,7 @@ import { HexColorPicker } from "react-colorful";
 import { useColorPicker } from "./useColorPicker";
 import { ISideMenu } from "./../SideMenu";
 import { ColorPickerCollapsible, ColorPickerWrap, HexColorPickerWrap, Palette, PaletteSlot } from "./styled-components";
-import { defaultColors } from "./constants";
+import { IColorsName } from "./interfaces";
 
 const ColorPicker = (props: Pick<ISideMenu, "colorRef">) => {
   const { colorRef } = props;
@@ -12,7 +12,6 @@ const ColorPicker = (props: Pick<ISideMenu, "colorRef">) => {
   const { renderedColor, setActiveColor, paletteColors, setActivePaletteSlot, collapsibleParams, activePaletteSlot } =
     useColorPicker({
       colorRef,
-      defaultColors,
     });
 
   const { isCollapsibleOpen, onCollapsibleOpen, onCollapsibleClose } = collapsibleParams;
@@ -30,11 +29,10 @@ const ColorPicker = (props: Pick<ISideMenu, "colorRef">) => {
         </HexColorPickerWrap>
       </Collapsible>
       <Palette>
-        {Object.keys(paletteColors).map(key => (
+        {(Object.keys(paletteColors) as IColorsName[]).map(key => (
           <PaletteSlot
             data-name={key}
             data-color={paletteColors[key]}
-            // $isSelected={paletteColors[key] === renderedColor}
             $isSelected={key === activePaletteSlot}
             $color={paletteColors[key]}
             key={key}
