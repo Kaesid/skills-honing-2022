@@ -1,7 +1,7 @@
 import { useEffect, useState, useCallback } from "react";
 import { useRef } from "react";
-import { DefaultColors } from "../../modules/Paint/SideMenu/ColorPicker/constants";
-import { ToolNames } from "../../modules/Paint/SideMenu/constants";
+import { DefaultColors } from "../SideMenu/ColorPicker/constants";
+import { ToolNames } from "../SideMenu/constants";
 
 interface IHandlers {
   handleDraw: () => void;

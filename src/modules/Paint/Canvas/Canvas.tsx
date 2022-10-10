@@ -1,7 +1,6 @@
 import { CanvasStyled } from "./styled-components";
 
 interface ICanvas {
-  cursor?: string;
   // color: string;
   // currentColor: React.MutableRefObject<string>;
   width: number;
@@ -15,7 +14,7 @@ export interface IDraw {
 }
 
 const Canvas = (props: ICanvas) => {
-  const { cursor, width, height, canvasRef } = props;
+  const { width, height, canvasRef } = props;
 
   return (
     <CanvasStyled

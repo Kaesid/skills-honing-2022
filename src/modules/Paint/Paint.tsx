@@ -3,7 +3,7 @@ import SideMenu from "./SideMenu/SideMenu";
 import Canvas from "./Canvas/Canvas";
 import { useAppSelector } from "../../redux/hooks";
 import { getPaintToolName } from "./paintSlice";
-import { usePaint } from "../../hooks/usePaint/usePaint";
+import { usePaint } from "./usePaint/usePaint";
 
 const Paint = () => {
   const toolName = useAppSelector(getPaintToolName);

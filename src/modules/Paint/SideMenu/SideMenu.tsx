@@ -1,8 +1,9 @@
-import { buttonsList } from "./constants";
+import { buttonsList, ToolNames } from "./constants";
 import { IconBox, IconsBox, SideMenuButton, SideMenuButtons, SideMenuStyled } from "./styled-components";
 import ColorPicker from "./ColorPicker/ColorPicker";
 import { setPaintToolName } from "./../paintSlice";
 import { useAppDispatch } from "./../../../redux/hooks";
+import { useEffect } from "react";
 
 export interface ISideMenu {
   toolName: string;
@@ -19,6 +20,11 @@ const SideMenu = (props: ISideMenu) => {
     toolRef.current = toolName;
     dispatch(setPaintToolName(toolName));
   };
+
+  useEffect(() => {
+    if (toolName !== ToolNames.PENCIL) setToolName(ToolNames.PENCIL);
+    //eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <SideMenuStyled>

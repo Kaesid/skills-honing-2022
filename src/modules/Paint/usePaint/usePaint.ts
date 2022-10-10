@@ -1,4 +1,4 @@
-import { ToolNames } from "../../modules/Paint/SideMenu/constants";
+import { ToolNames } from "../SideMenu/constants";
 import { usePaintInitialisation } from "./usePaintInitialisation";
 import { useSaveCanvas } from "./useSaveCanvas";
 import { useRef, useCallback } from "react";
@@ -57,7 +57,23 @@ const usePaint = () => {
           // );
           // ctxRef.current.putImageData(tempData.current, x, y, x, y, tempData.current.width, tempData.current.height);
           // ctxRef.current.putImageData(tempData.current, tempData.current.width / 2, tempData.current.height / 2);
-          ctxRef.current.putImageData(tempData.current, 0, 0);
+          // const newCanvas = (
+          //   <canvas width={canvasParams.current.width / 2} height={canvasParams.current.height / 2}></canvas>
+          // );
+          // newCanvas.getContext("2d").putImageData(imageData, 0, 0);
+
+          // ctxRef.current.putImageData(tempData.current, 0, 0);
+          const canvas = document.createElement("canvas");
+          canvas.width = tempData.current.width;
+          canvas.height = tempData.current.height;
+          const ctx1 = canvas.getContext("2d");
+          if (!ctx1) return;
+          ctx1.putImageData(tempData.current, 0, 0);
+          // ctx1.scale(canvas.width / tempData.current.width, canvas.height / tempData.current.height);
+          // ctx1.drawImage(ibm, 0, 0);
+          // const b = ctx1.getImageData(0, 0, canvas.width, canvas.height);
+          ctxRef.current.scale(0.5, 0.5);
+          ctxRef.current.drawImage(canvas, 0, 0);
         }
         break;
       default:

@@ -4,6 +4,7 @@ import { SCREEN_SIZES } from "../../constants/screen";
 const PaintPage = styled.div`
   display: flex;
   justify-content: space-between;
+  cursor: crosshair;
 
   @media (max-width: ${SCREEN_SIZES.TABLET}px) {
     flex-direction: column;
