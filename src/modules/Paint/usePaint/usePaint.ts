@@ -8,11 +8,10 @@ import { useRef, useCallback } from "react";
 // }
 
 const usePaint = () => {
-  // const tempData = useRef<ImageData | null>(null);
   const handleDraw = () => {
     if (!ctxRef.current) return;
     const { x, y } = position.current;
-
+    console.log(x, y);
     switch (toolRef.current) {
       case ToolNames.PENCIL:
         ctxRef.current.strokeStyle = colorRef.current;
@@ -31,11 +30,18 @@ const usePaint = () => {
     }
   };
 
-  const handleMouseDown = () => {
+  const handleMouseDown = (e: MouseEvent | TouchEvent) => {
     if (!ctxRef.current) return;
-
+    const ev = e as TouchEvent;
+    console.log("start");
     isDrawing.current = true;
-    const { x, y } = position.current;
+    if (ev.targetTouches) {
+      const bcr = (e.target as HTMLElement).getBoundingClientRect();
+      const x = ev.targetTouches[0].clientX - bcr.x;
+      const y = ev.targetTouches[0].clientY - bcr.y;
+      position.current = { x, y };
+    }
+
     switch (toolRef.current) {
       case ToolNames.PENCIL:
         ctxRef.current.beginPath();
@@ -82,18 +88,12 @@ const usePaint = () => {
   };
 
   const handleMouseUp = () => {
+    console.log("end");
     if (!ctxRef.current) return;
     isDrawing.current = false;
     if (canvasParams.current.width && canvasParams.current.height) {
       tempData.current = ctxRef.current.getImageData(0, 0, canvasParams.current.width, canvasParams.current.height);
     }
-    const { x, y } = position.current;
-    // if (tempData.current) {
-    //   console.log(tempData.current);
-    //   // ctxRef.current.putImageData(tempData.current, x, y, y, y, width, height);
-    //   ctxRef.current.putImageData(tempData.current, 0, 0);
-    // }
-
     switch (toolRef.current) {
       case ToolNames.PENCIL:
         ctxRef.current.closePath();
