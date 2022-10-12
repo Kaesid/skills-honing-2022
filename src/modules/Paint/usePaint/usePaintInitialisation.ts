@@ -11,7 +11,7 @@ interface IHandlers {
 }
 const usePaintInitialisation = (props: IHandlers) => {
   const { handleDraw, handleMouseDown, handleMouseUp, handleMouseOut } = props;
-
+  const tempData = useRef<ImageData | null>(null);
   const toolRef = useRef(ToolNames.PENCIL);
   const colorRef = useRef(DefaultColors.BLACK);
   const position = useRef({ x: 0, y: 0 });
@@ -27,11 +27,30 @@ const usePaintInitialisation = (props: IHandlers) => {
 
     return params;
   };
-
+  const timeout: { current: NodeJS.Timeout | null } = useRef(null);
   const [{ width, height }, setCanvasParams] = useState(setCanvasParamsValues(canvasRef.current));
 
   const adjustCanvasParams = () => {
     setCanvasParams(setCanvasParamsValues(canvasRef.current));
+    if (timeout.current) clearTimeout(timeout.current);
+    timeout.current = setTimeout(() => {
+      const canvas = document.createElement("canvas");
+      if (!tempData.current || !ctxRef.current || !canvasRef.current) return;
+      canvas.width = tempData.current.width;
+      canvas.height = tempData.current.height;
+      const ctx1 = canvas.getContext("2d");
+      if (!ctx1) return;
+      ctx1.putImageData(tempData.current, 0, 0);
+      const newWidth = canvasRef.current.clientWidth;
+      const newheight = canvasRef.current.clientHeight;
+      const oldWidth = tempData.current.width;
+      const oldHeight = tempData.current.height;
+      console.log("width", oldWidth, newWidth);
+      console.log("height", oldHeight, newheight);
+
+      ctxRef.current.scale(newWidth / oldWidth, newheight / oldHeight);
+      ctxRef.current.drawImage(canvas, 0, 0);
+    }, 0);
   };
 
   const handleMouseMove = (e: MouseEvent) => {
@@ -77,7 +96,19 @@ const usePaintInitialisation = (props: IHandlers) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  return { canvasRef, ctxRef, width, height, colorRef, position, isDrawing, resetCanvas, toolRef, canvasParams };
+  return {
+    canvasRef,
+    ctxRef,
+    width,
+    height,
+    colorRef,
+    position,
+    isDrawing,
+    resetCanvas,
+    toolRef,
+    canvasParams,
+    tempData,
+  };
 };
 
 export { usePaintInitialisation };

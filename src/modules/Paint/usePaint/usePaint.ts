@@ -8,7 +8,7 @@ import { useRef, useCallback } from "react";
 // }
 
 const usePaint = () => {
-  const tempData = useRef<ImageData | null>(null);
+  // const tempData = useRef<ImageData | null>(null);
   const handleDraw = () => {
     if (!ctxRef.current) return;
     const { x, y } = position.current;
@@ -33,6 +33,7 @@ const usePaint = () => {
 
   const handleMouseDown = () => {
     if (!ctxRef.current) return;
+
     isDrawing.current = true;
     const { x, y } = position.current;
     switch (toolRef.current) {
@@ -83,6 +84,9 @@ const usePaint = () => {
   const handleMouseUp = () => {
     if (!ctxRef.current) return;
     isDrawing.current = false;
+    if (canvasParams.current.width && canvasParams.current.height) {
+      tempData.current = ctxRef.current.getImageData(0, 0, canvasParams.current.width, canvasParams.current.height);
+    }
     const { x, y } = position.current;
     // if (tempData.current) {
     //   console.log(tempData.current);
@@ -106,13 +110,24 @@ const usePaint = () => {
     isDrawing.current = false;
   };
 
-  const { width, height, colorRef, canvasRef, ctxRef, position, isDrawing, resetCanvas, toolRef, canvasParams } =
-    usePaintInitialisation({
-      handleDraw,
-      handleMouseDown,
-      handleMouseUp,
-      handleMouseOut,
-    });
+  const {
+    width,
+    height,
+    colorRef,
+    canvasRef,
+    ctxRef,
+    position,
+    isDrawing,
+    resetCanvas,
+    toolRef,
+    canvasParams,
+    tempData,
+  } = usePaintInitialisation({
+    handleDraw,
+    handleMouseDown,
+    handleMouseUp,
+    handleMouseOut,
+  });
 
   const { dataUrl, saveCanvas } = useSaveCanvas({ canvasRef, ctxRef });
 
