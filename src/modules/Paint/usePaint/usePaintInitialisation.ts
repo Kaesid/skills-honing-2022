@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useRef } from "react";
 import { DefaultColors } from "../SideMenu/ColorPicker/constants";
 import { ToolNames } from "../SideMenu/constants";

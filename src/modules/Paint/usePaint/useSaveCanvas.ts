@@ -1,4 +1,4 @@
-import { useState, useRef } from "react";
+import { useState } from "react";
 const useSaveCanvas = (props: {
   canvasRef: React.RefObject<HTMLCanvasElement>;
   ctxRef: React.MutableRefObject<CanvasRenderingContext2D | null>;

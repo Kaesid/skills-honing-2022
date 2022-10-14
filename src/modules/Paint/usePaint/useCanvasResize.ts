@@ -7,14 +7,6 @@ interface Props {
   ctxRef: React.MutableRefObject<CanvasRenderingContext2D | null>;
   canvasRef: React.RefObject<HTMLCanvasElement>;
   savedCanvasDataRef: React.MutableRefObject<ImageData | null>;
-  //   setCanvasParams: React.Dispatch<
-  //     React.SetStateAction<{
-  //       width: number;
-  //       height: number;
-  //     }>
-  //   >;
-  //   width: number;
-  //   height: number;
 }
 
 const useCanvasResize = (props: Props) => {
@@ -47,19 +39,11 @@ const useCanvasResize = (props: Props) => {
   };
 
   useEffect(() => {
-    if (
-      !width ||
-      !height ||
-      !ctxRef.current ||
-      !canvasRef.current ||
-      (savedCanvasDataRef.current &&
-        savedCanvasDataRef.current.width === width &&
-        savedCanvasDataRef.current.height === height)
-    )
-      return;
+    if (!width || !height || !ctxRef.current || !canvasRef.current) return;
 
     fillEmptyCanvas();
     resizeSavedCanvas();
+    //eslint-disable-next-line react-hooks/exhaustive-deps
   }, [width, height]);
 
   const resizeSavedCanvas = () => {
