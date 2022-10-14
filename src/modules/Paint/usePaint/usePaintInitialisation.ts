@@ -5,14 +5,16 @@ import { ToolNames } from "../SideMenu/constants";
 import { useCanvasResize } from "./useCanvasResize";
 
 interface IHandlers {
-  handleDraw: () => void;
+  // handleDraw: () => void;
   handleMouseDown: (e: TouchEvent | MouseEvent) => void;
   handleMouseUp: () => void;
   handleMouseOut: () => void;
+  handleMouseMove: (e: MouseEvent) => void;
+  handleTouchMove: (e: TouchEvent) => void;
 }
 const usePaintInitialisation = (props: IHandlers) => {
-  const { handleDraw, handleMouseDown, handleMouseUp, handleMouseOut } = props;
-  const tempData = useRef<ImageData | null>(null);
+  const { handleMouseDown, handleMouseUp, handleMouseOut, handleMouseMove, handleTouchMove } = props;
+  const savedCanvasDataRef = useRef<ImageData | null>(null);
   const toolRef = useRef(ToolNames.PENCIL);
   const colorRef = useRef(DefaultColors.BLACK);
   const position = useRef({ x: 0, y: 0 });
@@ -21,32 +23,12 @@ const usePaintInitialisation = (props: IHandlers) => {
   const ctxRef = useRef<CanvasRenderingContext2D | null>(null);
   const canvasParams = useRef<{ width: number; height: number }>({ width: 0, height: 0 });
 
-  const { adjustCanvasParams, width, height } = useCanvasResize({
+  const { adjustCanvasParams, width, height, resetCanvas } = useCanvasResize({
     canvasParams,
     ctxRef,
     canvasRef,
-    tempData,
+    savedCanvasDataRef,
   });
-
-  const handleMouseMove = (e: MouseEvent) => {
-    if (!canvasRef.current) return;
-    position.current = { x: e.offsetX, y: e.offsetY };
-
-    if (isDrawing.current) handleDraw();
-  };
-
-  const handleTouchMove = (e: TouchEvent) => {
-    const bcr = (e.target as HTMLElement).getBoundingClientRect();
-    const x = e.targetTouches[0].clientX - bcr.x;
-    const y = e.targetTouches[0].clientY - bcr.y;
-    position.current = { x, y };
-    if (isDrawing.current) handleDraw();
-  };
-
-  const resetCanvas = () => {
-    if (!ctxRef.current || !canvasRef.current) return;
-    ctxRef.current.clearRect(0, 0, width, height);
-  };
 
   useEffect(() => {
     if (!canvasRef.current) return;
@@ -94,7 +76,7 @@ const usePaintInitialisation = (props: IHandlers) => {
     resetCanvas,
     toolRef,
     canvasParams,
-    tempData,
+    savedCanvasDataRef,
   };
 };
 

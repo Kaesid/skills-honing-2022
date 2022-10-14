@@ -6,7 +6,7 @@ interface Props {
   }>;
   ctxRef: React.MutableRefObject<CanvasRenderingContext2D | null>;
   canvasRef: React.RefObject<HTMLCanvasElement>;
-  tempData: React.MutableRefObject<ImageData | null>;
+  savedCanvasDataRef: React.MutableRefObject<ImageData | null>;
   //   setCanvasParams: React.Dispatch<
   //     React.SetStateAction<{
   //       width: number;
@@ -18,7 +18,7 @@ interface Props {
 }
 
 const useCanvasResize = (props: Props) => {
-  const { canvasParams, ctxRef, canvasRef, tempData } = props;
+  const { canvasParams, ctxRef, canvasRef, savedCanvasDataRef } = props;
   const setCanvasParamsValues = (ref: HTMLCanvasElement | null) => {
     // const ratio = Math.max(window.devicePixelRatio || 1, 1);
     const ratio = 1;
@@ -32,9 +32,14 @@ const useCanvasResize = (props: Props) => {
 
   const fillEmptyCanvas = () => {
     if (!ctxRef.current || !canvasRef.current) return;
-
+    ctxRef.current.clearRect(0, 0, width, height);
     ctxRef.current.fillStyle = "white";
-    ctxRef.current.fillRect(0, 0, canvasRef.current.clientWidth, canvasRef.current.clientHeight);
+    ctxRef.current.fillRect(0, 0, width, height);
+  };
+
+  const resetCanvas = () => {
+    fillEmptyCanvas();
+    savedCanvasDataRef.current = null;
   };
 
   const adjustCanvasParams = () => {
@@ -42,44 +47,41 @@ const useCanvasResize = (props: Props) => {
   };
 
   useEffect(() => {
-    if (!width || !height || !ctxRef.current || !canvasRef.current) return;
+    if (
+      !width ||
+      !height ||
+      !ctxRef.current ||
+      !canvasRef.current ||
+      (savedCanvasDataRef.current &&
+        savedCanvasDataRef.current.width === width &&
+        savedCanvasDataRef.current.height === height)
+    )
+      return;
+
     fillEmptyCanvas();
     resizeSavedCanvas();
   }, [width, height]);
 
   const resizeSavedCanvas = () => {
-    if (
-      !ctxRef.current ||
-      !canvasRef.current ||
-      !tempData.current ||
-      (tempData.current.width === width && tempData.current.height === height)
-    )
-      return;
+    if (!ctxRef.current || !canvasRef.current || !savedCanvasDataRef.current) return;
 
     if (timeout.current) clearTimeout(timeout.current);
     ctxRef.current.save();
     timeout.current = setTimeout(() => {
-      if (!tempData.current || !ctxRef.current || !canvasRef.current) return;
-      const canvas = document.createElement("canvas");
-      canvas.width = tempData.current.width;
-      canvas.height = tempData.current.height;
-      const ctx1 = canvas.getContext("2d");
-      if (!ctx1) return;
-      ctx1.putImageData(tempData.current, 0, 0);
-      const newWidth = canvasRef.current.clientWidth;
-      const newheight = canvasRef.current.clientHeight;
-      const oldWidth = tempData.current.width;
-      const oldHeight = tempData.current.height;
-      console.log("width", oldWidth, newWidth);
-      console.log("height", oldHeight, newheight);
-
-      ctxRef.current.scale(newWidth / oldWidth, newheight / oldHeight);
-      ctxRef.current.drawImage(canvas, 0, 0);
-      ctxRef.current?.restore();
+      if (!savedCanvasDataRef.current || !ctxRef.current || !canvasRef.current) return;
+      const tempCanvas = document.createElement("canvas");
+      tempCanvas.width = savedCanvasDataRef.current.width;
+      tempCanvas.height = savedCanvasDataRef.current.height;
+      const tempCtx = tempCanvas.getContext("2d");
+      if (!tempCtx) return;
+      tempCtx.putImageData(savedCanvasDataRef.current, 0, 0);
+      ctxRef.current.scale(width / savedCanvasDataRef.current.width, height / savedCanvasDataRef.current.height);
+      ctxRef.current.drawImage(tempCanvas, 0, 0);
+      ctxRef.current.restore();
     }, 200);
   };
 
-  return { adjustCanvasParams, width, height };
+  return { adjustCanvasParams, width, height, resetCanvas };
 };
 
 export { useCanvasResize };
