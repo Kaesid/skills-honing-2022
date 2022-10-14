@@ -1,7 +1,8 @@
-import { useEffect, useState, useCallback } from "react";
+import { useEffect, useState } from "react";
 import { useRef } from "react";
 import { DefaultColors } from "../SideMenu/ColorPicker/constants";
 import { ToolNames } from "../SideMenu/constants";
+import { useCanvasResize } from "./useCanvasResize";
 
 interface IHandlers {
   handleDraw: () => void;
@@ -20,53 +21,17 @@ const usePaintInitialisation = (props: IHandlers) => {
   const ctxRef = useRef<CanvasRenderingContext2D | null>(null);
   const canvasParams = useRef<{ width: number; height: number }>({ width: 0, height: 0 });
 
-  const setCanvasParamsValues = (ref: HTMLCanvasElement | null) => {
-    // const ratio = Math.max(window.devicePixelRatio || 1, 1);
-    const ratio = 1;
-    const params = ref ? { width: ref.clientWidth * ratio, height: ref.clientHeight * ratio } : { width: 0, height: 0 };
-    canvasParams.current = params;
-
-    return params;
-  };
-  const timeout: { current: NodeJS.Timeout | null } = useRef(null);
-  const [{ width, height }, setCanvasParams] = useState(setCanvasParamsValues(canvasRef.current));
-
-  const adjustCanvasParams = () => {
-    setCanvasParams(setCanvasParamsValues(canvasRef.current));
-
-    if (!tempData.current || !ctxRef.current || !canvasRef.current) return;
-
-    if (timeout.current) clearTimeout(timeout.current);
-    ctxRef.current.save();
-    timeout.current = setTimeout(() => {
-      if (!tempData.current || !ctxRef.current || !canvasRef.current) return;
-      const canvas = document.createElement("canvas");
-      canvas.width = tempData.current.width;
-      canvas.height = tempData.current.height;
-      const ctx1 = canvas.getContext("2d");
-      if (!ctx1) return;
-      ctx1.putImageData(tempData.current, 0, 0);
-      const newWidth = canvasRef.current.clientWidth;
-      const newheight = canvasRef.current.clientHeight;
-      const oldWidth = tempData.current.width;
-      const oldHeight = tempData.current.height;
-      console.log("width", oldWidth, newWidth);
-      console.log("height", oldHeight, newheight);
-
-      ctxRef.current.scale(newWidth / oldWidth, newheight / oldHeight);
-      ctxRef.current.drawImage(canvas, 0, 0);
-      ctxRef.current?.restore();
-    }, 200);
-  };
+  const { adjustCanvasParams, width, height } = useCanvasResize({
+    canvasParams,
+    ctxRef,
+    canvasRef,
+    tempData,
+  });
 
   const handleMouseMove = (e: MouseEvent) => {
     if (!canvasRef.current) return;
     position.current = { x: e.offsetX, y: e.offsetY };
 
-    // position.current = {
-    //   x: e.clientX - canvasRef.current.getBoundingClientRect().left,
-    //   y: e.clientY - canvasRef.current.getBoundingClientRect().top,
-    // };
     if (isDrawing.current) handleDraw();
   };
 
@@ -75,8 +40,6 @@ const usePaintInitialisation = (props: IHandlers) => {
     const x = e.targetTouches[0].clientX - bcr.x;
     const y = e.targetTouches[0].clientY - bcr.y;
     position.current = { x, y };
-    console.log(position.current);
-    ctxRef.current?.lineTo(x, y);
     if (isDrawing.current) handleDraw();
   };
 
@@ -86,17 +49,10 @@ const usePaintInitialisation = (props: IHandlers) => {
   };
 
   useEffect(() => {
-    if (!width || !height || !ctxRef.current || !canvasRef.current) return;
-    console.log(width);
-    ctxRef.current.fillStyle = "white";
-    ctxRef.current.fillRect(0, 0, width, height);
-  }, [width, height]);
-
-  useEffect(() => {
     if (!canvasRef.current) return;
     const ref = canvasRef.current;
-    adjustCanvasParams();
     ctxRef.current = ref.getContext("2d");
+    adjustCanvasParams();
 
     window.addEventListener("resize", adjustCanvasParams);
 

@@ -1,8 +1,6 @@
 import { ToolNames } from "../SideMenu/constants";
 import { usePaintInitialisation } from "./usePaintInitialisation";
 import { useSaveCanvas } from "./useSaveCanvas";
-import { useRef, useCallback } from "react";
-
 // interface IPainting {
 //   toolName: string;
 // }
@@ -11,7 +9,7 @@ const usePaint = () => {
   const handleDraw = () => {
     if (!ctxRef.current) return;
     const { x, y } = position.current;
-    console.log(x, y);
+
     switch (toolRef.current) {
       case ToolNames.PENCIL:
         ctxRef.current.strokeStyle = colorRef.current;
