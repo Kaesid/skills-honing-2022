@@ -10,16 +10,6 @@ const useSaveCanvas = (props: {
     if (!canvasRef.current || !ctxRef.current) return;
     ctxRef.current.save();
     setDataUrl(canvasRef.current.toDataURL("image/png"));
-
-    // setTimeout(() => {
-    //   if (!canvasRef.current || !ctxRef.current) return;
-
-    //   console.log(ctxRef.current);
-    //   ctxRef.current.restore();
-
-    //   ctxRef.current.fillStyle = "green";
-    //   ctxRef.current.fillRect(10, 10, 100, 100);
-    // }, 3000);
   };
 
   return { saveCanvas, dataUrl };

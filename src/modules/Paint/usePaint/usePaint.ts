@@ -28,9 +28,10 @@ const usePaint = () => {
     }
   };
 
-  const handleMouseMove = (e: MouseEvent) => {
+  const handleCursorMove = (e: MouseEvent | TouchEvent) => {
     if (!canvasRef.current) return;
-    position.current = { x: e.offsetX, y: e.offsetY };
+    if (e instanceof TouchEvent) setTouchPosition(e);
+    if (e instanceof MouseEvent) position.current = { x: e.offsetX, y: e.offsetY };
 
     if (isDrawing.current) handleDraw();
   };
@@ -42,16 +43,10 @@ const usePaint = () => {
     position.current = { x, y };
   };
 
-  const handleTouchMove = (e: TouchEvent) => {
-    setTouchPosition(e);
-    if (isDrawing.current) handleDraw();
-  };
-
-  const handleMouseDown = (e: MouseEvent | TouchEvent) => {
+  const handleDrawActivation = (e: MouseEvent | TouchEvent) => {
     if (!ctxRef.current) return;
-    const ev = e as TouchEvent;
     isDrawing.current = true;
-    if (ev.targetTouches) setTouchPosition(ev);
+    if (e instanceof TouchEvent) setTouchPosition(e);
 
     switch (toolRef.current) {
       case ToolNames.PENCIL:
@@ -85,7 +80,7 @@ const usePaint = () => {
     );
   };
 
-  const handleMouseUp = () => {
+  const handleDrawFinish = () => {
     if (!ctxRef.current) return;
     isDrawing.current = false;
     saveCanvasData();
@@ -102,7 +97,7 @@ const usePaint = () => {
     }
   };
 
-  const handleMouseOut = () => {
+  const handleCursorOut = () => {
     isDrawing.current = false;
   };
 
@@ -119,11 +114,10 @@ const usePaint = () => {
     canvasParams,
     savedCanvasDataRef,
   } = usePaintInitialisation({
-    handleMouseDown,
-    handleMouseUp,
-    handleMouseOut,
-    handleMouseMove,
-    handleTouchMove,
+    handleDrawActivation,
+    handleDrawFinish,
+    handleCursorOut,
+    handleCursorMove,
   });
 
   const { dataUrl, saveCanvas } = useSaveCanvas({ canvasRef, ctxRef });

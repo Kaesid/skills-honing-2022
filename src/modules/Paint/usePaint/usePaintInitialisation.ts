@@ -5,15 +5,13 @@ import { ToolNames } from "../SideMenu/constants";
 import { useCanvasResize } from "./useCanvasResize";
 
 interface IHandlers {
-  // handleDraw: () => void;
-  handleMouseDown: (e: TouchEvent | MouseEvent) => void;
-  handleMouseUp: () => void;
-  handleMouseOut: () => void;
-  handleMouseMove: (e: MouseEvent) => void;
-  handleTouchMove: (e: TouchEvent) => void;
+  handleDrawActivation: (e: TouchEvent | MouseEvent) => void;
+  handleDrawFinish: () => void;
+  handleCursorOut: () => void;
+  handleCursorMove: (e: MouseEvent | TouchEvent) => void;
 }
 const usePaintInitialisation = (props: IHandlers) => {
-  const { handleMouseDown, handleMouseUp, handleMouseOut, handleMouseMove, handleTouchMove } = props;
+  const { handleDrawActivation, handleDrawFinish, handleCursorOut, handleCursorMove } = props;
   const savedCanvasDataRef = useRef<ImageData | null>(null);
   const toolRef = useRef(ToolNames.PENCIL);
   const colorRef = useRef(DefaultColors.BLACK);
@@ -38,29 +36,29 @@ const usePaintInitialisation = (props: IHandlers) => {
 
     window.addEventListener("resize", adjustCanvasParams);
 
-    ref.addEventListener("mousemove", handleMouseMove);
+    ref.addEventListener("mousemove", handleCursorMove);
 
-    ref.addEventListener("mousedown", handleMouseDown);
+    ref.addEventListener("mousedown", handleDrawActivation);
 
-    ref.addEventListener("mouseup", handleMouseUp);
+    ref.addEventListener("mouseup", handleDrawFinish);
 
-    ref.addEventListener("mouseout", handleMouseOut);
+    ref.addEventListener("mouseout", handleCursorOut);
 
-    ref.addEventListener("touchstart", handleMouseDown); //Here
-    ref.addEventListener("touchend", handleMouseUp);
-    ref.addEventListener("touchmove", handleTouchMove);
-    ref.addEventListener("touchcancel", handleMouseUp);
+    ref.addEventListener("touchstart", handleDrawActivation); //Here
+    ref.addEventListener("touchend", handleDrawFinish);
+    ref.addEventListener("touchmove", handleCursorMove);
+    ref.addEventListener("touchcancel", handleDrawFinish);
 
     return () => {
       window.removeEventListener("resize", adjustCanvasParams);
-      ref.removeEventListener("mousemove", handleMouseMove);
-      ref.removeEventListener("mousedown", handleMouseDown);
-      ref.removeEventListener("mouseup", handleMouseUp);
-      ref.removeEventListener("mouseout", handleMouseOut);
-      ref.removeEventListener("touchstart", handleMouseDown);
-      ref.removeEventListener("touchend", handleMouseUp);
-      ref.removeEventListener("touchmove", handleTouchMove);
-      ref.removeEventListener("touchcancel", handleMouseUp);
+      ref.removeEventListener("mousemove", handleCursorMove);
+      ref.removeEventListener("mousedown", handleDrawActivation);
+      ref.removeEventListener("mouseup", handleDrawFinish);
+      ref.removeEventListener("mouseout", handleCursorOut);
+      ref.removeEventListener("touchstart", handleDrawActivation);
+      ref.removeEventListener("touchend", handleDrawFinish);
+      ref.removeEventListener("touchmove", handleCursorMove);
+      ref.removeEventListener("touchcancel", handleDrawFinish);
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
