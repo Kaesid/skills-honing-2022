@@ -2,7 +2,7 @@ import { IPaintEvent, ITool } from "../interface";
 import { ToolNames } from "../SideMenu/constants";
 
 class Tool {
-  name: keyof typeof ToolNames;
+  name: keyof typeof ToolNames | null;
   isDrawing: boolean;
   protected readonly canvas: ITool["canvasRef"];
   protected readonly ctx: ITool["ctxRef"];
@@ -11,7 +11,7 @@ class Tool {
 
   constructor(props: ITool) {
     const { canvasRef, ctxRef, position, colorRef } = props;
-    this.name = ToolNames.BRUSH;
+    this.name = null;
     this.isDrawing = false;
     this.canvas = canvasRef;
     this.ctx = ctxRef;
