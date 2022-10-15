@@ -1,25 +1,19 @@
 import { useEffect, useRef, useState } from "react";
-interface Props {
-  canvasParams: React.MutableRefObject<{
-    width: number;
-    height: number;
-  }>;
-  ctxRef: React.MutableRefObject<CanvasRenderingContext2D | null>;
-  canvasRef: React.RefObject<HTMLCanvasElement>;
-  savedCanvasDataRef: React.MutableRefObject<ImageData | null>;
-}
+import { IResizeProps } from "../interface";
 
-const useCanvasResize = (props: Props) => {
+const useCanvasResize = (props: IResizeProps) => {
   const { canvasParams, ctxRef, canvasRef, savedCanvasDataRef } = props;
-  const setCanvasParamsValues = (ref: HTMLCanvasElement | null) => {
+  const setCanvasParamsValues = () => {
     // const ratio = Math.max(window.devicePixelRatio || 1, 1);
     const ratio = 1;
-    const params = ref ? { width: ref.clientWidth * ratio, height: ref.clientHeight * ratio } : { width: 0, height: 0 };
+    const params = canvasRef.current
+      ? { width: canvasRef.current.clientWidth * ratio, height: canvasRef.current.clientHeight * ratio }
+      : { width: 0, height: 0 };
     canvasParams.current = params;
 
     return params;
   };
-  const [{ width, height }, setCanvasParams] = useState(setCanvasParamsValues(canvasRef.current));
+  const [{ width, height }, setCanvasParams] = useState(setCanvasParamsValues());
   const timeout: { current: NodeJS.Timeout | null } = useRef(null);
 
   const fillEmptyCanvas = () => {
@@ -35,7 +29,7 @@ const useCanvasResize = (props: Props) => {
   };
 
   const adjustCanvasParams = () => {
-    setCanvasParams(setCanvasParamsValues(canvasRef.current));
+    setCanvasParams(setCanvasParamsValues());
   };
 
   useEffect(() => {

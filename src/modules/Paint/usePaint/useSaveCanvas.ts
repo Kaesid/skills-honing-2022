@@ -1,8 +1,7 @@
 import { useState } from "react";
-const useSaveCanvas = (props: {
-  canvasRef: React.RefObject<HTMLCanvasElement>;
-  ctxRef: React.MutableRefObject<CanvasRenderingContext2D | null>;
-}) => {
+import { ISaveCanvasProps } from "../interface";
+
+const useSaveCanvas = (props: ISaveCanvasProps) => {
   const { canvasRef, ctxRef } = props;
   const [dataUrl, setDataUrl] = useState("#");
 

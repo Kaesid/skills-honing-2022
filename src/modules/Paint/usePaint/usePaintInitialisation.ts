@@ -1,15 +1,12 @@
 import { useEffect } from "react";
 import { useRef } from "react";
+import { IHandlers, ISizeParams, ITool, IToolsList } from "../interface";
 import { DefaultColors } from "../SideMenu/ColorPicker/constants";
 import { ToolNames } from "../SideMenu/constants";
+import { Pencil } from "../tools/Pencil";
+import { Tool } from "../tools/Tool";
 import { useCanvasResize } from "./useCanvasResize";
 
-interface IHandlers {
-  handleDrawActivation: (e: TouchEvent | MouseEvent) => void;
-  handleDrawFinish: () => void;
-  handleCursorOut: () => void;
-  handleCursorMove: (e: MouseEvent | TouchEvent) => void;
-}
 const usePaintInitialisation = (props: IHandlers) => {
   const { handleDrawActivation, handleDrawFinish, handleCursorOut, handleCursorMove } = props;
   const savedCanvasDataRef = useRef<ImageData | null>(null);
@@ -19,7 +16,8 @@ const usePaintInitialisation = (props: IHandlers) => {
   const isDrawing = useRef(false);
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const ctxRef = useRef<CanvasRenderingContext2D | null>(null);
-  const canvasParams = useRef<{ width: number; height: number }>({ width: 0, height: 0 });
+  const canvasParams = useRef<ISizeParams>({ width: 0, height: 0 });
+  const toolsRef = useRef<IToolsList | null>(null);
 
   const { adjustCanvasParams, width, height, resetCanvas } = useCanvasResize({
     canvasParams,
@@ -33,7 +31,11 @@ const usePaintInitialisation = (props: IHandlers) => {
     const ref = canvasRef.current;
     ctxRef.current = ref.getContext("2d");
     adjustCanvasParams();
-
+    toolsRef.current = {
+      [ToolNames.PENCIL]: new Pencil({ canvasRef, ctxRef, position, colorRef }),
+      [ToolNames.BRUSH]: new Pencil({ canvasRef, ctxRef, position, colorRef }),
+      [ToolNames.ERASER]: new Pencil({ canvasRef, ctxRef, position, colorRef }),
+    };
     window.addEventListener("resize", adjustCanvasParams);
 
     ref.addEventListener("mousemove", handleCursorMove);
@@ -75,6 +77,7 @@ const usePaintInitialisation = (props: IHandlers) => {
     toolRef,
     canvasParams,
     savedCanvasDataRef,
+    toolsRef,
   };
 };
 
