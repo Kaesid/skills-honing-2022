@@ -1,5 +1,3 @@
-import { IColors } from "./interfaces";
-
 // const DefaultColors: IColors = {
 //   BLACK: "#090c09",
 //   YELLLOW: "#e1e16c",
