@@ -3,6 +3,7 @@ import { useRef } from "react";
 import { IHandlers, ISizeParams, IToolsList } from "../interface";
 import { DefaultColors } from "../SideMenu/ColorPicker/constants";
 import { ToolNames } from "../SideMenu/constants";
+import { Brush } from "../tools/Brush";
 import { Eraser } from "../tools/Eraser";
 import { Pencil } from "../tools/Pencil";
 import { useCanvasResize } from "./useCanvasResize";
@@ -35,7 +36,7 @@ const usePaintInitialisation = (props: IHandlers) => {
     toolsRef.current = {
       [ToolNames.PENCIL]: new Pencil(props),
       [ToolNames.ERASER]: new Eraser(props),
-      [ToolNames.BRUSH]: new Pencil(props),
+      [ToolNames.BRUSH]: new Brush(props),
     };
     window.addEventListener("resize", adjustCanvasParams);
 
