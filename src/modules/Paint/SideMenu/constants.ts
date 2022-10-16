@@ -27,9 +27,9 @@ interface ButtonProps {
 }
 
 enum ToolNames {
-  PENCIL = "PENCIL",
-  ERASER = "ERASER",
-  BRUSH = "BRUSH",
+  PENCIL = "pencil",
+  ERASER = "eraser",
+  BRUSH = "brush",
 }
 
 const buttonsList: ButtonProps[] = [

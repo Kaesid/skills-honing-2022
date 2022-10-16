@@ -3,13 +3,10 @@ type IColorsName = "BLACK" | "YELLLOW" | "RED" | "BLUE" | "GREEN" | "PURPLE" | "
 type IColors = {
   [key in IColorsName]: string;
 };
-// interface IColors {
-//   [key: string]: string[keyof IColors];
-// }
 
-interface IColorPicker {
-  // DefaultColors: DefaultColors;
-  colorRef: React.MutableRefObject<string>;
+interface IPaletteSlot {
+  readonly color: string;
+  readonly isSelected: boolean;
 }
 
-export type { IColorPicker, IColors, IColorsName };
+export type { IColors, IColorsName, IPaletteSlot };

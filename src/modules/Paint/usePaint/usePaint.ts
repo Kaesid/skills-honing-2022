@@ -1,32 +1,26 @@
 import { IPaintEvent } from "../interface";
-import { ToolNames } from "../SideMenu/constants";
-import { Tool } from "../tools/Tool";
 import { usePaintInitialisation } from "./usePaintInitialisation";
 import { useSaveCanvas } from "./useSaveCanvas";
 
 const usePaint = () => {
-  const handleDraw = () => {
-    if (!ctxRef.current || !toolsRef.current) return;
-    toolsRef.current[toolRef.current].handleDraw();
-  };
-
   const handleCursorMove = (e: IPaintEvent) => {
-    if (!canvasRef.current) return;
+    if (!toolsRef.current) return;
     if (e instanceof TouchEvent) setTouchPosition(e);
-    if (e instanceof MouseEvent) position.current = { x: e.offsetX, y: e.offsetY };
+    // if (e instanceof MouseEvent) position.current = { x: e.offsetX, y: e.offsetY };
+    if (e instanceof MouseEvent) [position.current.x, position.current.y] = [e.offsetX, e.offsetY];
 
-    if (isDrawing.current) handleDraw();
+    if (isDrawing.current) toolsRef.current[toolRef.current].handleDraw();
   };
 
   const setTouchPosition = (e: TouchEvent) => {
     const bcr = (e.target as HTMLElement).getBoundingClientRect();
     const x = e.targetTouches[0].clientX - bcr.x;
     const y = e.targetTouches[0].clientY - bcr.y;
-    position.current = { x, y };
+    [position.current.x, position.current.y] = [x, y];
   };
 
   const handleDrawActivation = (e: IPaintEvent) => {
-    if (!ctxRef.current || !toolsRef.current) return;
+    if (!toolsRef.current) return;
     isDrawing.current = true;
     if (e instanceof TouchEvent) setTouchPosition(e);
 
@@ -45,7 +39,7 @@ const usePaint = () => {
   };
 
   const handleDrawFinish = () => {
-    if (!ctxRef.current || !toolsRef.current) return;
+    if (!toolsRef.current) return;
 
     isDrawing.current = false;
     saveCanvasData();

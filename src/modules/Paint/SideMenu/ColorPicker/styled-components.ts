@@ -1,6 +1,7 @@
 import styled, { css, keyframes } from "styled-components";
 import { downArrow } from "../../../../assets/images/svgrepo";
 import { SCREEN_SIZES } from "../../../../constants/screen";
+import { IPaletteSlot } from "./interfaces";
 
 const ColorPickerWrap = styled.div`
   ${(props: { $isOpen: boolean }) =>
@@ -69,16 +70,20 @@ const animatedgradient = keyframes`
         }
         100% {
           background-position: 0% 50%;
-        }
+        }   
 `;
 
-const PaletteSlot = styled.button`
+const PaletteSlot = styled.button.attrs((props: IPaletteSlot) => ({
+  style: {
+    backgroundColor: props.color,
+  },
+}))`
   position: relative;
   width: 30px;
   height: 30px;
-  background: ${props => props.$color};
-  ${(props: { $isSelected: boolean; $color: string }) =>
-    props.$isSelected &&
+
+  ${(props: IPaletteSlot) =>
+    props.isSelected &&
     css`
       &::before {
         content: "";
@@ -95,7 +100,7 @@ const PaletteSlot = styled.button`
       &::after {
         content: "";
         position: absolute;
-        background-color: ${props.$color};
+        background-color: ${props.color};
         height: 97%;
         width: 97%;
         top: 1.5%;

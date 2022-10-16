@@ -33,8 +33,8 @@ const ColorPicker = (props: Pick<ISideMenu, "colorRef">) => {
           <PaletteSlot
             data-name={key}
             data-color={paletteColors[key]}
-            $isSelected={key === activePaletteSlot}
-            $color={paletteColors[key]}
+            isSelected={key === activePaletteSlot}
+            color={paletteColors[key]}
             key={key}
             onClick={setActivePaletteSlot}
           />

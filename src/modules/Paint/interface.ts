@@ -26,7 +26,7 @@ interface ICanvasParamsList {
   canvasParams: React.MutableRefObject<ISizeParams>;
   savedCanvasDataRef: React.MutableRefObject<ImageData | null>;
   colorRef: React.MutableRefObject<string>;
-  toolRef: React.MutableRefObject<string>;
+  toolRef: React.MutableRefObject<keyof ToolNames>;
   position: React.MutableRefObject<ICoordinates>;
 }
 
@@ -34,11 +34,15 @@ type IResizeProps = Pick<ICanvasParamsList, "canvasRef" | "ctxRef" | "canvasPara
 
 type ISaveCanvasProps = Pick<ICanvasParamsList, "canvasRef" | "ctxRef">;
 
-type ITool = Pick<ICanvasParamsList, "canvasRef" | "ctxRef" | "position" | "colorRef">;
+type ITool = Pick<ICanvasParamsList, "ctxRef" | "position" | "colorRef">;
 
-type IToolsList = {
-  [key in ToolNames]: Tool;
-};
+type IColorPicker = Pick<ICanvasParamsList, "colorRef">;
+
+// type IToolsList = {
+//   [key in ToolNames]: Tool;
+// };
+
+type IToolsList = Record<ToolNames, Tool>;
 
 export type {
   IHandlers,
@@ -50,4 +54,5 @@ export type {
   IPaintEvent,
   ITool,
   IToolsList,
+  IColorPicker,
 };

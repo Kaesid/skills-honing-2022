@@ -1,21 +1,16 @@
-import { IPaintEvent, ITool } from "../interface";
-import { ToolNames } from "../SideMenu/constants";
+import { ICoordinates, IPaintEvent, ITool } from "../interface";
 
 class Tool {
-  name: keyof typeof ToolNames | null;
-  isDrawing: boolean;
-  protected readonly canvas: ITool["canvasRef"];
-  protected readonly ctx: ITool["ctxRef"];
-  protected readonly position: ITool["position"];
+  protected isDrawing: boolean;
+  protected readonly ctx: CanvasRenderingContext2D;
+  protected readonly position: ICoordinates;
   protected readonly color: ITool["colorRef"];
 
   constructor(props: ITool) {
-    const { canvasRef, ctxRef, position, colorRef } = props;
-    this.name = null;
+    const { ctxRef, position, colorRef } = props;
     this.isDrawing = false;
-    this.canvas = canvasRef;
-    this.ctx = ctxRef;
-    this.position = position;
+    this.ctx = ctxRef.current as CanvasRenderingContext2D;
+    this.position = position.current;
     this.color = colorRef;
   }
 

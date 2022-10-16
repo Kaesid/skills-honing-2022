@@ -1,6 +1,6 @@
 import { useRef } from "react";
 import { useState } from "react";
-import { IColorPicker } from "./interfaces";
+import { IColorPicker } from "../../interface";
 import { DefaultColors } from "./constants";
 
 const useColorPicker = (props: IColorPicker) => {
