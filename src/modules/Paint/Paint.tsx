@@ -22,7 +22,7 @@ const Paint = () => {
         saveCanvas={saveCanvas}
         toolRef={toolRef}
       />
-      <CanvasWrap>
+      <CanvasWrap onContextMenu={e => e.preventDefault()}>
         <Canvas canvasRef={canvasRef} width={width} height={height} />
       </CanvasWrap>
     </PaintPage>

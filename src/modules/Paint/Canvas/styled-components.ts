@@ -11,6 +11,7 @@ const CanvasStyled = styled.canvas`
   box-shadow: 5px 6px 3px 1px #0000001f;
   margin-bottom: 50px;
   touch-action: none;
+  cursor: crosshair;
 
   @media (max-width: ${SCREEN_SIZES.TABLET}px) {
     width: 100%;

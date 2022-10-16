@@ -1,8 +1,13 @@
-type IColorsName = "BLACK" | "YELLLOW" | "RED" | "BLUE" | "GREEN" | "PURPLE" | "LIGHT_BLUE" | "LIGHT_GREEN";
+import { DefaultColors } from "./constants";
+
+// type IColorsName = "BLACK" | "YELLLOW" | "RED" | "BLUE" | "GREEN" | "PURPLE" | "LIGHT_BLUE" | "LIGHT_GREEN";
+type IColorsName = keyof typeof DefaultColors;
 
 type IColors = {
-  [key in IColorsName]: string;
+  IColorsName: string;
 };
+
+// type IColors = Record<[key in DefaultColors], string>;
 
 interface IPaletteSlot {
   readonly color: string;

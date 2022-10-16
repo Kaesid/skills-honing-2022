@@ -5,8 +5,7 @@ import { useSaveCanvas } from "./useSaveCanvas";
 const usePaint = () => {
   const handleCursorMove = (e: IPaintEvent) => {
     if (!toolsRef.current) return;
-    if (e instanceof TouchEvent) setTouchPosition(e);
-    // if (e instanceof MouseEvent) position.current = { x: e.offsetX, y: e.offsetY };
+    if (window.TouchEvent && e instanceof TouchEvent) setTouchPosition(e);
     if (e instanceof MouseEvent) [position.current.x, position.current.y] = [e.offsetX, e.offsetY];
 
     if (isDrawing.current) toolsRef.current[toolRef.current].handleDraw();
@@ -22,7 +21,7 @@ const usePaint = () => {
   const handleDrawActivation = (e: IPaintEvent) => {
     if (!toolsRef.current) return;
     isDrawing.current = true;
-    if (e instanceof TouchEvent) setTouchPosition(e);
+    if (window.TouchEvent && e instanceof TouchEvent) setTouchPosition(e);
 
     toolsRef.current[toolRef.current].handleDrawActivation();
   };

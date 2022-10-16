@@ -30,7 +30,7 @@ const usePaintInitialisation = (props: IHandlers) => {
   useEffect(() => {
     if (!canvasRef.current) return;
     const ref = canvasRef.current;
-    ctxRef.current = ref.getContext("2d");
+    ctxRef.current = ref.getContext("2d", { willReadFrequently: true });
     adjustCanvasParams();
     const props = { ctxRef, position, colorRef };
     toolsRef.current = {
