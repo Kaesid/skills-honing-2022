@@ -1,17 +1,5 @@
+import { ICanvas } from "./interface";
 import { CanvasStyled } from "./styled-components";
-
-interface ICanvas {
-  // color: string;
-  // currentColor: React.MutableRefObject<string>;
-  width: number;
-  height: number;
-  canvasRef: React.RefObject<HTMLCanvasElement>;
-}
-
-export interface IDraw {
-  position: { x: number; y: number };
-  // ctx: CanvasRenderingContext2D | null;
-}
 
 const Canvas = (props: ICanvas) => {
   const { width, height, canvasRef } = props;

@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 import { SCREEN_SIZES } from "../../../constants/screen";
 import { linkActiveColor } from "../../../constants/styled-components";
 
@@ -32,6 +32,16 @@ const IconsBox = styled.div`
   justify-content: center;
   gap: 10px;
   margin: 20px;
+`;
+
+const IconBox = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 50px;
+  height: 50px;
+  border: 1px solid white;
+  cursor: pointer;
 
   svg {
     width: 30px;
@@ -46,26 +56,18 @@ const IconsBox = styled.div`
     }
   }
 
-  .active {
-    svg {
-      path {
-        fill: ${linkActiveColor};
+  ${(props: { readonly isActive: boolean }) =>
+    props.isActive &&
+    css`
+      svg {
+        path {
+          fill: ${linkActiveColor};
+        }
+        circle {
+          stroke: ${linkActiveColor};
+        }
       }
-      circle {
-        stroke: ${linkActiveColor};
-      }
-    }
-  }
-`;
-
-const IconBox = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 50px;
-  height: 50px;
-  border: 1px solid white;
-  cursor: pointer;
+    `}
 `;
 
 const SideMenuButton = styled.a`

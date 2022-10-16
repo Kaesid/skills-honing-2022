@@ -19,22 +19,25 @@ interface ICoordinates {
   x: number;
   y: number;
 }
-
 interface ICanvasParamsList {
   canvasRef: React.RefObject<HTMLCanvasElement>;
   ctxRef: React.MutableRefObject<CanvasRenderingContext2D | null>;
   canvasParams: React.MutableRefObject<ISizeParams>;
   savedCanvasDataRef: React.MutableRefObject<ImageData | null>;
   colorRef: React.MutableRefObject<string>;
-  toolRef: React.MutableRefObject<keyof ToolNames>;
+  toolRef: React.MutableRefObject<ToolNames>;
   position: React.MutableRefObject<ICoordinates>;
 }
 
-type IResizeProps = Pick<ICanvasParamsList, "canvasRef" | "ctxRef" | "canvasParams" | "savedCanvasDataRef">;
+type ICanvasRef = Pick<ICanvasParamsList, "canvasRef">;
 
-type ISaveCanvasProps = Pick<ICanvasParamsList, "canvasRef" | "ctxRef">;
+type ICtxRef = Pick<ICanvasParamsList, "ctxRef">;
 
-type ITool = Pick<ICanvasParamsList, "ctxRef" | "position" | "colorRef">;
+type IResizeProps = ICanvasRef & ICtxRef & Pick<ICanvasParamsList, "canvasParams" | "savedCanvasDataRef">;
+
+type ISaveCanvasProps = ICanvasRef & ICtxRef;
+
+type ITool = ICtxRef & Pick<ICanvasParamsList, "position" | "colorRef">;
 
 type IColorPicker = Pick<ICanvasParamsList, "colorRef">;
 
@@ -55,4 +58,5 @@ export type {
   ITool,
   IToolsList,
   IColorPicker,
+  ICanvasRef,
 };

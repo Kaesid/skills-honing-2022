@@ -18,13 +18,7 @@ import {
   line,
   Line,
 } from "../../../assets/images/svgrepo";
-
-interface ButtonProps {
-  tooltip: string;
-  IconComponent: React.FC;
-  src: string;
-  size?: number;
-}
+import { ButtonProps } from "./interface";
 
 enum ToolNames {
   PENCIL = "pencil",
@@ -48,31 +42,31 @@ const buttonsList: ButtonProps[] = [
     IconComponent: Brush,
     src: brush,
   },
-  {
-    tooltip: "bigBrush",
-    IconComponent: BigBrush,
-    src: bigBrush,
-  },
-  {
-    tooltip: "caption",
-    IconComponent: Caption,
-    src: caption,
-  },
-  {
-    tooltip: "line",
-    IconComponent: Line,
-    src: line,
-  },
-  {
-    tooltip: "square",
-    IconComponent: Square,
-    src: square,
-  },
-  {
-    tooltip: "circle",
-    IconComponent: Circle,
-    src: circle,
-  },
+  // {
+  //   tooltip: ToolNames.BRUSH,
+  //   IconComponent: BigBrush,
+  //   src: bigBrush,
+  // },
+  // {
+  //   tooltip: ToolNames.BRUSH,
+  //   IconComponent: Caption,
+  //   src: caption,
+  // },
+  // {
+  //   tooltip: ToolNames.BRUSH,
+  //   IconComponent: Line,
+  //   src: line,
+  // },
+  // {
+  //   tooltip: ToolNames.BRUSH,
+  //   IconComponent: Square,
+  //   src: square,
+  // },
+  // {
+  //   tooltip: ToolNames.BRUSH,
+  //   IconComponent: Circle,
+  //   src: circle,
+  // },
 ];
 
 export { buttonsList, ToolNames };
