@@ -33,13 +33,17 @@ type ICanvasRef = Pick<ICanvasParamsList, "canvasRef">;
 
 type ICtxRef = Pick<ICanvasParamsList, "ctxRef">;
 
+type IPosition = Pick<ICanvasParamsList, "position">;
+
 type IResizeProps = ICanvasRef & ICtxRef & Pick<ICanvasParamsList, "canvasParams" | "savedCanvasDataRef">;
 
 type ISaveCanvasProps = ICanvasRef & ICtxRef;
 
-type ITool = ICtxRef & Pick<ICanvasParamsList, "position" | "colorRef">;
+type ITool = ICtxRef & IPosition & Pick<ICanvasParamsList, "colorRef">;
 
 type IColorPicker = Pick<ICanvasParamsList, "colorRef">;
+
+type ITouchPosiitionGet = IPosition & { e: IPaintEvent };
 
 // type IToolsList = {
 //   [key in ToolNames]: Tool;
@@ -59,4 +63,5 @@ export type {
   IToolsList,
   IColorPicker,
   ICanvasRef,
+  ITouchPosiitionGet,
 };
