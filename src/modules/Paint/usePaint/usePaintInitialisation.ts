@@ -4,7 +4,9 @@ import { IHandlers, ISizeParams, IToolsList } from "../interface";
 import { DefaultColors } from "../SideMenu/ColorPicker/constants";
 import { ToolNames } from "../SideMenu/constants";
 import { Brush } from "../tools/Brush";
+import { Circle } from "../tools/Circle";
 import { Eraser } from "../tools/Eraser";
+import { Line } from "../tools/Line";
 import { Pencil } from "../tools/Pencil";
 import { Rectangle } from "../tools/Rectangle";
 import { useCanvasResize } from "./useCanvasResize";
@@ -38,9 +40,9 @@ const usePaintInitialisation = (props: IHandlers) => {
       [ToolNames.PENCIL]: new Pencil(props),
       [ToolNames.ERASER]: new Eraser(props),
       [ToolNames.BRUSH]: new Brush(props),
-      [ToolNames.LINE]: new Pencil(props),
+      [ToolNames.LINE]: new Line(props),
       [ToolNames.RECTANGLE]: new Rectangle(props),
-      [ToolNames.CIRCLE]: new Brush(props),
+      [ToolNames.CIRCLE]: new Circle(props),
     };
     window.addEventListener("resize", adjustCanvasParams);
 
