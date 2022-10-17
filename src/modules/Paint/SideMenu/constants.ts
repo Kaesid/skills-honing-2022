@@ -24,6 +24,9 @@ enum ToolNames {
   PENCIL = "pencil",
   ERASER = "eraser",
   BRUSH = "brush",
+  RECTANGLE = "rectangle",
+  CIRCLE = "circle",
+  LINE = "line",
 }
 
 const buttonsList: ButtonProps[] = [
@@ -52,21 +55,21 @@ const buttonsList: ButtonProps[] = [
   //   IconComponent: Caption,
   //   src: caption,
   // },
-  // {
-  //   tooltip: ToolNames.BRUSH,
-  //   IconComponent: Line,
-  //   src: line,
-  // },
-  // {
-  //   tooltip: ToolNames.BRUSH,
-  //   IconComponent: Square,
-  //   src: square,
-  // },
-  // {
-  //   tooltip: ToolNames.BRUSH,
-  //   IconComponent: Circle,
-  //   src: circle,
-  // },
+  {
+    tooltip: ToolNames.LINE,
+    IconComponent: Line,
+    src: line,
+  },
+  {
+    tooltip: ToolNames.RECTANGLE,
+    IconComponent: Square,
+    src: square,
+  },
+  {
+    tooltip: ToolNames.CIRCLE,
+    IconComponent: Circle,
+    src: circle,
+  },
 ];
 
 export { buttonsList, ToolNames };

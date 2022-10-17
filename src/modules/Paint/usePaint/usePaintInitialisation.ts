@@ -6,6 +6,7 @@ import { ToolNames } from "../SideMenu/constants";
 import { Brush } from "../tools/Brush";
 import { Eraser } from "../tools/Eraser";
 import { Pencil } from "../tools/Pencil";
+import { Rectangle } from "../tools/Rectangle";
 import { useCanvasResize } from "./useCanvasResize";
 
 const usePaintInitialisation = (props: IHandlers) => {
@@ -32,11 +33,14 @@ const usePaintInitialisation = (props: IHandlers) => {
     const ref = canvasRef.current;
     ctxRef.current = ref.getContext("2d", { willReadFrequently: true });
     adjustCanvasParams();
-    const props = { ctxRef, position, colorRef };
+    const props = { ctxRef, position, colorRef, savedCanvasDataRef };
     toolsRef.current = {
       [ToolNames.PENCIL]: new Pencil(props),
       [ToolNames.ERASER]: new Eraser(props),
       [ToolNames.BRUSH]: new Brush(props),
+      [ToolNames.LINE]: new Pencil(props),
+      [ToolNames.RECTANGLE]: new Rectangle(props),
+      [ToolNames.CIRCLE]: new Brush(props),
     };
     window.addEventListener("resize", adjustCanvasParams);
 

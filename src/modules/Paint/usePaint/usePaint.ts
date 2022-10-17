@@ -14,6 +14,7 @@ const usePaint = () => {
 
   const handleDrawActivation = (e: IPaintEvent) => {
     if (!toolsRef.current) return;
+    saveCanvasData();
     isDrawing.current = true;
     setTouchEventPosition({ e, position });
     toolsRef.current[toolRef.current].handleDrawActivation();
@@ -34,6 +35,7 @@ const usePaint = () => {
     if (!toolsRef.current) return;
 
     isDrawing.current = false;
+    // if (savedCanvasDataRef.current) ctxRef.current?.putImageData(savedCanvasDataRef.current, 0, 0);
     saveCanvasData();
 
     toolsRef.current[toolRef.current].handleDrawFinish();
