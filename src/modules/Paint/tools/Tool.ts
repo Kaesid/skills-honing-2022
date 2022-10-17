@@ -6,6 +6,7 @@ class Tool {
   protected readonly position: ICoordinates;
   protected readonly color: ITool["colorRef"];
   protected readonly savedCanvasDataRef: ITool["savedCanvasDataRef"];
+  protected startPosition: ICoordinates;
 
   constructor(props: ITool) {
     const { ctxRef, position, colorRef, savedCanvasDataRef } = props;
@@ -14,6 +15,7 @@ class Tool {
     this.position = position.current;
     this.color = colorRef;
     this.savedCanvasDataRef = savedCanvasDataRef;
+    this.startPosition = { x: 0, y: 0 };
   }
 
   handleCursorMove(e: IPaintEvent) {}
