@@ -1,7 +1,8 @@
 import { Tool } from "./Tool";
 
 class Rectangle extends Tool {
-  handleDrawActivation() {
+  handleToolDrawActivation() {
+    this.saveCanvasData();
     this.ctx.beginPath();
     [this.startPosition.x, this.startPosition.y] = [this.position.x, this.position.y];
   }
@@ -15,8 +16,6 @@ class Rectangle extends Tool {
 
     this.ctx.fillRect(this.startPosition.x, this.startPosition.y, width, height);
   }
-
-  handleDrawFinish() {}
 }
 
 export { Rectangle };

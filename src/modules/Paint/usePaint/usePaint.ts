@@ -6,59 +6,25 @@ import { useSaveCanvas } from "./useSaveCanvas";
 const usePaint = () => {
   const handleCursorMove = (e: IPaintEvent) => {
     if (!toolsRef.current) return;
-    setTouchEventPosition({ e, position });
-    if (e instanceof MouseEvent) [position.current.x, position.current.y] = [e.offsetX, e.offsetY];
-
-    if (isDrawing.current) toolsRef.current[toolRef.current].handleDraw();
+    toolsRef.current[toolRef.current].handleCursorMove(e);
   };
 
   const handleDrawActivation = (e: IPaintEvent) => {
     if (!toolsRef.current) return;
-    saveCanvasData();
-    isDrawing.current = true;
-    setTouchEventPosition({ e, position });
-    toolsRef.current[toolRef.current].handleDrawActivation();
-  };
-
-  const saveCanvasData = () => {
-    if (!canvasParams.current.width || !canvasParams.current.height || !ctxRef.current) return;
-
-    savedCanvasDataRef.current = ctxRef.current.getImageData(
-      0,
-      0,
-      canvasParams.current.width,
-      canvasParams.current.height
-    );
+    toolsRef.current[toolRef.current].handleDrawActivation(e);
   };
 
   const handleDrawFinish = () => {
     if (!toolsRef.current) return;
-
-    isDrawing.current = false;
-    // if (savedCanvasDataRef.current) ctxRef.current?.putImageData(savedCanvasDataRef.current, 0, 0);
-    saveCanvasData();
-
     toolsRef.current[toolRef.current].handleDrawFinish();
   };
 
   const handleCursorOut = () => {
-    isDrawing.current = false;
+    if (!toolsRef.current) return;
+    toolsRef.current[toolRef.current].handleDrawFinish();
   };
 
-  const {
-    width,
-    height,
-    colorRef,
-    canvasRef,
-    ctxRef,
-    position,
-    isDrawing,
-    resetCanvas,
-    toolRef,
-    canvasParams,
-    savedCanvasDataRef,
-    toolsRef,
-  } = usePaintInitialisation({
+  const { width, height, colorRef, canvasRef, ctxRef, resetCanvas, toolRef, toolsRef } = usePaintInitialisation({
     handleDrawActivation,
     handleDrawFinish,
     handleCursorOut,

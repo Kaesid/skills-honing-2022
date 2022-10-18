@@ -2,18 +2,16 @@ import { useEffect, useRef, useState } from "react";
 import { IResizeProps } from "../interface";
 
 const useCanvasResize = (props: IResizeProps) => {
-  const { canvasParams, ctxRef, canvasRef, savedCanvasDataRef } = props;
-  const setCanvasParamsValues = () => {
+  const { ctxRef, canvasRef, savedCanvasDataRef } = props;
+  const getCanvasParamsValues = () => {
     // const ratio = Math.max(window.devicePixelRatio || 1, 1);
     const ratio = 1;
     const params = canvasRef.current
       ? { width: canvasRef.current.clientWidth * ratio, height: canvasRef.current.clientHeight * ratio }
       : { width: 0, height: 0 };
-    canvasParams.current = params;
-
     return params;
   };
-  const [{ width, height }, setCanvasParams] = useState(setCanvasParamsValues());
+  const [{ width, height }, setCanvasParams] = useState(getCanvasParamsValues());
   const timeout: { current: NodeJS.Timeout | null } = useRef(null);
 
   const fillEmptyCanvas = () => {
@@ -29,7 +27,7 @@ const useCanvasResize = (props: IResizeProps) => {
   };
 
   const adjustCanvasParams = () => {
-    setCanvasParams(setCanvasParamsValues());
+    setCanvasParams(getCanvasParamsValues());
   };
 
   useEffect(() => {

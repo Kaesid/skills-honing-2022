@@ -1,7 +1,7 @@
 import { Tool } from "./Tool";
 
 class Line extends Tool {
-  handleDrawActivation() {
+  handleToolDrawActivation() {
     [this.startPosition.x, this.startPosition.y] = [this.position.x, this.position.y];
   }
 
@@ -15,7 +15,7 @@ class Line extends Tool {
     this.ctx.stroke();
   }
 
-  handleDrawFinish() {}
+  handleToolDrawFinish() {}
 }
 
 export { Line };

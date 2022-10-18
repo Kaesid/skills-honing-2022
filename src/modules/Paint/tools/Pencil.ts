@@ -8,13 +8,9 @@ class Pencil extends Tool {
     super(props);
     this.lineWidth = 1;
   }
-  handleDrawActivation() {
+  handleToolDrawActivation() {
     this.ctx.beginPath();
     this.ctx.lineTo(this.position.x, this.position.y);
-  }
-
-  handleDrawFinish() {
-    this.ctx.closePath();
   }
 
   handleDraw() {
@@ -22,6 +18,10 @@ class Pencil extends Tool {
     this.ctx.strokeStyle = this.color.current;
     this.ctx.lineTo(this.position.x, this.position.y);
     this.ctx.stroke();
+  }
+
+  handleToolDrawFinish() {
+    this.ctx.closePath();
   }
 }
 

@@ -16,15 +16,11 @@ const usePaintInitialisation = (props: IHandlers) => {
   const savedCanvasDataRef = useRef<ImageData | null>(null);
   const toolRef = useRef(ToolNames.PENCIL);
   const colorRef = useRef(DefaultColors.BLACK);
-  const position = useRef({ x: 0, y: 0 });
-  const isDrawing = useRef(false);
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const ctxRef = useRef<CanvasRenderingContext2D | null>(null);
-  const canvasParams = useRef<ISizeParams>({ width: 0, height: 0 });
   const toolsRef = useRef<IToolsList | null>(null);
 
   const { adjustCanvasParams, width, height, resetCanvas } = useCanvasResize({
-    canvasParams,
     ctxRef,
     canvasRef,
     savedCanvasDataRef,
@@ -35,7 +31,7 @@ const usePaintInitialisation = (props: IHandlers) => {
     const ref = canvasRef.current;
     ctxRef.current = ref.getContext("2d", { willReadFrequently: true });
     adjustCanvasParams();
-    const props = { ctxRef, position, colorRef, savedCanvasDataRef };
+    const props = { canvasRef, ctxRef, colorRef, savedCanvasDataRef };
     toolsRef.current = {
       [ToolNames.PENCIL]: new Pencil(props),
       [ToolNames.ERASER]: new Eraser(props),
@@ -79,12 +75,8 @@ const usePaintInitialisation = (props: IHandlers) => {
     width,
     height,
     colorRef,
-    position,
-    isDrawing,
     resetCanvas,
     toolRef,
-    canvasParams,
-    savedCanvasDataRef,
     toolsRef,
   };
 };
