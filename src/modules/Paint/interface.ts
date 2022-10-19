@@ -1,5 +1,6 @@
 import { ToolNames } from "./SideMenu/constants";
 import { Tool } from "./tools/Tool";
+import { DefaultColors } from "./constants";
 
 type IPaintEvent = TouchEvent | MouseEvent;
 
@@ -50,6 +51,17 @@ type ITouchPosiitionGet = IPosition & { e: IPaintEvent };
 // };
 
 type IToolsList = Record<ToolNames, Tool>;
+
+type IColorsPalette = typeof DefaultColors;
+
+type IColorsName = keyof IColorsPalette;
+
+interface IPaletteSlot {
+  readonly color: string;
+  readonly isSelected: boolean;
+}
+
+export type { IColorsName, IPaletteSlot, IColorsPalette };
 
 export type {
   IHandlers,

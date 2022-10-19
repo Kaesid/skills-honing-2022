@@ -1,7 +1,7 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { RootState } from "../../redux/store";
-import { DefaultColors } from "./SideMenu/ColorPicker/constants";
-import { IColorsName, IColorsPalette } from "./SideMenu/ColorPicker/interfaces";
+import { DefaultColors } from "./constants";
+import { IColorsPalette } from "./interface";
 import { ToolNames } from "./SideMenu/constants";
 
 interface IPaintState {

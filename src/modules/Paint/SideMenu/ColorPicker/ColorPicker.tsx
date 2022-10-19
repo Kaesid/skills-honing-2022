@@ -2,9 +2,8 @@ import { memo } from "react";
 import Collapsible from "react-collapsible";
 import { HexColorPicker } from "react-colorful";
 import { useColorPicker } from "./useColorPicker";
+import { ICanvasParamsList, IColorsName } from "../../interface";
 import { ColorPickerCollapsible, ColorPickerWrap, HexColorPickerWrap, Palette, PaletteSlot } from "./styled-components";
-import { IColorsName } from "./interfaces";
-import { ICanvasParamsList } from "../../interface";
 
 const ColorPicker = (props: Pick<ICanvasParamsList, "colorRef">) => {
   const { colorRef } = props;

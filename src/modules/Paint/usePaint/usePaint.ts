@@ -1,7 +1,8 @@
 import { useEffect } from "react";
 import { useRef } from "react";
+import { useAppSelector } from "../../../redux/hooks";
 import { IPaintEvent, IToolsList } from "../interface";
-import { DefaultColors } from "../SideMenu/ColorPicker/constants";
+import { getColorPalette } from "../paintSlice";
 import { ToolNames } from "../SideMenu/constants";
 import { Brush } from "../tools/Brush";
 import { Circle } from "../tools/Circle";
@@ -14,8 +15,9 @@ import { useSaveCanvas } from "./useSaveCanvas";
 
 const usePaint = () => {
   const savedCanvasDataRef = useRef<ImageData | null>(null);
+  const paletteColors = useAppSelector(getColorPalette);
   const toolRef = useRef(ToolNames.PENCIL);
-  const colorRef = useRef(DefaultColors.BLACK);
+  const colorRef = useRef(paletteColors.BLACK);
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const ctxRef = useRef<CanvasRenderingContext2D | null>(null);
   const toolsRef = useRef<IToolsList | null>(null);

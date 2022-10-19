@@ -1,19 +1,16 @@
 import { useRef } from "react";
 import { useState } from "react";
 import { useAppSelector } from "../../../../redux/hooks";
-import { IColorPicker } from "../../interface";
+import { IColorPicker, IColorsPalette } from "../../interface";
 import { getColorPalette, setColorPalette } from "../../paintSlice";
-import { DefaultColors } from "./constants";
 import { useAppDispatch } from "./../../../../redux/hooks";
-import { IColorsPalette } from "./interfaces";
 
 const useColorPicker = (props: IColorPicker) => {
   const { colorRef } = props;
-  const activeButton = useRef(Object.keys(DefaultColors)[0]);
+
   const [renderedColor, setRenderedColor] = useState(colorRef.current);
-  // const [paletteColors, setPaletteColors] = useState(DefaultColors);
   const paletteColors = useAppSelector(getColorPalette);
-  // console.log(paletteColors2);s
+  const activePaletteSlot = useRef(Object.keys(paletteColors)[0]);
   const dispatch = useAppDispatch();
   const setPaletteColors = (newPalette: IColorsPalette) => dispatch(setColorPalette(newPalette));
   const [isCollapsibleOpen, setIsCollapasibleOpen] = useState(true);
@@ -21,9 +18,8 @@ const useColorPicker = (props: IColorPicker) => {
   const setActiveColor = (newColor: any) => {
     colorRef.current = newColor;
     setRenderedColor(newColor);
-    if (!activeButton.current) return;
-    setPaletteColors({ ...paletteColors, [activeButton.current]: newColor });
-    // setPaletteColors(prev => ({ ...prev, [activeButton.current]: newColor }));
+    if (!activePaletteSlot.current) return;
+    setPaletteColors({ ...paletteColors, [activePaletteSlot.current]: newColor });
   };
 
   const setActivePaletteSlot = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
@@ -31,7 +27,7 @@ const useColorPicker = (props: IColorPicker) => {
 
     if (!color || !name) return;
 
-    activeButton.current = name;
+    activePaletteSlot.current = name;
     setActiveColor(color);
   };
 
@@ -47,7 +43,7 @@ const useColorPicker = (props: IColorPicker) => {
     paletteColors,
     renderedColor,
     collapsibleParams,
-    activePaletteSlot: activeButton.current,
+    activePaletteSlot: activePaletteSlot.current,
   };
 };
 
