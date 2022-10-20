@@ -10,7 +10,10 @@ export const store = configureStore({
     counter: counterReducer,
     paint: paintReducer,
   },
-  middleware: getDefaultMiddleware => getDefaultMiddleware({}).concat(sagaMiddleware),
+  middleware: getDefaultMiddleware =>
+    getDefaultMiddleware({
+      serializableCheck: false,
+    }).concat(sagaMiddleware),
 });
 
 sagaMiddleware.run(rootSaga);

@@ -2,6 +2,7 @@ import { Tool } from "./Tool";
 
 class Line extends Tool {
   handleToolDrawActivation() {
+    this.saveCanvasData();
     [this.startPosition.x, this.startPosition.y] = [this.position.x, this.position.y];
   }
 
