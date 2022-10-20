@@ -1,4 +1,5 @@
 import { ICoordinates, IPaintEvent, ITool } from "../interface";
+import { ToolNames } from "../SideMenu/constants";
 
 class Tool {
   protected isDrawing: boolean;
@@ -8,9 +9,10 @@ class Tool {
   protected readonly color: ITool["colorRef"];
   protected readonly savedCanvasDataRef: ITool["savedCanvasDataRef"];
   protected startPosition: ICoordinates;
+  protected activeTool: React.MutableRefObject<ToolNames>;
 
   constructor(props: ITool) {
-    const { canvasRef, ctxRef, colorRef, savedCanvasDataRef } = props;
+    const { canvasRef, ctxRef, colorRef, savedCanvasDataRef, toolRef } = props;
     this.isDrawing = false;
     this.canvas = canvasRef.current as HTMLCanvasElement;
     this.ctx = ctxRef.current as CanvasRenderingContext2D;
@@ -18,6 +20,7 @@ class Tool {
     this.color = colorRef;
     this.savedCanvasDataRef = savedCanvasDataRef;
     this.startPosition = { x: 0, y: 0 };
+    this.activeTool = toolRef;
   }
 
   handleCursorMove(e: IPaintEvent) {

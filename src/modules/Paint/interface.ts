@@ -40,7 +40,7 @@ type IResizeProps = ICanvasRef & ICtxRef & Pick<ICanvasParamsList, "savedCanvasD
 
 type ISaveCanvasProps = ICanvasRef & ICtxRef;
 
-type ITool = ICanvasRef & ICtxRef & Pick<ICanvasParamsList, "colorRef" | "savedCanvasDataRef">;
+type ITool = ICanvasRef & ICtxRef & Pick<ICanvasParamsList, "colorRef" | "savedCanvasDataRef" | "toolRef">;
 
 type IColorPicker = Pick<ICanvasParamsList, "colorRef">;
 
