@@ -30,7 +30,7 @@ class Tool {
     if (this.isDrawing) this.handleDraw();
   }
 
-  setTouchEventPosition(e: IPaintEvent) {
+  protected setTouchEventPosition(e: IPaintEvent) {
     if (!window.TouchEvent || !(e instanceof TouchEvent)) return;
     const bcr = (e.target as HTMLElement).getBoundingClientRect();
     const x = e.targetTouches[0].clientX - bcr.x;
@@ -44,7 +44,7 @@ class Tool {
     this.handleToolDrawActivation();
   }
 
-  handleToolDrawActivation() {}
+  protected handleToolDrawActivation() {}
 
   handleDrawFinish() {
     this.isDrawing = false;
@@ -52,9 +52,9 @@ class Tool {
     this.handleToolDrawFinish();
   }
 
-  handleToolDrawFinish() {}
+  protected handleToolDrawFinish() {}
 
-  handleDraw() {}
+  protected handleDraw() {}
 
   saveCanvasData() {
     this.savedCanvasDataRef.current = this.ctx.getImageData(0, 0, this.canvas.clientWidth, this.canvas.clientHeight);

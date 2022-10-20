@@ -10,6 +10,7 @@ import { Tool } from "./Tool";
 
 class Controller extends Tool {
   protected toolsList: IToolsList;
+
   constructor(props: ITool) {
     super(props);
     this.toolsList = {
@@ -46,6 +47,32 @@ class Controller extends Tool {
     );
 
     this.canvas.addEventListener("touchcancel", () => this.toolsList[this.activeTool.current].handleDrawFinish());
+  }
+
+  removeListeners() {
+    this.canvas.removeEventListener("mousemove", (e: IPaintEvent) =>
+      this.toolsList[this.activeTool.current].handleCursorMove(e)
+    );
+
+    this.canvas.removeEventListener("mousedown", (e: IPaintEvent) =>
+      this.toolsList[this.activeTool.current].handleDrawActivation(e)
+    );
+
+    this.canvas.removeEventListener("mouseup", () => this.toolsList[this.activeTool.current].handleDrawFinish());
+
+    this.canvas.removeEventListener("mouseout", () => this.toolsList[this.activeTool.current].handleDrawFinish());
+
+    this.canvas.removeEventListener("touchstart", (e: IPaintEvent) =>
+      this.toolsList[this.activeTool.current].handleDrawActivation(e)
+    );
+
+    this.canvas.removeEventListener("touchend", () => this.toolsList[this.activeTool.current].handleDrawFinish());
+
+    this.canvas.removeEventListener("touchmove", (e: IPaintEvent) =>
+      this.toolsList[this.activeTool.current].handleCursorMove(e)
+    );
+
+    this.canvas.removeEventListener("touchcancel", () => this.toolsList[this.activeTool.current].handleDrawFinish());
   }
 }
 

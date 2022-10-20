@@ -38,6 +38,7 @@ const usePaint = () => {
 
     return () => {
       saveCanvasState();
+      ToolsController.removeListeners();
       window.removeEventListener("resize", adjustCanvasParams);
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
