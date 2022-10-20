@@ -5,13 +5,15 @@ import { IColorsPalette } from "./interface";
 import { ToolNames } from "./SideMenu/constants";
 
 interface IPaintState {
-  toolName: string;
+  toolName: ToolNames;
   colorsPalette: IColorsPalette;
+  canvasState: ImageData | null;
 }
 
 const initialState: IPaintState = {
   toolName: ToolNames.PENCIL,
   colorsPalette: DefaultColors,
+  canvasState: null,
 };
 
 export const paintSlice = createSlice({
@@ -19,11 +21,11 @@ export const paintSlice = createSlice({
   initialState,
 
   reducers: {
-    // setPaintColor: (state, action: PayloadAction<string>) => {
-    //   state.color = action.payload;
-    // },
+    setCanvasState: (state, action: PayloadAction<ImageData | null>) => {
+      state.canvasState = action.payload;
+    },
 
-    setPaintToolName: (state, action: PayloadAction<string>) => {
+    setPaintToolName: (state, action: PayloadAction<ToolNames>) => {
       state.toolName = action.payload;
     },
 
@@ -39,6 +41,7 @@ export const paintSlice = createSlice({
 // export const getPaintColor = (state: RootState) => state.paint.color;
 export const getPaintToolName = (state: RootState) => state.paint.toolName;
 export const getColorPalette = (state: RootState) => state.paint.colorsPalette;
-export const { setColorPalette, setPaintToolName } = paintSlice.actions;
+export const getPaintState = (state: RootState) => state.paint;
+export const { setColorPalette, setPaintToolName, setCanvasState } = paintSlice.actions;
 
 export default paintSlice.reducer;

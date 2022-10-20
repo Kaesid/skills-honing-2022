@@ -13,10 +13,10 @@ const useSideMenu = (props: IUseSideMenu) => {
     dispatch(setPaintToolName(toolName));
   };
 
-  useEffect(() => {
-    if (toolName !== ToolNames.PENCIL) setToolName(ToolNames.PENCIL);
-    //eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  // useEffect(() => {
+  //   if (toolName !== ToolNames.PENCIL) setToolName(ToolNames.PENCIL);
+  //   //eslint-disable-next-line react-hooks/exhaustive-deps
+  // }, []);
 
   return { setToolName };
 };

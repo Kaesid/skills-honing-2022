@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import { useRef } from "react";
 import { useAppSelector } from "../../../redux/hooks";
 import { IPaintEvent, IToolsList } from "../interface";
-import { getColorPalette } from "../paintSlice";
+import { getColorPalette, getPaintState, setCanvasState } from "../paintSlice";
 import { ToolNames } from "../SideMenu/constants";
 import { Brush } from "../tools/Brush";
 import { Circle } from "../tools/Circle";
@@ -12,12 +12,18 @@ import { Pencil } from "../tools/Pencil";
 import { Rectangle } from "../tools/Rectangle";
 import { useCanvasResize } from "./useCanvasResize";
 import { useSaveCanvas } from "./useSaveCanvas";
+import { useAppDispatch } from "./../../../redux/hooks";
 
 const usePaint = () => {
-  const savedCanvasDataRef = useRef<ImageData | null>(null);
-  const paletteColors = useAppSelector(getColorPalette);
-  const toolRef = useRef(ToolNames.PENCIL);
-  const colorRef = useRef(paletteColors.BLACK);
+  const paintState = useAppSelector(getPaintState);
+  const dispatch = useAppDispatch();
+
+  const { colorsPalette, toolName, canvasState } = paintState;
+
+  const savedCanvasDataRef = useRef<ImageData | null>(canvasState);
+  const saveCanvasState = () => dispatch(setCanvasState(savedCanvasDataRef.current));
+  const toolRef = useRef(toolName);
+  const colorRef = useRef(colorsPalette.BLACK);
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const ctxRef = useRef<CanvasRenderingContext2D | null>(null);
   const toolsRef = useRef<IToolsList | null>(null);
@@ -75,6 +81,7 @@ const usePaint = () => {
     ref.addEventListener("touchcancel", handleDrawFinish);
 
     return () => {
+      saveCanvasState();
       window.removeEventListener("resize", adjustCanvasParams);
       ref.removeEventListener("mousemove", handleCursorMove);
       ref.removeEventListener("mousedown", handleDrawActivation);
