@@ -3,6 +3,7 @@ import { IconBox, IconsBox, SideMenuButton, SideMenuButtons, SideMenuStyled } fr
 import ColorPicker from "./ColorPicker/ColorPicker";
 import { ISideMenu } from "./interface";
 import { useSideMenu } from "./useSideMenu";
+import { Redo, Undo } from "../../../assets/images/svgrepo";
 
 const SideMenu = (props: ISideMenu) => {
   const { toolName, saveCanvas, dataUrl, colorRef, resetCanvas, toolRef } = props;
@@ -11,6 +12,14 @@ const SideMenu = (props: ISideMenu) => {
   return (
     <SideMenuStyled>
       <ColorPicker colorRef={colorRef} />
+      <IconsBox>
+        <IconBox>
+          <Undo />
+        </IconBox>
+        <IconBox>
+          <Redo />
+        </IconBox>
+      </IconsBox>
       <IconsBox>
         {buttonsList.map(({ IconComponent, tooltip }) => (
           <IconBox onClick={() => setToolName(tooltip)} isActive={tooltip === toolName} key={tooltip}>

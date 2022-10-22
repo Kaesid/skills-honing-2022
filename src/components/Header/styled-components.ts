@@ -1,4 +1,4 @@
-import styled, { css } from "styled-components";
+import styled, { css, createGlobalStyle } from "styled-components";
 import { ReactComponent as Logo } from "../../assets/images/logo.svg";
 import { Link } from "react-router-dom";
 import { GrClose } from "react-icons/gr";
@@ -71,6 +71,12 @@ const BurgerIcon = styled(FiAlignJustify)`
   }
 `;
 
+const GlobalStyleOverflow = createGlobalStyle`
+  body {
+    overflow-y: ${(props: { readonly isBurgerOpen: boolean }) => (props.isBurgerOpen ? "hidden" : "unset")};
+  }
+  `;
+
 const BurgerMenu = styled.div`
   position: absolute;
   z-index: 100;
@@ -78,14 +84,21 @@ const BurgerMenu = styled.div`
   top: 40px;
   width: 100%;
   height: 100%;
+  max-height: 100vh;
   opacity: 0.9;
   background-color: rgba(2, 0, 36, 1);
   display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  align-items: center;
-  gap: 10%;
   padding-top: 20%;
+  align-items: flex-start;
+`;
+
+const RoutesLinksTab = styled.div`
+  width: 100%;
+  height: 200px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
 `;
 
 const HeaderLogo = styled(Logo)`
@@ -124,4 +137,16 @@ const MyLink = styled(Link)`
   }
 `;
 
-export { NavBar, AppHeader, LogoLink, HeaderLogo, MyLink, CloseIcon, BurgerIcon, IconWrap, BurgerMenu };
+export {
+  NavBar,
+  AppHeader,
+  LogoLink,
+  HeaderLogo,
+  MyLink,
+  CloseIcon,
+  BurgerIcon,
+  IconWrap,
+  BurgerMenu,
+  GlobalStyleOverflow,
+  RoutesLinksTab,
+};

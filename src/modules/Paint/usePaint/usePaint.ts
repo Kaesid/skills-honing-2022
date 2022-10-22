@@ -31,8 +31,7 @@ const usePaint = () => {
     if (!canvasRef.current) return;
     ctxRef.current = canvasRef.current.getContext("2d", { willReadFrequently: true });
     adjustCanvasParams();
-    const props = { canvasRef, ctxRef, colorRef, savedCanvasDataRef, toolRef };
-    const ToolsController = new Controller(props);
+    const ToolsController = new Controller({ canvasRef, ctxRef, colorRef, savedCanvasDataRef, toolRef });
     ToolsController.setListeners();
     window.addEventListener("resize", adjustCanvasParams);
 

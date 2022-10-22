@@ -1,5 +1,4 @@
-import { useRef } from "react";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { useAppSelector } from "../../../../redux/hooks";
 import { IColorPicker, IColorsPalette } from "../../interface";
 import { getColorPalette, setColorPalette } from "../../paintSlice";

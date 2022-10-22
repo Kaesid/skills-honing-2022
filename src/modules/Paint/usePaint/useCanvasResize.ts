@@ -13,6 +13,7 @@ const useCanvasResize = (props: IResizeProps) => {
   };
   const [{ width, height }, setCanvasParams] = useState(getCanvasParamsValues());
   const timeout: { current: NodeJS.Timeout | null } = useRef(null);
+  const isInitialRender = useRef(true);
 
   const fillEmptyCanvas = () => {
     if (!ctxRef.current || !canvasRef.current) return;
@@ -31,33 +32,37 @@ const useCanvasResize = (props: IResizeProps) => {
   };
 
   useEffect(() => {
-    if (!width || !height || !ctxRef.current || !canvasRef.current) return;
-
+    if (!width || !height) return;
     fillEmptyCanvas();
-    resizeSavedCanvas();
+    if (isInitialRender.current) {
+      isInitialRender.current = false;
+      redrawCanvasWithSacle();
+    } else {
+      redrawSavedCanvasWithDelay();
+    }
     //eslint-disable-next-line react-hooks/exhaustive-deps
   }, [width, height]);
 
-  const resizeSavedCanvas = () => {
-    if (!ctxRef.current || !canvasRef.current || !savedCanvasDataRef.current) return;
-
+  const redrawSavedCanvasWithDelay = () => {
     if (timeout.current) clearTimeout(timeout.current);
-    ctxRef.current.save();
-    timeout.current = setTimeout(() => {
-      if (!savedCanvasDataRef.current || !ctxRef.current || !canvasRef.current) return;
-      const tempCanvas = document.createElement("canvas");
-      tempCanvas.width = savedCanvasDataRef.current.width;
-      tempCanvas.height = savedCanvasDataRef.current.height;
-      const tempCtx = tempCanvas.getContext("2d");
-      if (!tempCtx) return;
-      tempCtx.putImageData(savedCanvasDataRef.current, 0, 0);
-      ctxRef.current.scale(width / savedCanvasDataRef.current.width, height / savedCanvasDataRef.current.height);
-      ctxRef.current.drawImage(tempCanvas, 0, 0);
-      ctxRef.current.restore();
-    }, 200);
+    timeout.current = setTimeout(redrawCanvasWithSacle, 200);
   };
 
-  return { adjustCanvasParams, width, height, resetCanvas };
+  const redrawCanvasWithSacle = () => {
+    if (!savedCanvasDataRef.current || !ctxRef.current || !canvasRef.current) return;
+    const tempCanvas = document.createElement("canvas");
+    tempCanvas.width = savedCanvasDataRef.current.width;
+    tempCanvas.height = savedCanvasDataRef.current.height;
+    const tempCtx = tempCanvas.getContext("2d");
+    if (!tempCtx) return;
+    tempCtx.putImageData(savedCanvasDataRef.current, 0, 0);
+    ctxRef.current.save();
+    ctxRef.current.scale(width / savedCanvasDataRef.current.width, height / savedCanvasDataRef.current.height);
+    ctxRef.current.drawImage(tempCanvas, 0, 0);
+    ctxRef.current.restore();
+  };
+
+  return { adjustCanvasParams, width, height, resetCanvas, redrawCanvasWithSacle };
 };
 
 export { useCanvasResize };

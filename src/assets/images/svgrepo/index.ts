@@ -17,6 +17,8 @@ import { ReactComponent as Caption } from "./caption.svg";
 import { ReactComponent as Square } from "./square.svg";
 import { ReactComponent as Circle } from "./circle.svg";
 import { ReactComponent as Line } from "./line.svg";
+import { ReactComponent as Redo } from "./redo.svg";
+import { ReactComponent as Undo } from "./undo.svg";
 
 export {
   pencil,
@@ -38,4 +40,6 @@ export {
   line,
   Line,
   downArrow,
+  Redo,
+  Undo,
 };

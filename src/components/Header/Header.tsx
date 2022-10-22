@@ -8,6 +8,8 @@ import {
   BurgerIcon,
   IconWrap,
   BurgerMenu,
+  GlobalStyleOverflow,
+  RoutesLinksTab,
 } from "./styled-components";
 import { useMobileResolutionCheck } from "../../hooks/useMobileResolutionCheck";
 import RoutesLinksList from "../RoutesLinksList/RoutesLinksList";
@@ -25,12 +27,15 @@ const Header = () => {
         <HeaderLogo />
       </LogoLink>
       <NavBar>
+        <GlobalStyleOverflow isBurgerOpen={isBurgerOpen} />
         {isMobile ? (
           isBurgerOpen ? (
             <IconWrap>
               <CloseIcon onClick={toggleBurger} size={25} />
               <BurgerMenu>
-                <RoutesLinksList pathname={pathname} onClick={closeBurger} />
+                <RoutesLinksTab>
+                  <RoutesLinksList pathname={pathname} onClick={closeBurger} />
+                </RoutesLinksTab>
               </BurgerMenu>
             </IconWrap>
           ) : (
