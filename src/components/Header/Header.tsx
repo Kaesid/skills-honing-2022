@@ -1,4 +1,3 @@
-import { RoutesPath } from "../RoutesList/paths";
 import {
   AppHeader,
   HeaderLogo,
@@ -15,6 +14,7 @@ import { useMobileResolutionCheck } from "../../hooks/useMobileResolutionCheck";
 import RoutesLinksList from "../RoutesLinksList/RoutesLinksList";
 import { useLocation } from "react-router-dom";
 import { useBurger } from "./useBurger";
+import { RoutesPath } from "../RoutesList/constants";
 
 const Header = () => {
   const { isMobile } = useMobileResolutionCheck();

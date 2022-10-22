@@ -1,6 +1,6 @@
 import React from "react";
 import { MyLink } from "../Header/styled-components";
-import { routerPaths } from "../RoutesList/paths";
+import { routerPaths } from "../RoutesList/constants";
 
 const RoutesLinksList = (props: { onClick?: () => void; pathname: string }) => {
   const { onClick, pathname } = props;
@@ -8,7 +8,7 @@ const RoutesLinksList = (props: { onClick?: () => void; pathname: string }) => {
   return (
     <>
       {routerPaths.map(({ path, text }) => (
-        <MyLink onClick={onClick} className={path === pathname ? "active" : ""} to={path} key={path}>
+        <MyLink onClick={onClick} isActive={path === pathname} to={path} key={path}>
           {text}
         </MyLink>
       ))}

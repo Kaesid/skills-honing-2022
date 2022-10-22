@@ -1,14 +1,9 @@
 import About from "../../modules/About/About";
 import CountersPage from "../../modules/Counters/Counters";
-import Paint from "./../../modules/Paint/Paint";
+import Paint from "../../modules/Paint/Paint";
+import { IRoute } from "./interface";
 
-export interface IRoute {
-  path: string;
-  text: string;
-  Component: React.FunctionComponent | React.ComponentClass;
-}
-
-export enum RoutesPath {
+enum RoutesPath {
   ROOT = "/",
   ABOUT = "/about",
   DEBUG = "/debug",
@@ -31,4 +26,4 @@ const routerPaths: IRoute[] = [
   },
 ];
 
-export { routerPaths };
+export { routerPaths, RoutesPath };

@@ -127,14 +127,16 @@ const MyLink = styled(Link)`
   color: ${linkNonActiveColor};
   font-weight: bold;
 
-  &:hover,
-  &.active {
+  &:hover {
     color: ${linkActiveColor};
   }
 
-  &.active {
-    pointer-events: none;
-  }
+  ${(props: { readonly isActive: boolean }) =>
+    props.isActive &&
+    css`
+      color: ${linkActiveColor};
+      pointer-events: none;
+    `}
 `;
 
 export {
