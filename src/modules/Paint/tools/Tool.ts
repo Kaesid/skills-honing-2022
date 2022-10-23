@@ -7,6 +7,7 @@ class Tool {
   protected readonly ctx: CanvasRenderingContext2D;
   protected readonly position: ICoordinates;
   protected readonly color: ITool["colorRef"];
+  protected lineWidth: number;
   protected readonly savedCanvasDataRef: ITool["savedCanvasDataRef"];
   protected startPosition: ICoordinates;
   protected activeTool: React.MutableRefObject<ToolNames>;
@@ -21,6 +22,7 @@ class Tool {
     this.savedCanvasDataRef = savedCanvasDataRef;
     this.startPosition = { x: 0, y: 0 };
     this.activeTool = toolRef;
+    this.lineWidth = 1;
   }
 
   handleCursorMove(e: IPaintEvent) {
@@ -40,8 +42,19 @@ class Tool {
 
   handleDrawActivation(e: IPaintEvent) {
     this.isDrawing = true;
+    this.setColor();
+    this.setLineWidth();
     this.setTouchEventPosition(e);
     this.handleToolDrawActivation();
+  }
+
+  setColor() {
+    this.ctx.strokeStyle = this.color.current;
+    this.ctx.fillStyle = this.color.current;
+  }
+
+  setLineWidth() {
+    this.ctx.lineWidth = this.lineWidth;
   }
 
   protected handleToolDrawActivation() {}
@@ -58,6 +71,10 @@ class Tool {
 
   saveCanvasData() {
     this.savedCanvasDataRef.current = this.ctx.getImageData(0, 0, this.canvas.clientWidth, this.canvas.clientHeight);
+  }
+
+  restoreCanvasState() {
+    if (this.savedCanvasDataRef.current) this.ctx.putImageData(this.savedCanvasDataRef.current, 0, 0);
   }
 }
 

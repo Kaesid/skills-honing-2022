@@ -1,11 +1,14 @@
-import { Tool } from "./Tool";
+import { ITool } from "../interface";
+import { Pencil } from "./Pencil";
 
-class Eraser extends Tool {
-  handleDraw() {
-    this.ctx.fillStyle = "white";
-    this.ctx.beginPath();
-    this.ctx.arc(this.position.x, this.position.y, 10, 0, Math.PI * 3);
-    this.ctx.fill();
+class Eraser extends Pencil {
+  constructor(props: ITool) {
+    super(props);
+    this.lineWidth = 15;
+  }
+
+  setColor() {
+    this.ctx.strokeStyle = "white";
   }
 }
 

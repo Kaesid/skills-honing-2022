@@ -1,6 +1,12 @@
+import { ITool } from "../interface";
 import { Tool } from "./Tool";
 
 class Circle extends Tool {
+  constructor(props: ITool) {
+    super(props);
+    this.lineWidth = 5;
+  }
+
   handleToolDrawActivation() {
     this.saveCanvasData();
     this.ctx.beginPath();
@@ -8,10 +14,7 @@ class Circle extends Tool {
   }
 
   handleDraw() {
-    this.ctx.fillStyle = this.color.current;
-    this.ctx.lineWidth = 5;
-    if (this.savedCanvasDataRef.current) this.ctx.putImageData(this.savedCanvasDataRef.current, 0, 0);
-
+    this.restoreCanvasState();
     this.ctx.beginPath();
     this.ctx.moveTo(this.startPosition.x, this.startPosition.y + (this.position.y - this.startPosition.y) / 2);
     this.ctx.bezierCurveTo(
