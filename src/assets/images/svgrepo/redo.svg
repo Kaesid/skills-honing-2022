@@ -3,7 +3,7 @@
 <metadata>
 	<sfw  xmlns="&ns_sfw;">
 		<slices></slices>
-		<sliceSourceBounds  width="505" height="984" bottomLeftOrigin="true" x="0" y="-552"></sliceSourceBounds>
+		<sliceSourceBounds  width="505" height="984" x="0" y="-552"></sliceSourceBounds>
 	</sfw>
 </metadata>
 <g>

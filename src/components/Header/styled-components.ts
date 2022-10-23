@@ -131,8 +131,8 @@ const MyLink = styled(Link)`
     color: ${linkActiveColor};
   }
 
-  ${(props: { readonly isActive: boolean }) =>
-    props.isActive &&
+  ${(props: { readonly $isActive: boolean }) =>
+    props.$isActive &&
     css`
       color: ${linkActiveColor};
       pointer-events: none;

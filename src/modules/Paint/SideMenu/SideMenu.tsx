@@ -22,7 +22,7 @@ const SideMenu = (props: ISideMenu) => {
       </IconsBox>
       <IconsBox>
         {buttonsList.map(({ IconComponent, tooltip }) => (
-          <IconBox onClick={() => setToolName(tooltip)} isActive={tooltip === toolName} key={tooltip}>
+          <IconBox onClick={() => setToolName(tooltip)} $isActive={tooltip === toolName} key={tooltip}>
             <IconComponent />
           </IconBox>
         ))}

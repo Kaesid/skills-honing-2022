@@ -56,8 +56,8 @@ const IconBox = styled.div`
     }
   }
 
-  ${(props: { readonly isActive?: boolean }) =>
-    props.isActive &&
+  ${(props: { readonly $isActive?: boolean }) =>
+    props.$isActive &&
     css`
       svg {
         path {

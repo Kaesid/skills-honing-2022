@@ -8,7 +8,7 @@ const RoutesLinksList = (props: { onClick?: () => void; pathname: string }) => {
   return (
     <>
       {routerPaths.map(({ path, text }) => (
-        <MyLink onClick={onClick} isActive={path === pathname} to={path} key={path}>
+        <MyLink onClick={onClick} $isActive={path === pathname} to={path} key={path}>
           {text}
         </MyLink>
       ))}
