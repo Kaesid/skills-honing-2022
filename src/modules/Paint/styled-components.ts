@@ -11,6 +11,8 @@ const PaintPage = styled.div`
   }
 `;
 
+const scrollMarginWidth = "40px";
+
 const CanvasWrap = styled.div`
   max-width: 100vw;
   width: 100%;
@@ -21,7 +23,7 @@ const CanvasWrap = styled.div`
 
   @media (max-width: ${SCREEN_SIZES.TABLET}px) {
     width: unset;
-    margin-right: 40px;
+    margin-right: ${scrollMarginWidth};
     margin-bottom: 5px;
 
     &::after {
@@ -31,7 +33,7 @@ const CanvasWrap = styled.div`
       background-position: center center;
       position: absolute;
       top: 10%;
-      right: -33px;
+      right: calc(-1 * ${scrollMarginWidth} + 7px);
       background-size: 30px 30px;
       background-repeat: no-repeat;
       width: 30px;
@@ -53,7 +55,7 @@ const CanvasWrap = styled.div`
       border-radius: 6px;
       border: 1px solid rgba(167, 164, 224, 1);
       box-shadow: 5px 6px 3px 1px #0000001f;
-      right: -40px;
+      right: calc(-1 * ${scrollMarginWidth});
       height: 100%;
       width: 40px;
     }
