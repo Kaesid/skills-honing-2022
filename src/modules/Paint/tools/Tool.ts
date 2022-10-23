@@ -14,15 +14,15 @@ class Tool {
 
   constructor(props: ITool) {
     const { canvasRef, ctxRef, colorRef, savedCanvasDataRef, toolRef } = props;
-    this.isDrawing = false;
     this.canvas = canvasRef.current as HTMLCanvasElement;
     this.ctx = ctxRef.current as CanvasRenderingContext2D;
-    this.position = { x: 0, y: 0 };
-    this.color = colorRef;
     this.savedCanvasDataRef = savedCanvasDataRef;
-    this.startPosition = { x: 0, y: 0 };
+    this.color = colorRef;
     this.activeTool = toolRef;
+    this.position = { x: 0, y: 0 };
+    this.startPosition = { x: 0, y: 0 };
     this.lineWidth = 1;
+    this.isDrawing = false;
   }
 
   handleCursorMove(e: IPaintEvent) {
@@ -44,8 +44,13 @@ class Tool {
     this.isDrawing = true;
     this.setColor();
     this.setLineWidth();
+    this.saveStartPosition();
     this.setTouchEventPosition(e);
     this.handleToolDrawActivation();
+  }
+
+  saveStartPosition() {
+    [this.startPosition.x, this.startPosition.y] = [this.position.x, this.position.y];
   }
 
   setColor() {
@@ -57,17 +62,11 @@ class Tool {
     this.ctx.lineWidth = this.lineWidth;
   }
 
-  protected handleToolDrawActivation() {}
-
   handleDrawFinish() {
     this.isDrawing = false;
     this.saveCanvasData();
     this.handleToolDrawFinish();
   }
-
-  protected handleToolDrawFinish() {}
-
-  protected handleDraw() {}
 
   saveCanvasData() {
     this.savedCanvasDataRef.current = this.ctx.getImageData(0, 0, this.canvas.clientWidth, this.canvas.clientHeight);
@@ -76,6 +75,10 @@ class Tool {
   restoreCanvasState() {
     if (this.savedCanvasDataRef.current) this.ctx.putImageData(this.savedCanvasDataRef.current, 0, 0);
   }
+
+  protected handleToolDrawActivation() {}
+  protected handleDraw() {}
+  protected handleToolDrawFinish() {}
 }
 
 export { Tool };

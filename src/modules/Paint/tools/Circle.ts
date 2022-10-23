@@ -10,7 +10,6 @@ class Circle extends Tool {
   handleToolDrawActivation() {
     this.saveCanvasData();
     this.ctx.beginPath();
-    [this.startPosition.x, this.startPosition.y] = [this.position.x, this.position.y];
   }
 
   handleDraw() {
