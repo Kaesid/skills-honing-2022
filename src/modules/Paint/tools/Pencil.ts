@@ -1,3 +1,4 @@
+import { ITool } from "../interface";
 import { Tool } from "./Tool";
 
 class Pencil extends Tool {

@@ -22,16 +22,6 @@ const NavBar = styled.nav`
   gap: 20px;
 `;
 
-/* ${(props: { isBurgerOpen: boolean }) =>
-    props.isBurgerOpen &&
-    css`
-      height: 100vh;
-      width: 100%;
-      z-index: 100;
-      justify-content: flex-end;
-      background-color: gray;
-    `} */
-
 const IconWrap = styled.div`
   width: 40px;
   display: flex;

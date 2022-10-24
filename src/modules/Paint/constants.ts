@@ -1,5 +1,5 @@
 enum DefaultColors {
-  BLACK = "#090c09",
+  BLACK = "#0a0a0b",
   YELLLOW = "#e1e16c",
   RED = "#932020",
   BLUE = "#1919b1",
