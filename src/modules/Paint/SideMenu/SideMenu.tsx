@@ -1,5 +1,12 @@
 import { buttonsList } from "./constants";
-import { IconBox, IconsBox, SideMenuButton, SideMenuButtons, SideMenuStyled } from "./styled-components";
+import {
+  CanvasStateIcon,
+  IconBox,
+  IconsBox,
+  SideMenuButton,
+  SideMenuButtons,
+  SideMenuStyled,
+} from "./styled-components";
 import ColorPicker from "./ColorPicker/ColorPicker";
 import { ISideMenu } from "./interface";
 import { useSideMenu } from "./useSideMenu";
@@ -13,12 +20,12 @@ const SideMenu = (props: ISideMenu) => {
     <SideMenuStyled>
       <ColorPicker colorRef={colorRef} />
       <IconsBox>
-        <IconBox>
+        <CanvasStateIcon>
           <Undo />
-        </IconBox>
-        <IconBox>
+        </CanvasStateIcon>
+        <CanvasStateIcon>
           <Redo />
-        </IconBox>
+        </CanvasStateIcon>
       </IconsBox>
       <IconsBox>
         {buttonsList.map(({ IconComponent, tooltip }) => (

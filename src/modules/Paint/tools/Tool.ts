@@ -44,8 +44,8 @@ class Tool {
     this.isDrawing = true;
     this.setColor();
     this.setLineWidth();
-    this.saveStartPosition();
     this.setTouchEventPosition(e);
+    this.saveStartPosition();
     this.handleToolDrawActivation();
   }
 
