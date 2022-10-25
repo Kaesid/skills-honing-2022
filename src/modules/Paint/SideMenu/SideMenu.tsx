@@ -13,7 +13,7 @@ import { useSideMenu } from "./useSideMenu";
 import { Redo, Undo } from "../../../assets/images/svgrepo";
 
 const SideMenu = (props: ISideMenu) => {
-  const { toolName, saveCanvas, dataUrl, colorRef, resetCanvas, toolRef, undo } = props;
+  const { toolName, saveCanvas, dataUrl, colorRef, resetCanvas, toolRef, undo, redo } = props;
   const { setToolName } = useSideMenu({ toolName, toolRef });
 
   return (
@@ -23,7 +23,7 @@ const SideMenu = (props: ISideMenu) => {
         <CanvasStateIcon onClick={undo}>
           <Undo />
         </CanvasStateIcon>
-        <CanvasStateIcon>
+        <CanvasStateIcon onClick={redo}>
           <Redo />
         </CanvasStateIcon>
       </IconsBox>

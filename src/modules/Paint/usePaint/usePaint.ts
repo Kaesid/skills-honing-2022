@@ -29,6 +29,7 @@ const usePaint = () => {
     ctxRef,
     canvasRef,
     savedCanvasDataRef,
+    canvasStates,
   });
   const { dataUrl, saveCanvas } = useSaveCanvas({ canvasRef, ctxRef });
 
@@ -38,12 +39,28 @@ const usePaint = () => {
     console.log(canvasStates.current);
     console.log(canvasStates.current.data[canvasStates.current.position]);
     if (!canvasStates.current.data[canvasStates.current.position - 1]) {
+      console.log("undo --nope");
       resetCanvas();
       return;
     }
     ctxRef.current.putImageData(canvasStates.current.data[canvasStates.current.position - 1], 0, 0);
     canvasStates.current.position -= 1;
+    console.log(canvasStates.current);
     // canvasStates.current.data
+  };
+  const redo = () => {
+    console.log(1);
+    if (!ctxRef.current || !canvasStates.current.data.length) return;
+    console.log(canvasStates.current);
+    console.log(canvasStates.current.data[canvasStates.current.position + 1]);
+    if (!canvasStates.current.data[canvasStates.current.position + 1]) {
+      console.log("redo --nope");
+      return;
+    }
+    ctxRef.current.putImageData(canvasStates.current.data[canvasStates.current.position + 1], 0, 0);
+    canvasStates.current.position += 1;
+    // canvasStates.current.data
+    console.log(canvasStates.current);
   };
 
   useEffect(() => {
@@ -62,7 +79,7 @@ const usePaint = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  return { canvasRef, width, height, colorRef, saveCanvas, dataUrl, resetCanvas, toolRef, undo };
+  return { canvasRef, width, height, colorRef, saveCanvas, dataUrl, resetCanvas, toolRef, undo, redo };
 };
 
 export { usePaint };

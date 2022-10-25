@@ -37,7 +37,7 @@ type ICtxRef = Pick<ICanvasParamsList, "ctxRef">;
 
 type IPosition = Pick<ICanvasParamsList, "position">;
 
-type IResizeProps = ICanvasRef & ICtxRef & Pick<ICanvasParamsList, "savedCanvasDataRef">;
+type IResizeProps = ICanvasRef & ICtxRef & Pick<ICanvasParamsList, "savedCanvasDataRef" | "canvasStates">;
 
 type ISaveCanvasProps = ICanvasRef & ICtxRef;
 

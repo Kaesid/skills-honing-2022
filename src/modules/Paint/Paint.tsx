@@ -8,7 +8,7 @@ import { usePaint } from "./usePaint/usePaint";
 const Paint = () => {
   const toolName = useAppSelector(getPaintToolName);
 
-  const { canvasRef, width, height, saveCanvas, dataUrl, colorRef, resetCanvas, toolRef, undo } = usePaint();
+  const { canvasRef, width, height, saveCanvas, dataUrl, colorRef, resetCanvas, toolRef, undo, redo } = usePaint();
 
   return (
     <PaintPage
@@ -22,6 +22,7 @@ const Paint = () => {
         saveCanvas={saveCanvas}
         toolRef={toolRef}
         undo={undo}
+        redo={redo}
       />
       <CanvasWrap onContextMenu={e => e.preventDefault()}>
         <Canvas canvasRef={canvasRef} width={width} height={height} />

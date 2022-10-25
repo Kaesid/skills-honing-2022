@@ -78,10 +78,20 @@ class Tool {
 
   saveCanvasStateToList() {
     if (!this.savedCanvasDataRef.current) return;
-    console.log(111);
+
+    if (this.canvasStates.current.data.length > this.canvasStates.current.position + 1) {
+      // console.log(this.canvasStates.current.data.length);
+      // console.log(this.canvasStates.current.position);
+      this.canvasStates.current.data.length = this.canvasStates.current.position + 1;
+      // this.canvasStates.current.position
+    }
     this.canvasStates.current.data.push(this.savedCanvasDataRef.current);
-    if (this.canvasStates.current.data.length >= 10) this.canvasStates.current.data.shift();
-    this.canvasStates.current.position = this.canvasStates.current.data.length - 1;
+    if (this.canvasStates.current.data.length >= 10) {
+      this.canvasStates.current.data.shift();
+    } else {
+      this.canvasStates.current.position += 1;
+    }
+
     console.log(this.canvasStates.current);
   }
 

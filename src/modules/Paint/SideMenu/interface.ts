@@ -9,6 +9,7 @@ type ISideMenu = ISideMenuTools & {
   dataUrl: string;
   resetCanvas: () => void;
   undo: () => void;
+  redo: () => void;
 };
 
 type IUseSideMenu = Pick<ISideMenu, "toolRef" | "toolName">;
