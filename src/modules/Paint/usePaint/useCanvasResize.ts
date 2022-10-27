@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import { IResizeProps } from "../interface";
 
 const useCanvasResize = (props: IResizeProps) => {
-  const { ctxRef, canvasRef, savedCanvasDataRef, canvasStates } = props;
+  const { ctxRef, canvasRef, savedCanvasDataRef, canvasStatesRef } = props;
   const getCanvasParamsValues = () => {
     // const ratio = Math.max(window.devicePixelRatio || 1, 1);
     const ratio = 1;
@@ -25,8 +25,8 @@ const useCanvasResize = (props: IResizeProps) => {
   const resetCanvas = () => {
     fillEmptyCanvas();
     savedCanvasDataRef.current = null;
-    canvasStates.current.data = [];
-    canvasStates.current.position = -1;
+    canvasStatesRef.current.data = [];
+    canvasStatesRef.current.position = -1;
   };
 
   const adjustCanvasParams = () => {

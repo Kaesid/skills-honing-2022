@@ -28,7 +28,7 @@ interface ICanvasParamsList {
   colorRef: React.MutableRefObject<string>;
   toolRef: React.MutableRefObject<ToolNames>;
   position: React.MutableRefObject<ICoordinates>;
-  canvasStates: React.MutableRefObject<ICanvasStates>;
+  canvasStatesRef: React.MutableRefObject<ICanvasStates>;
 }
 
 type ICanvasRef = Pick<ICanvasParamsList, "canvasRef">;
@@ -37,13 +37,13 @@ type ICtxRef = Pick<ICanvasParamsList, "ctxRef">;
 
 type IPosition = Pick<ICanvasParamsList, "position">;
 
-type IResizeProps = ICanvasRef & ICtxRef & Pick<ICanvasParamsList, "savedCanvasDataRef" | "canvasStates">;
+type IResizeProps = ICanvasRef & ICtxRef & Pick<ICanvasParamsList, "savedCanvasDataRef" | "canvasStatesRef">;
 
 type ISaveCanvasProps = ICanvasRef & ICtxRef;
 
 type ITool = ICanvasRef &
   ICtxRef &
-  Pick<ICanvasParamsList, "colorRef" | "savedCanvasDataRef" | "toolRef" | "canvasStates">;
+  Pick<ICanvasParamsList, "colorRef" | "savedCanvasDataRef" | "toolRef" | "canvasStatesRef">;
 type IColorPicker = Pick<ICanvasParamsList, "colorRef">;
 
 type ITouchPosiitionGet = IPosition & { e: IPaintEvent };

@@ -11,14 +11,14 @@ class Tool {
   protected readonly savedCanvasDataRef: ITool["savedCanvasDataRef"];
   protected startPosition: ICoordinates;
   protected activeTool: React.MutableRefObject<ToolNames>;
-  protected canvasStates: ITool["canvasStates"];
+  protected canvasStates: ITool["canvasStatesRef"];
 
   constructor(props: ITool) {
-    const { canvasRef, ctxRef, colorRef, savedCanvasDataRef, toolRef, canvasStates } = props;
+    const { canvasRef, ctxRef, colorRef, savedCanvasDataRef, toolRef, canvasStatesRef } = props;
     this.canvas = canvasRef.current as HTMLCanvasElement;
     this.ctx = ctxRef.current as CanvasRenderingContext2D;
     this.savedCanvasDataRef = savedCanvasDataRef;
-    this.canvasStates = canvasStates;
+    this.canvasStates = canvasStatesRef;
     this.color = colorRef;
     this.activeTool = toolRef;
     this.position = { x: 0, y: 0 };
@@ -86,13 +86,13 @@ class Tool {
       // this.canvasStates.current.position
     }
     this.canvasStates.current.data.push(this.savedCanvasDataRef.current);
-    if (this.canvasStates.current.data.length >= 10) {
+    if (this.canvasStates.current.data.length > 5) {
       this.canvasStates.current.data.shift();
     } else {
       this.canvasStates.current.position += 1;
     }
 
-    console.log(this.canvasStates.current);
+    // console.log(this.canvasStates.current);
   }
 
   restoreCanvasState() {

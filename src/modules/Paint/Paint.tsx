@@ -1,3 +1,4 @@
+import React from "react";
 import { CanvasWrap, PaintPage } from "./styled-components";
 import SideMenu from "./SideMenu/SideMenu";
 import Canvas from "./Canvas/Canvas";
@@ -31,4 +32,4 @@ const Paint = () => {
   );
 };
 
-export default Paint;
+export default React.memo(Paint);
