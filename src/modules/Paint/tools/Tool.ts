@@ -3,6 +3,7 @@ import { ToolNames } from "../SideMenu/constants";
 
 class Tool {
   protected isDrawing: boolean;
+  protected isToolMoving: boolean;
   protected readonly canvas: HTMLCanvasElement;
   protected readonly ctx: CanvasRenderingContext2D;
   protected readonly position: ICoordinates;
@@ -25,6 +26,7 @@ class Tool {
     this.startPosition = { x: 0, y: 0 };
     this.lineWidth = 1;
     this.isDrawing = false;
+    this.isToolMoving = false;
   }
 
   handleCursorMove(e: IPaintEvent) {
@@ -51,6 +53,11 @@ class Tool {
     this.handleToolDrawActivation();
   }
 
+  handleDraw() {
+    this.isToolMoving = true;
+    this.handleToolDraw();
+  }
+
   saveStartPosition() {
     [this.startPosition.x, this.startPosition.y] = [this.position.x, this.position.y];
   }
@@ -64,9 +71,21 @@ class Tool {
     this.ctx.lineWidth = this.lineWidth;
   }
 
+  ProcessSingleClickToolAction() {
+    if (!this.isToolMoving && this.position.x === this.startPosition.x && this.position.y === this.startPosition.y) {
+      this.singleClickAction();
+    }
+  }
+
+  singleClickAction() {
+    this.ctx.fillRect(this.position.x, this.position.y, this.lineWidth, this.lineWidth);
+  }
+
   handleDrawFinish() {
     if (!this.isDrawing) return;
+    this.ProcessSingleClickToolAction();
     this.isDrawing = false;
+    this.isToolMoving = false;
     this.saveCanvasData();
     this.saveCanvasStateToList();
     this.handleToolDrawFinish();
@@ -92,7 +111,7 @@ class Tool {
       this.canvasStates.current.position += 1;
     }
 
-    // console.log(this.canvasStates.current);
+    console.log(this.canvasStates.current);
   }
 
   restoreCanvasState() {
@@ -100,7 +119,7 @@ class Tool {
   }
 
   protected handleToolDrawActivation() {}
-  protected handleDraw() {}
+  protected handleToolDraw() {}
   protected handleToolDrawFinish() {}
 }
 

@@ -29,6 +29,7 @@ interface ICanvasParamsList {
   toolRef: React.MutableRefObject<ToolNames>;
   position: React.MutableRefObject<ICoordinates>;
   canvasStatesRef: React.MutableRefObject<ICanvasStates>;
+  fillEmptyCanvas: () => void;
 }
 
 type ICanvasRef = Pick<ICanvasParamsList, "canvasRef">;
@@ -37,13 +38,18 @@ type ICtxRef = Pick<ICanvasParamsList, "ctxRef">;
 
 type IPosition = Pick<ICanvasParamsList, "position">;
 
-type IResizeProps = ICanvasRef & ICtxRef & Pick<ICanvasParamsList, "savedCanvasDataRef" | "canvasStatesRef">;
+type IResizeProps = ICanvasRef &
+  ICtxRef &
+  Pick<ICanvasParamsList, "savedCanvasDataRef" | "canvasStatesRef" | "fillEmptyCanvas">;
 
 type ISaveCanvasProps = ICanvasRef & ICtxRef;
 
 type ITool = ICanvasRef &
   ICtxRef &
   Pick<ICanvasParamsList, "colorRef" | "savedCanvasDataRef" | "toolRef" | "canvasStatesRef">;
+
+type IUndoRedo = ICanvasRef & ICtxRef & Pick<ICanvasParamsList, "savedCanvasDataRef" | "canvasStatesRef">;
+
 type IColorPicker = Pick<ICanvasParamsList, "colorRef">;
 
 type ITouchPosiitionGet = IPosition & { e: IPaintEvent };
@@ -68,8 +74,6 @@ interface ICanvasStates {
   position: number;
 }
 
-export type { IColorsName, IPaletteSlot, IColorsPalette, ICanvasStates };
-
 export type {
   IHandlers,
   ICoordinates,
@@ -83,4 +87,9 @@ export type {
   IColorPicker,
   ICanvasRef,
   ITouchPosiitionGet,
+  IUndoRedo,
+  IColorsName,
+  IPaletteSlot,
+  IColorsPalette,
+  ICanvasStates,
 };

@@ -1,44 +1,23 @@
 import { useEffect, useRef, useState } from "react";
 import { IResizeProps } from "../interface";
+import { getCanvasParamsValues } from "./helpers";
 
 const useCanvasResize = (props: IResizeProps) => {
-  const { ctxRef, canvasRef, savedCanvasDataRef, canvasStatesRef } = props;
-  const getCanvasParamsValues = () => {
-    // const ratio = Math.max(window.devicePixelRatio || 1, 1);
-    const ratio = 1;
-    const params = canvasRef.current
-      ? { width: canvasRef.current.clientWidth * ratio, height: canvasRef.current.clientHeight * ratio }
-      : { width: 0, height: 0 };
-    return params;
-  };
-  const [{ width, height }, setCanvasParams] = useState(getCanvasParamsValues());
+  const { ctxRef, canvasRef, savedCanvasDataRef, fillEmptyCanvas } = props;
+
   const timeout: { current: NodeJS.Timeout | null } = useRef(null);
   const isInitialRender = useRef(true);
+  const [{ width, height }, setCanvasParams] = useState(getCanvasParamsValues(canvasRef.current));
 
-  const fillEmptyCanvas = () => {
-    if (!ctxRef.current || !canvasRef.current) return;
-    ctxRef.current.clearRect(0, 0, width, height);
-    ctxRef.current.fillStyle = "white";
-    ctxRef.current.fillRect(0, 0, width, height);
-  };
-
-  const resetCanvas = () => {
-    fillEmptyCanvas();
-    savedCanvasDataRef.current = null;
-    canvasStatesRef.current.data = [];
-    canvasStatesRef.current.position = -1;
-  };
-
-  const adjustCanvasParams = () => {
-    setCanvasParams(getCanvasParamsValues());
-  };
+  const adjustCanvasParams = () => setCanvasParams(getCanvasParamsValues(canvasRef.current));
 
   useEffect(() => {
     if (!width || !height) return;
     fillEmptyCanvas();
+
     if (isInitialRender.current) {
       isInitialRender.current = false;
-      redrawCanvasWithSacle();
+      redrawCanvasWithScale();
     } else {
       redrawSavedCanvasWithDelay();
     }
@@ -47,10 +26,10 @@ const useCanvasResize = (props: IResizeProps) => {
 
   const redrawSavedCanvasWithDelay = () => {
     if (timeout.current) clearTimeout(timeout.current);
-    timeout.current = setTimeout(redrawCanvasWithSacle, 200);
+    timeout.current = setTimeout(redrawCanvasWithScale, 200);
   };
 
-  const redrawCanvasWithSacle = () => {
+  const redrawCanvasWithScale = () => {
     if (!savedCanvasDataRef.current || !ctxRef.current || !canvasRef.current) return;
     const tempCanvas = document.createElement("canvas");
     tempCanvas.width = savedCanvasDataRef.current.width;
@@ -64,7 +43,7 @@ const useCanvasResize = (props: IResizeProps) => {
     ctxRef.current.restore();
   };
 
-  return { adjustCanvasParams, width, height, resetCanvas, redrawCanvasWithSacle };
+  return { adjustCanvasParams, width, height };
 };
 
 export { useCanvasResize };

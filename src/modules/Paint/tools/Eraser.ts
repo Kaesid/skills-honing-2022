@@ -9,6 +9,7 @@ class Eraser extends Pencil {
 
   setColor() {
     this.ctx.strokeStyle = "white";
+    this.ctx.fillStyle = "white";
   }
 }
 

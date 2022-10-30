@@ -7,7 +7,7 @@ class Pencil extends Tool {
     this.ctx.lineTo(this.position.x, this.position.y);
   }
 
-  handleDraw() {
+  handleToolDraw() {
     this.ctx.lineTo(this.position.x, this.position.y);
     this.ctx.stroke();
   }

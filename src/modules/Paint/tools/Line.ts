@@ -11,7 +11,7 @@ class Line extends Tool {
     this.saveCanvasData();
   }
 
-  handleDraw() {
+  handleToolDraw() {
     this.restoreCanvasState();
     this.ctx.beginPath();
     this.ctx.moveTo(this.startPosition.x, this.startPosition.y);

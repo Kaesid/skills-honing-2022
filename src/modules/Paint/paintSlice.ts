@@ -7,7 +7,7 @@ import { ToolNames } from "./SideMenu/constants";
 interface IPaintState {
   toolName: ToolNames;
   colorsPalette: IColorsPalette;
-  canvasState: ImageData | null;
+  // canvasState: ImageData | null;
   canvasStates: ICanvasStates;
   // canvasStates: string;
 }
@@ -15,7 +15,7 @@ interface IPaintState {
 const initialState: IPaintState = {
   toolName: ToolNames.PENCIL,
   colorsPalette: DefaultColors,
-  canvasState: null,
+  // canvasState: null,
   canvasStates: {
     data: [],
     position: -1,
@@ -31,9 +31,9 @@ export const paintSlice = createSlice({
   initialState,
 
   reducers: {
-    setCanvasState: (state, action: PayloadAction<ImageData | null>) => {
-      state.canvasState = action.payload;
-    },
+    // setCanvasState: (state, action: PayloadAction<ImageData | null>) => {
+    //   state.canvasState = action.payload;
+    // },
 
     setCanvasStates: (state, action: PayloadAction<ICanvasStates>) => {
       state.canvasStates = action.payload;
@@ -56,6 +56,6 @@ export const paintSlice = createSlice({
 export const getPaintToolName = (state: RootState) => state.paint.toolName;
 export const getColorPalette = (state: RootState) => state.paint.colorsPalette;
 export const getPaintState = (state: RootState) => state.paint;
-export const { setColorPalette, setPaintToolName, setCanvasState, setCanvasStates } = paintSlice.actions;
+export const { setColorPalette, setPaintToolName, setCanvasStates } = paintSlice.actions;
 
 export default paintSlice.reducer;

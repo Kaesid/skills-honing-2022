@@ -1,74 +1,58 @@
 import { useEffect } from "react";
 import { useRef } from "react";
 import { useAppSelector } from "../../../redux/hooks";
-import { getPaintState, setCanvasState, setCanvasStates } from "../paintSlice";
+import { getPaintState, setCanvasStates } from "../paintSlice";
 import { useCanvasResize } from "./useCanvasResize";
 import { useSaveCanvas } from "./useSaveCanvas";
 import { useAppDispatch } from "./../../../redux/hooks";
 import { Controller } from "../tools/Controller";
 import { ICanvasStates } from "../interface";
+import { useUndoRedo } from "./useUndoRedo";
 
 const usePaint = () => {
   const paintState = useAppSelector(getPaintState);
   const dispatch = useAppDispatch();
 
-  const { colorsPalette, toolName, canvasState, canvasStates } = paintState;
+  const { colorsPalette, toolName, canvasStates } = paintState;
+  const saveCanvasStates = () => dispatch(setCanvasStates(canvasStatesRef.current));
 
   const savedCanvasDataRef = useRef<ImageData | null>(
     canvasStates.data[canvasStates.position] ? canvasStates.data[canvasStates.position] : null
   );
   const canvasStatesRef = useRef<ICanvasStates>({ ...canvasStates, data: [...canvasStates.data] });
-  // const canvasStatesRef = useRef<ICanvasStates>({
-  //   data: [],
-  //   position: -1,
-  // });
-
-  // console.log(JSON.stringify(savedCanvasDataRef.current));
-  const saveCanvasState = () => dispatch(setCanvasState(savedCanvasDataRef.current));
-  // console.log(canvasStates);
-  const saveCanvasStates = () => dispatch(setCanvasStates(canvasStatesRef.current));
   const toolRef = useRef(toolName);
   const colorRef = useRef(colorsPalette.BLACK);
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const ctxRef = useRef<CanvasRenderingContext2D | null>(null);
 
-  const { adjustCanvasParams, width, height, resetCanvas } = useCanvasResize({
+  const fillEmptyCanvas = () => {
+    if (!ctxRef.current || !canvasRef.current) return;
+    ctxRef.current.clearRect(0, 0, width, height);
+    ctxRef.current.fillStyle = "white";
+    ctxRef.current.fillRect(0, 0, width, height);
+  };
+
+  const resetCanvas = () => {
+    fillEmptyCanvas();
+    resetSavedCanvasState();
+  };
+
+  const { adjustCanvasParams, width, height } = useCanvasResize({
     ctxRef,
     canvasRef,
     savedCanvasDataRef,
     canvasStatesRef,
+    fillEmptyCanvas,
   });
-  const { dataUrl, saveCanvas } = useSaveCanvas({ canvasRef, ctxRef });
 
-  const undo = () => {
-    console.log(1);
-    if (!ctxRef.current || !canvasStatesRef.current.data.length) return;
-    console.log(canvasStatesRef.current);
-    console.log(canvasStatesRef.current.data[canvasStatesRef.current.position]);
-    if (!canvasStatesRef.current.data[canvasStatesRef.current.position - 1]) {
-      console.log("undo --nope");
-      resetCanvas();
-      return;
-    }
-    ctxRef.current.putImageData(canvasStatesRef.current.data[canvasStatesRef.current.position - 1], 0, 0);
-    canvasStatesRef.current.position -= 1;
-    console.log(canvasStatesRef.current);
-    // canvasStates.current.data
-  };
-  const redo = () => {
-    console.log(1);
-    if (!ctxRef.current || !canvasStatesRef.current.data.length) return;
-    console.log(canvasStatesRef.current);
-    console.log(canvasStatesRef.current.data[canvasStatesRef.current.position + 1]);
-    if (!canvasStatesRef.current.data[canvasStatesRef.current.position + 1]) {
-      console.log("redo --nope");
-      return;
-    }
-    ctxRef.current.putImageData(canvasStatesRef.current.data[canvasStatesRef.current.position + 1], 0, 0);
-    canvasStatesRef.current.position += 1;
-    // canvasStates.current.data
-    console.log(canvasStatesRef.current);
-  };
+  const { resetSavedCanvasState, undo, redo } = useUndoRedo({
+    canvasRef,
+    savedCanvasDataRef,
+    canvasStatesRef,
+    ctxRef,
+  });
+
+  const { dataUrl, saveCanvas } = useSaveCanvas({ canvasRef, ctxRef });
 
   useEffect(() => {
     if (!canvasRef.current) return;
@@ -86,7 +70,6 @@ const usePaint = () => {
     window.addEventListener("resize", adjustCanvasParams);
 
     return () => {
-      // saveCanvasState();
       saveCanvasStates();
       ToolsController.removeListeners();
       window.removeEventListener("resize", adjustCanvasParams);

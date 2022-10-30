@@ -12,7 +12,7 @@ class Circle extends Tool {
     this.ctx.beginPath();
   }
 
-  handleDraw() {
+  handleToolDraw() {
     this.restoreCanvasState();
     this.ctx.beginPath();
     this.ctx.moveTo(this.startPosition.x, this.startPosition.y + (this.position.y - this.startPosition.y) / 2);
@@ -34,6 +34,10 @@ class Circle extends Tool {
     );
     this.ctx.closePath();
     this.ctx.fill();
+  }
+
+  singleClickAction() {
+    this.ctx.arc(this.position.x, this.position.y, this.lineWidth, 0, 2 * Math.PI);
   }
 }
 

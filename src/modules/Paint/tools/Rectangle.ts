@@ -6,7 +6,7 @@ class Rectangle extends Tool {
     this.ctx.beginPath();
   }
 
-  handleDraw() {
+  handleToolDraw() {
     const width = this.position.x - this.startPosition.x;
     const height = this.position.y - this.startPosition.y;
     this.restoreCanvasState();
