@@ -13,9 +13,10 @@ class Tool {
   protected startPosition: ICoordinates;
   protected activeTool: React.MutableRefObject<ToolNames>;
   protected canvasStates: ITool["canvasStatesRef"];
+  protected changePosition: ITool["changePosiiton"];
 
   constructor(props: ITool) {
-    const { canvasRef, ctxRef, colorRef, savedCanvasDataRef, toolRef, canvasStatesRef } = props;
+    const { canvasRef, ctxRef, colorRef, savedCanvasDataRef, toolRef, canvasStatesRef, changePosiiton } = props;
     this.canvas = canvasRef.current as HTMLCanvasElement;
     this.ctx = ctxRef.current as CanvasRenderingContext2D;
     this.savedCanvasDataRef = savedCanvasDataRef;
@@ -27,6 +28,7 @@ class Tool {
     this.lineWidth = 1;
     this.isDrawing = false;
     this.isToolMoving = false;
+    this.changePosition = changePosiiton;
   }
 
   handleCursorMove(e: IPaintEvent) {
@@ -109,6 +111,7 @@ class Tool {
       this.canvasStates.current.data.shift();
     } else {
       this.canvasStates.current.position += 1;
+      this.changePosition(this.canvasStates.current.position);
     }
 
     console.log(this.canvasStates.current);

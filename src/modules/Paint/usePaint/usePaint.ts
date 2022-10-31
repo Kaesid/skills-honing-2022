@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { useRef } from "react";
 import { useAppSelector } from "../../../redux/hooks";
-import { getPaintState, setCanvasStates } from "../paintSlice";
+import { changeSavedStatePosition, getPaintState, setCanvasStates } from "../paintSlice";
 import { useCanvasResize } from "./useCanvasResize";
 import { useSaveCanvas } from "./useSaveCanvas";
 import { useAppDispatch } from "./../../../redux/hooks";
@@ -12,10 +12,12 @@ import { useUndoRedo } from "./useUndoRedo";
 const usePaint = () => {
   const paintState = useAppSelector(getPaintState);
   const dispatch = useAppDispatch();
-
+  //TODO: temp data corruption fix on resize
   const { colorsPalette, toolName, canvasStates } = paintState;
   const saveCanvasStates = () => dispatch(setCanvasStates(canvasStatesRef.current));
-
+  const changePosiiton = (newPosition: number) => dispatch(changeSavedStatePosition(newPosition));
+  // const changePosiiton = (newPosition: number) => console.log("piu");
+  console.log(paintState);
   const savedCanvasDataRef = useRef<ImageData | null>(
     canvasStates.data[canvasStates.position] ? canvasStates.data[canvasStates.position] : null
   );
@@ -50,6 +52,7 @@ const usePaint = () => {
     savedCanvasDataRef,
     canvasStatesRef,
     ctxRef,
+    changePosiiton,
   });
 
   const { dataUrl, saveCanvas } = useSaveCanvas({ canvasRef, ctxRef });
@@ -65,6 +68,7 @@ const usePaint = () => {
       savedCanvasDataRef,
       toolRef,
       canvasStatesRef,
+      changePosiiton,
     });
     ToolsController.setListeners();
     window.addEventListener("resize", adjustCanvasParams);
@@ -77,7 +81,7 @@ const usePaint = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  return { canvasRef, width, height, colorRef, saveCanvas, dataUrl, resetCanvas, toolRef, undo, redo };
+  return { canvasRef, width, height, colorRef, saveCanvas, dataUrl, resetCanvas, toolRef, undo, redo, canvasStatesRef };
 };
 
 export { usePaint };

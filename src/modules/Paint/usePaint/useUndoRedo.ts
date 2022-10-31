@@ -1,7 +1,7 @@
 import { IUndoRedo } from "../interface";
 
 const useUndoRedo = (props: IUndoRedo) => {
-  const { savedCanvasDataRef, canvasStatesRef, ctxRef, canvasRef } = props;
+  const { savedCanvasDataRef, canvasStatesRef, ctxRef, canvasRef, changePosiiton } = props;
   const resetSavedCanvasState = () => {
     savedCanvasDataRef.current = null;
     if (ctxRef.current && canvasRef.current) {
@@ -10,6 +10,7 @@ const useUndoRedo = (props: IUndoRedo) => {
       ];
     }
     canvasStatesRef.current.position = 0;
+    changePosiiton(canvasStatesRef.current.position);
   };
 
   const undo = () => {
@@ -23,6 +24,7 @@ const useUndoRedo = (props: IUndoRedo) => {
     }
     ctxRef.current.putImageData(canvasStatesRef.current.data[canvasStatesRef.current.position - 1], 0, 0);
     canvasStatesRef.current.position -= 1;
+    changePosiiton(canvasStatesRef.current.position);
     console.log(canvasStatesRef.current);
     // canvasStates.current.data
   };
@@ -37,6 +39,7 @@ const useUndoRedo = (props: IUndoRedo) => {
     }
     ctxRef.current.putImageData(canvasStatesRef.current.data[canvasStatesRef.current.position + 1], 0, 0);
     canvasStatesRef.current.position += 1;
+    changePosiiton(canvasStatesRef.current.position);
     // canvasStates.current.data
     console.log(canvasStatesRef.current);
   };

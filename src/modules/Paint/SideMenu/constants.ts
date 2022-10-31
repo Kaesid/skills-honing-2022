@@ -23,7 +23,7 @@ enum ToolNames {
   LINE = "line",
 }
 
-const buttonsList: ButtonProps[] = [
+const toolsList: ButtonProps[] = [
   {
     tooltip: ToolNames.PENCIL,
     IconComponent: Pencil,
@@ -39,16 +39,6 @@ const buttonsList: ButtonProps[] = [
     IconComponent: Brush,
     src: brush,
   },
-  // {
-  //   tooltip: ToolNames.BRUSH,
-  //   IconComponent: BigBrush,
-  //   src: bigBrush,
-  // },
-  // {
-  //   tooltip: ToolNames.BRUSH,
-  //   IconComponent: Caption,
-  //   src: caption,
-  // },
   {
     tooltip: ToolNames.LINE,
     IconComponent: Line,
@@ -66,4 +56,4 @@ const buttonsList: ButtonProps[] = [
   },
 ];
 
-export { buttonsList, ToolNames };
+export { toolsList, ToolNames };

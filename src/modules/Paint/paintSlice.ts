@@ -47,6 +47,13 @@ export const paintSlice = createSlice({
       state.colorsPalette = action.payload;
     },
 
+    changeSavedStatePosition: (state, action: PayloadAction<number>) => {
+      state.canvasStates = {
+        ...state.canvasStates,
+        position: action.payload,
+      };
+    },
+
     // setCursor: state => {
     //   state.status = "loading";
     // },
@@ -56,6 +63,6 @@ export const paintSlice = createSlice({
 export const getPaintToolName = (state: RootState) => state.paint.toolName;
 export const getColorPalette = (state: RootState) => state.paint.colorsPalette;
 export const getPaintState = (state: RootState) => state.paint;
-export const { setColorPalette, setPaintToolName, setCanvasStates } = paintSlice.actions;
+export const { setColorPalette, setPaintToolName, setCanvasStates, changeSavedStatePosition } = paintSlice.actions;
 
 export default paintSlice.reducer;

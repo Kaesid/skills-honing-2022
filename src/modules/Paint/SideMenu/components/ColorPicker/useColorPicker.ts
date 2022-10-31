@@ -1,8 +1,8 @@
 import { useRef, useState } from "react";
-import { useAppSelector } from "../../../../redux/hooks";
-import { IColorPicker, IColorsPalette } from "../../interface";
-import { getColorPalette, setColorPalette } from "../../paintSlice";
-import { useAppDispatch } from "./../../../../redux/hooks";
+import { useAppSelector } from "../../../../../redux/hooks";
+import { IColorPicker, IColorsPalette } from "../../../interface";
+import { getColorPalette, setColorPalette } from "../../../paintSlice";
+import { useAppDispatch } from "../../../../../redux/hooks";
 
 const useColorPicker = (props: IColorPicker) => {
   const { colorRef } = props;

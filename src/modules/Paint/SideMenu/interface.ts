@@ -1,7 +1,7 @@
 import { ICanvasParamsList } from "../interface";
 import { ToolNames } from "./constants";
 
-type ISideMenuTools = Pick<ICanvasParamsList, "colorRef" | "toolRef">;
+type ISideMenuTools = Pick<ICanvasParamsList, "colorRef" | "toolRef" | "canvasStatesRef">;
 
 type ISideMenu = ISideMenuTools & {
   toolName: string;
@@ -12,7 +12,7 @@ type ISideMenu = ISideMenuTools & {
   redo: () => void;
 };
 
-type IUseSideMenu = Pick<ISideMenu, "toolRef" | "toolName">;
+type IUseSideMenu = Pick<ISideMenu, "toolRef">;
 
 interface ButtonProps {
   tooltip: ToolNames;

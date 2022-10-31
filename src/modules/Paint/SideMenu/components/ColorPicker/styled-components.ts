@@ -1,7 +1,7 @@
 import styled, { css, keyframes } from "styled-components";
-import { downArrow } from "../../../../assets/images/svgrepo";
-import { SCREEN_SIZES } from "../../../../constants/screen";
-import { IPaletteSlot } from "../../interface";
+import { downArrow } from "../../../../../assets/images/svgrepo";
+import { SCREEN_SIZES } from "../../../../../constants/screen";
+import { IPaletteSlot } from "../../../interface";
 
 const ColorPickerWrap = styled.div`
   ${(props: { $isOpen: boolean }) =>

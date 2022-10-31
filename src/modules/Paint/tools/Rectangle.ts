@@ -1,6 +1,12 @@
+import { ITool } from "../interface";
 import { Tool } from "./Tool";
 
 class Rectangle extends Tool {
+  constructor(props: ITool) {
+    super(props);
+    this.lineWidth = 5;
+  }
+
   handleToolDrawActivation() {
     this.saveCanvasData();
     this.ctx.beginPath();

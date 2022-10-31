@@ -4,7 +4,7 @@ import { Tool } from "./Tool";
 class Circle extends Tool {
   constructor(props: ITool) {
     super(props);
-    this.lineWidth = 5;
+    this.lineWidth = 2;
   }
 
   handleToolDrawActivation() {
@@ -38,6 +38,7 @@ class Circle extends Tool {
 
   singleClickAction() {
     this.ctx.arc(this.position.x, this.position.y, this.lineWidth, 0, 2 * Math.PI);
+    this.ctx.fill();
   }
 }
 

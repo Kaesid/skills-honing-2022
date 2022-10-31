@@ -1,4 +1,4 @@
-import { buttonsList } from "./constants";
+import { toolsList } from "./constants";
 import {
   CanvasStateIcon,
   IconBox,
@@ -7,28 +7,30 @@ import {
   SideMenuButtons,
   SideMenuStyled,
 } from "./styled-components";
-import ColorPicker from "./ColorPicker/ColorPicker";
+import ColorPicker from "./components/ColorPicker/ColorPicker";
 import { ISideMenu } from "./interface";
 import { useSideMenu } from "./useSideMenu";
 import { Redo, Undo } from "../../../assets/images/svgrepo";
+import UndoRedo from "./components/UndoRedo/UndoRedo";
 
 const SideMenu = (props: ISideMenu) => {
-  const { toolName, saveCanvas, dataUrl, colorRef, resetCanvas, toolRef, undo, redo } = props;
-  const { setToolName } = useSideMenu({ toolName, toolRef });
+  const { toolName, saveCanvas, dataUrl, colorRef, resetCanvas, toolRef, undo, redo, canvasStatesRef } = props;
+  const { setToolName } = useSideMenu({ toolRef });
 
   return (
     <SideMenuStyled>
       <ColorPicker colorRef={colorRef} />
-      <IconsBox>
+      {/* <IconsBox>
         <CanvasStateIcon onClick={undo}>
           <Undo />
         </CanvasStateIcon>
         <CanvasStateIcon onClick={redo}>
           <Redo />
         </CanvasStateIcon>
-      </IconsBox>
+      </IconsBox> */}
+      <UndoRedo undo={undo} redo={redo} canvasStatesRef={canvasStatesRef} />
       <IconsBox>
-        {buttonsList.map(({ IconComponent, tooltip }) => (
+        {toolsList.map(({ IconComponent, tooltip }) => (
           <IconBox onClick={() => setToolName(tooltip)} $isActive={tooltip === toolName} key={tooltip}>
             <IconComponent />
           </IconBox>
