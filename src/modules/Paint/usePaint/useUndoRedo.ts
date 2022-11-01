@@ -1,10 +1,13 @@
 import { IUndoRedo } from "../interface";
 
 const useUndoRedo = (props: IUndoRedo) => {
-  const { savedCanvasDataRef, canvasStatesRef, ctxRef, canvasRef, changePosiiton } = props;
+  const { savedCanvasDataRef, canvasStatesRef, ctxRef, canvasRef, changePosiiton, redrawCanvasWithScale } = props;
+
   const resetSavedCanvasState = () => {
     savedCanvasDataRef.current = null;
     if (ctxRef.current && canvasRef.current) {
+      console.log(canvasRef.current.clientWidth);
+      console.log(canvasRef.current.clientHeight);
       canvasStatesRef.current.data = [
         ctxRef.current.getImageData(0, 0, canvasRef.current.clientWidth, canvasRef.current.clientHeight),
       ];
@@ -22,9 +25,11 @@ const useUndoRedo = (props: IUndoRedo) => {
       console.log("undo --nope");
       return;
     }
-    ctxRef.current.putImageData(canvasStatesRef.current.data[canvasStatesRef.current.position - 1], 0, 0);
+
     canvasStatesRef.current.position -= 1;
     changePosiiton(canvasStatesRef.current.position);
+    // ctxRef.current.putImageData(canvasStatesRef.current.data[canvasStatesRef.current.position], 0, 0);
+    redrawCanvasWithScale();
     console.log(canvasStatesRef.current);
     // canvasStates.current.data
   };
@@ -37,10 +42,10 @@ const useUndoRedo = (props: IUndoRedo) => {
       console.log("redo --nope");
       return;
     }
-    ctxRef.current.putImageData(canvasStatesRef.current.data[canvasStatesRef.current.position + 1], 0, 0);
     canvasStatesRef.current.position += 1;
     changePosiiton(canvasStatesRef.current.position);
-    // canvasStates.current.data
+    // ctxRef.current.putImageData(canvasStatesRef.current.data[canvasStatesRef.current.position], 0, 0);
+    redrawCanvasWithScale();
     console.log(canvasStatesRef.current);
   };
 

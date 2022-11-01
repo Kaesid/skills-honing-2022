@@ -88,25 +88,32 @@ class Tool {
     this.ProcessSingleClickToolAction();
     this.isDrawing = false;
     this.isToolMoving = false;
-    this.saveCanvasData();
     this.saveCanvasStateToList();
     this.handleToolDrawFinish();
   }
 
-  saveCanvasData() {
-    this.savedCanvasDataRef.current = this.ctx.getImageData(0, 0, this.canvas.clientWidth, this.canvas.clientHeight);
+  saveCanvasTempData() {
+    this.savedCanvasDataRef.current = this.canvasState;
+  }
+
+  protected get canvasState() {
+    console.log(this.canvas.clientWidth);
+    console.log(this.canvas.clientHeight);
+    return this.ctx.getImageData(0, 0, this.canvas.clientWidth, this.canvas.clientHeight);
   }
 
   saveCanvasStateToList() {
-    if (!this.savedCanvasDataRef.current) return;
+    console.log("saveCanvasStateToList");
+    // if (!this.savedCanvasDataRef.current) return;
 
     if (this.canvasStates.current.data.length > this.canvasStates.current.position + 1) {
+      console.log("nope");
       // console.log(this.canvasStates.current.data.length);
       // console.log(this.canvasStates.current.position);
       this.canvasStates.current.data.length = this.canvasStates.current.position + 1;
       // this.canvasStates.current.position
     }
-    this.canvasStates.current.data.push(this.savedCanvasDataRef.current);
+    this.canvasStates.current.data.push(this.canvasState);
     if (this.canvasStates.current.data.length > 5) {
       this.canvasStates.current.data.shift();
     } else {
@@ -117,7 +124,7 @@ class Tool {
     console.log(this.canvasStates.current);
   }
 
-  restoreCanvasState() {
+  restoreCanvasTempState() {
     if (this.savedCanvasDataRef.current) this.ctx.putImageData(this.savedCanvasDataRef.current, 0, 0);
   }
 

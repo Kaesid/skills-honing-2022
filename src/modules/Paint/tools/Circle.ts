@@ -8,12 +8,12 @@ class Circle extends Tool {
   }
 
   handleToolDrawActivation() {
-    this.saveCanvasData();
+    this.saveCanvasTempData();
     this.ctx.beginPath();
   }
 
   handleToolDraw() {
-    this.restoreCanvasState();
+    this.restoreCanvasTempState();
     this.ctx.beginPath();
     this.ctx.moveTo(this.startPosition.x, this.startPosition.y + (this.position.y - this.startPosition.y) / 2);
     this.ctx.bezierCurveTo(

@@ -47,10 +47,10 @@ class Controller extends Tool {
     );
 
     this.canvas.addEventListener("touchcancel", () => this.toolsList[this.activeTool.current].handleDrawFinish());
-    if (!this.savedCanvasDataRef.current?.data.length) {
-      this.saveCanvasData();
-      this.saveCanvasStateToList();
-    }
+    // if (!this.canvasStates.current.data.length) {
+    //   console.log(this.canvasStates.current);
+    //   this.saveCanvasStateToList();
+    // }
   }
 
   removeListeners() {

@@ -12,12 +12,11 @@ import { useUndoRedo } from "./useUndoRedo";
 const usePaint = () => {
   const paintState = useAppSelector(getPaintState);
   const dispatch = useAppDispatch();
-  //TODO: temp data corruption fix on resize
+  //TODO:refactor
   const { colorsPalette, toolName, canvasStates } = paintState;
   const saveCanvasStates = () => dispatch(setCanvasStates(canvasStatesRef.current));
   const changePosiiton = (newPosition: number) => dispatch(changeSavedStatePosition(newPosition));
-  // const changePosiiton = (newPosition: number) => console.log("piu");
-  console.log(paintState);
+
   const savedCanvasDataRef = useRef<ImageData | null>(
     canvasStates.data[canvasStates.position] ? canvasStates.data[canvasStates.position] : null
   );
@@ -39,12 +38,13 @@ const usePaint = () => {
     resetSavedCanvasState();
   };
 
-  const { adjustCanvasParams, width, height } = useCanvasResize({
+  const { adjustCanvasParams, width, height, redrawCanvasWithScale } = useCanvasResize({
     ctxRef,
     canvasRef,
     savedCanvasDataRef,
     canvasStatesRef,
     fillEmptyCanvas,
+    resetCanvas,
   });
 
   const { resetSavedCanvasState, undo, redo } = useUndoRedo({
@@ -53,6 +53,7 @@ const usePaint = () => {
     canvasStatesRef,
     ctxRef,
     changePosiiton,
+    redrawCanvasWithScale,
   });
 
   const { dataUrl, saveCanvas } = useSaveCanvas({ canvasRef, ctxRef });
@@ -61,6 +62,7 @@ const usePaint = () => {
     if (!canvasRef.current) return;
     ctxRef.current = canvasRef.current.getContext("2d", { willReadFrequently: true });
     adjustCanvasParams();
+
     const ToolsController = new Controller({
       canvasRef,
       ctxRef,
@@ -72,6 +74,8 @@ const usePaint = () => {
     });
     ToolsController.setListeners();
     window.addEventListener("resize", adjustCanvasParams);
+    // setTimeout(() => {
+    // }, 500);
 
     return () => {
       saveCanvasStates();

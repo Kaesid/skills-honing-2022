@@ -3,7 +3,7 @@ import { IResizeProps } from "../interface";
 import { getCanvasParamsValues } from "./helpers";
 
 const useCanvasResize = (props: IResizeProps) => {
-  const { ctxRef, canvasRef, savedCanvasDataRef, fillEmptyCanvas } = props;
+  const { ctxRef, canvasRef, fillEmptyCanvas, canvasStatesRef, resetCanvas } = props;
 
   const timeout: { current: NodeJS.Timeout | null } = useRef(null);
   const isInitialRender = useRef(true);
@@ -17,6 +17,7 @@ const useCanvasResize = (props: IResizeProps) => {
 
     if (isInitialRender.current) {
       isInitialRender.current = false;
+      resetCanvas();
       redrawCanvasWithScale();
     } else {
       redrawSavedCanvasWithDelay();
@@ -30,20 +31,33 @@ const useCanvasResize = (props: IResizeProps) => {
   };
 
   const redrawCanvasWithScale = () => {
-    if (!savedCanvasDataRef.current || !ctxRef.current || !canvasRef.current) return;
+    console.log(canvasStatesRef.current);
+    if (
+      !canvasStatesRef.current ||
+      !canvasStatesRef.current.data[canvasStatesRef.current.position] ||
+      !ctxRef.current ||
+      !canvasRef.current
+    )
+      return;
+    console.log("redrawCanvasWithScale");
+
+    const { data, position } = canvasStatesRef.current;
+    const currentData = data[position];
     const tempCanvas = document.createElement("canvas");
-    tempCanvas.width = savedCanvasDataRef.current.width;
-    tempCanvas.height = savedCanvasDataRef.current.height;
+    console.log(currentData.width);
+    console.log(currentData.height);
+    tempCanvas.width = currentData.width;
+    tempCanvas.height = currentData.height;
     const tempCtx = tempCanvas.getContext("2d");
     if (!tempCtx) return;
-    tempCtx.putImageData(savedCanvasDataRef.current, 0, 0);
+    tempCtx.putImageData(currentData, 0, 0);
     ctxRef.current.save();
-    ctxRef.current.scale(width / savedCanvasDataRef.current.width, height / savedCanvasDataRef.current.height);
+    ctxRef.current.scale(width / currentData.width, height / currentData.height);
     ctxRef.current.drawImage(tempCanvas, 0, 0);
     ctxRef.current.restore();
   };
 
-  return { adjustCanvasParams, width, height };
+  return { adjustCanvasParams, width, height, redrawCanvasWithScale };
 };
 
 export { useCanvasResize };

@@ -8,11 +8,11 @@ class Line extends Tool {
   }
 
   handleToolDrawActivation() {
-    this.saveCanvasData();
+    this.saveCanvasTempData();
   }
 
   handleToolDraw() {
-    this.restoreCanvasState();
+    this.restoreCanvasTempState();
     this.ctx.beginPath();
     this.ctx.moveTo(this.startPosition.x, this.startPosition.y);
     this.ctx.lineTo(this.position.x, this.position.y);
