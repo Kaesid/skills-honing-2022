@@ -1,12 +1,12 @@
 enum DefaultColors {
-  BLACK = "#0a0a0b",
-  YELLLOW = "#e1e16c",
-  RED = "#932020",
-  BLUE = "#1919b1",
-  GREEN = "#007400",
-  PURPLE = "#9f3cb9",
-  LIGHT_BLUE = "#3cc6c7",
-  LIGHT_GREEN = "#5ec164",
+  FIRST = "#0a0a0b",
+  SECOND = "#e1e16c",
+  THIRD = "#932020",
+  FOURTH = "#1919b1",
+  FIFTH = "#007400",
+  SIXTH = "#9f3cb9",
+  SEVENTH = "#3cc6c7",
+  EIGHTH = "#5ec164",
 }
 
 export { DefaultColors };

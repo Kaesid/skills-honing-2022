@@ -3,7 +3,7 @@ import { IResizeProps } from "../interface";
 import { getCanvasParamsValues } from "./helpers";
 
 const useCanvasResize = (props: IResizeProps) => {
-  const { ctxRef, canvasRef, fillEmptyCanvas, canvasStatesRef, resetCanvas } = props;
+  const { ctxRef, canvasRef, fillEmptyCanvas, canvasStatesRef, resetSavedCanvasState } = props;
 
   const timeout: { current: NodeJS.Timeout | null } = useRef(null);
   const isInitialRender = useRef(true);
@@ -17,7 +17,9 @@ const useCanvasResize = (props: IResizeProps) => {
 
     if (isInitialRender.current) {
       isInitialRender.current = false;
-      resetCanvas();
+      if (!canvasStatesRef.current.data.length) {
+        resetSavedCanvasState();
+      }
       redrawCanvasWithScale();
     } else {
       redrawSavedCanvasWithDelay();
@@ -31,21 +33,12 @@ const useCanvasResize = (props: IResizeProps) => {
   };
 
   const redrawCanvasWithScale = () => {
-    console.log(canvasStatesRef.current);
-    if (
-      !canvasStatesRef.current ||
-      !canvasStatesRef.current.data[canvasStatesRef.current.position] ||
-      !ctxRef.current ||
-      !canvasRef.current
-    )
+    if (!canvasStatesRef.current || !canvasStatesRef.current.data[canvasStatesRef.current.position] || !ctxRef.current)
       return;
-    console.log("redrawCanvasWithScale");
 
     const { data, position } = canvasStatesRef.current;
     const currentData = data[position];
     const tempCanvas = document.createElement("canvas");
-    console.log(currentData.width);
-    console.log(currentData.height);
     tempCanvas.width = currentData.width;
     tempCanvas.height = currentData.height;
     const tempCtx = tempCanvas.getContext("2d");

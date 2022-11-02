@@ -30,7 +30,7 @@ interface ICanvasParamsList {
   position: React.MutableRefObject<ICoordinates>;
   canvasStatesRef: React.MutableRefObject<ICanvasStates>;
   fillEmptyCanvas: () => void;
-  resetCanvas: () => void;
+  resetSavedCanvasState: () => void;
   undo: () => void;
   redo: () => void;
   changePosiiton: (newPosition: number) => void;
@@ -45,17 +45,16 @@ type IPosition = Pick<ICanvasParamsList, "position">;
 
 type IResizeProps = ICanvasRef &
   ICtxRef &
-  Pick<ICanvasParamsList, "savedCanvasDataRef" | "canvasStatesRef" | "fillEmptyCanvas" | "resetCanvas">;
+  Pick<ICanvasParamsList, "canvasStatesRef" | "fillEmptyCanvas" | "resetSavedCanvasState">;
 
 type ISaveCanvasProps = ICanvasRef & ICtxRef;
 
 type ITool = ICanvasRef &
   ICtxRef &
-  Pick<ICanvasParamsList, "colorRef" | "savedCanvasDataRef" | "toolRef" | "canvasStatesRef" | "changePosiiton">;
+  // Pick<ICanvasParamsList, "colorRef" | "savedCanvasDataRef" | "toolRef" | "canvasStatesRef" | "changePosiiton">;
+  Pick<ICanvasParamsList, "colorRef" | "toolRef" | "canvasStatesRef" | "changePosiiton">;
 
-type IUndoRedo = ICanvasRef &
-  ICtxRef &
-  Pick<ICanvasParamsList, "savedCanvasDataRef" | "canvasStatesRef" | "changePosiiton" | "redrawCanvasWithScale">;
+type IUndoRedo = ICtxRef & Pick<ICanvasParamsList, "canvasStatesRef" | "changePosiiton" | "redrawCanvasWithScale">;
 
 type IColorPicker = Pick<ICanvasParamsList, "colorRef">;
 

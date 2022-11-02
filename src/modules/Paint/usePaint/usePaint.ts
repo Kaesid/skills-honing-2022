@@ -12,25 +12,32 @@ import { useUndoRedo } from "./useUndoRedo";
 const usePaint = () => {
   const paintState = useAppSelector(getPaintState);
   const dispatch = useAppDispatch();
-  //TODO:refactor
-  const { colorsPalette, toolName, canvasStates } = paintState;
+
+  const { colorsPalette, toolName, canvasStates, selectedColorSlot } = paintState;
   const saveCanvasStates = () => dispatch(setCanvasStates(canvasStatesRef.current));
   const changePosiiton = (newPosition: number) => dispatch(changeSavedStatePosition(newPosition));
 
-  const savedCanvasDataRef = useRef<ImageData | null>(
-    canvasStates.data[canvasStates.position] ? canvasStates.data[canvasStates.position] : null
-  );
   const canvasStatesRef = useRef<ICanvasStates>({ ...canvasStates, data: [...canvasStates.data] });
   const toolRef = useRef(toolName);
-  const colorRef = useRef(colorsPalette.BLACK);
+  const colorRef = useRef(colorsPalette[selectedColorSlot]);
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const ctxRef = useRef<CanvasRenderingContext2D | null>(null);
 
   const fillEmptyCanvas = () => {
-    if (!ctxRef.current || !canvasRef.current) return;
+    if (!ctxRef.current) return;
     ctxRef.current.clearRect(0, 0, width, height);
     ctxRef.current.fillStyle = "white";
     ctxRef.current.fillRect(0, 0, width, height);
+  };
+
+  const resetSavedCanvasState = () => {
+    if (ctxRef.current && canvasRef.current) {
+      canvasStatesRef.current.data = [
+        ctxRef.current.getImageData(0, 0, canvasRef.current.clientWidth, canvasRef.current.clientHeight),
+      ];
+    }
+    canvasStatesRef.current.position = 0;
+    changePosiiton(canvasStatesRef.current.position);
   };
 
   const resetCanvas = () => {
@@ -41,15 +48,12 @@ const usePaint = () => {
   const { adjustCanvasParams, width, height, redrawCanvasWithScale } = useCanvasResize({
     ctxRef,
     canvasRef,
-    savedCanvasDataRef,
     canvasStatesRef,
     fillEmptyCanvas,
-    resetCanvas,
+    resetSavedCanvasState,
   });
 
-  const { resetSavedCanvasState, undo, redo } = useUndoRedo({
-    canvasRef,
-    savedCanvasDataRef,
+  const { undo, redo } = useUndoRedo({
     canvasStatesRef,
     ctxRef,
     changePosiiton,
@@ -67,15 +71,12 @@ const usePaint = () => {
       canvasRef,
       ctxRef,
       colorRef,
-      savedCanvasDataRef,
       toolRef,
       canvasStatesRef,
       changePosiiton,
     });
     ToolsController.setListeners();
     window.addEventListener("resize", adjustCanvasParams);
-    // setTimeout(() => {
-    // }, 500);
 
     return () => {
       saveCanvasStates();

@@ -9,17 +9,17 @@ class Tool {
   protected readonly position: ICoordinates;
   protected readonly color: ITool["colorRef"];
   protected lineWidth: number;
-  protected readonly savedCanvasDataRef: ITool["savedCanvasDataRef"];
+  protected tempCanvasData: ImageData | null;
   protected startPosition: ICoordinates;
   protected activeTool: React.MutableRefObject<ToolNames>;
   protected canvasStates: ITool["canvasStatesRef"];
   protected changePosition: ITool["changePosiiton"];
 
   constructor(props: ITool) {
-    const { canvasRef, ctxRef, colorRef, savedCanvasDataRef, toolRef, canvasStatesRef, changePosiiton } = props;
+    const { canvasRef, ctxRef, colorRef, toolRef, canvasStatesRef, changePosiiton } = props;
     this.canvas = canvasRef.current as HTMLCanvasElement;
     this.ctx = ctxRef.current as CanvasRenderingContext2D;
-    this.savedCanvasDataRef = savedCanvasDataRef;
+    this.tempCanvasData = null;
     this.canvasStates = canvasStatesRef;
     this.color = colorRef;
     this.activeTool = toolRef;
@@ -93,7 +93,7 @@ class Tool {
   }
 
   saveCanvasTempData() {
-    this.savedCanvasDataRef.current = this.canvasState;
+    this.tempCanvasData = this.canvasState;
   }
 
   protected get canvasState() {
@@ -103,15 +103,8 @@ class Tool {
   }
 
   saveCanvasStateToList() {
-    console.log("saveCanvasStateToList");
-    // if (!this.savedCanvasDataRef.current) return;
-
     if (this.canvasStates.current.data.length > this.canvasStates.current.position + 1) {
-      console.log("nope");
-      // console.log(this.canvasStates.current.data.length);
-      // console.log(this.canvasStates.current.position);
       this.canvasStates.current.data.length = this.canvasStates.current.position + 1;
-      // this.canvasStates.current.position
     }
     this.canvasStates.current.data.push(this.canvasState);
     if (this.canvasStates.current.data.length > 5) {
@@ -125,7 +118,7 @@ class Tool {
   }
 
   restoreCanvasTempState() {
-    if (this.savedCanvasDataRef.current) this.ctx.putImageData(this.savedCanvasDataRef.current, 0, 0);
+    if (this.tempCanvasData) this.ctx.putImageData(this.tempCanvasData, 0, 0);
   }
 
   protected handleToolDrawActivation() {}
