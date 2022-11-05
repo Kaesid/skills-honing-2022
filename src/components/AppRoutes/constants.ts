@@ -1,27 +1,28 @@
-import About from "../About/About";
-import CountersPage from "../../modules/Counters/Counters";
-import Paint from "../../modules/Paint/Paint";
+import AboutPage from "../AboutPage/AboutPage";
+import Paint from "../../modules/PaintPage/PaintPage";
 import { IRoute } from "./interface";
+import HomePage from "../HomePage/HomePage";
 
 enum RoutesPath {
-  ROOT = "/",
+  CANVAS = "/canvas",
   ABOUT = "/about",
-  DEBUG = "/debug",
+  HOME = "/",
 }
+
 const routerPaths: IRoute[] = [
+  {
+    path: RoutesPath.HOME,
+    text: "Home",
+    Component: HomePage,
+  },
   {
     path: RoutesPath.ABOUT,
     text: "About",
-    Component: About,
+    Component: AboutPage,
   },
   {
-    path: RoutesPath.DEBUG,
-    text: "Debug",
-    Component: CountersPage,
-  },
-  {
-    path: RoutesPath.ROOT,
-    text: "Paint",
+    path: RoutesPath.CANVAS,
+    text: "Canvas",
     Component: Paint,
   },
 ];

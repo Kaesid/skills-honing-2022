@@ -2,14 +2,14 @@ import { render, screen } from "@testing-library/react";
 import "@testing-library/jest-dom";
 import { BrowserRouter, MemoryRouter } from "react-router-dom";
 import { LocationDisplay } from "../../components/AppRoutes/AppRoutes";
-import Content from "./components/PageContent";
+import PageContent from "./PageContent/PageContent";
 import { Provider } from "react-redux";
 import { store } from "./../../redux/store";
 
 test("full app rendering/navigating", async () => {
   render(
     <Provider store={store}>
-      <Content />
+      <PageContent />
     </Provider>,
 
     { wrapper: BrowserRouter }
@@ -30,7 +30,7 @@ test("landing on a bad page", () => {
   // use <MemoryRouter> when you want to manually control the history
   render(
     <MemoryRouter initialEntries={[badRoute]}>
-      <Content />
+      <PageContent />
     </MemoryRouter>
   );
 

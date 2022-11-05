@@ -3,7 +3,7 @@ import { useAppSelector } from "../../../../../redux/hooks";
 import { IColorRef, IColorsName, IColorsPalette } from "../../../interface";
 import { setColorPalette, setSelectedColorSlot } from "../../../paintSlice";
 import { useAppDispatch } from "../../../../../redux/hooks";
-import { getPaintState } from "./../../../paintSlice";
+import { getPaintState } from "../../../paintSlice";
 
 const useColorPicker = (props: IColorRef) => {
   const { colorRef } = props;

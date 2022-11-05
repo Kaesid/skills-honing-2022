@@ -1,5 +1,5 @@
 import { setPaintToolName } from "../paintSlice";
-import { useAppDispatch } from "./../../../redux/hooks";
+import { useAppDispatch } from "../../../redux/hooks";
 import { ToolNames } from "./constants";
 import { IUseSideMenu } from "./interface";
 

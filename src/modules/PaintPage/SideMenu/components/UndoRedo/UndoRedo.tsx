@@ -2,7 +2,7 @@ import { Redo, Undo } from "../../../../../assets/images/svgrepo";
 import { useAppSelector } from "../../../../../redux/hooks";
 import { ICanvasParamsList } from "../../../interface";
 import { CanvasStateIcon, IconsBox } from "../../styled-components";
-import { getPaintState } from "./../../../paintSlice";
+import { getPaintState } from "../../../paintSlice";
 
 const UndoRedo = ({ undo, redo, canvasStatesRef }: Pick<ICanvasParamsList, "undo" | "redo" | "canvasStatesRef">) => {
   const paintState = useAppSelector(getPaintState);

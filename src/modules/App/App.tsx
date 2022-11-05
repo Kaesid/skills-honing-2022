@@ -1,6 +1,6 @@
 import { BrowserRouter } from "react-router-dom";
 import ErrorBoundary from "./../../components/ErrorBoundary/ErrorBoundary";
-import PageContent from "./components/PageContent";
+import PageContent from "./PageContent/PageContent";
 import "./styles.scss";
 
 const App = () => {

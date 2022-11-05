@@ -1,5 +1,4 @@
 import styled from "styled-components";
-import { scroll } from "../../../assets/images/svgrepo";
 import { SCREEN_SIZES } from "../../../constants/screen";
 
 const CanvasStyled = styled.canvas`

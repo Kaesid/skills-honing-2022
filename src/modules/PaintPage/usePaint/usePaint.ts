@@ -4,7 +4,7 @@ import { useAppSelector } from "../../../redux/hooks";
 import { changeSavedStatePosition, getPaintState, setCanvasStates } from "../paintSlice";
 import { useCanvasResize } from "./useCanvasResize";
 import { useSaveCanvas } from "./useSaveCanvas";
-import { useAppDispatch } from "./../../../redux/hooks";
+import { useAppDispatch } from "../../../redux/hooks";
 import { Controller } from "../tools/Controller";
 import { ICanvasStates } from "../interface";
 import { useUndoRedo } from "./useUndoRedo";

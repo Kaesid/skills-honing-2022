@@ -1,16 +1,8 @@
 import { toolsList } from "./constants";
-import {
-  CanvasStateIcon,
-  IconBox,
-  IconsBox,
-  SideMenuButton,
-  SideMenuButtons,
-  SideMenuStyled,
-} from "./styled-components";
+import { IconBox, IconsBox, SideMenuButton, SideMenuButtons, SideMenuStyled } from "./styled-components";
 import ColorPicker from "./components/ColorPicker/ColorPicker";
 import { ISideMenu } from "./interface";
 import { useSideMenu } from "./useSideMenu";
-import { Redo, Undo } from "../../../assets/images/svgrepo";
 import UndoRedo from "./components/UndoRedo/UndoRedo";
 
 const SideMenu = (props: ISideMenu) => {
@@ -20,14 +12,6 @@ const SideMenu = (props: ISideMenu) => {
   return (
     <SideMenuStyled>
       <ColorPicker colorRef={colorRef} />
-      {/* <IconsBox>
-        <CanvasStateIcon onClick={undo}>
-          <Undo />
-        </CanvasStateIcon>
-        <CanvasStateIcon onClick={redo}>
-          <Redo />
-        </CanvasStateIcon>
-      </IconsBox> */}
       <UndoRedo undo={undo} redo={redo} canvasStatesRef={canvasStatesRef} />
       <IconsBox>
         {toolsList.map(({ IconComponent, tooltip }) => (

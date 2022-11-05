@@ -4,7 +4,7 @@ import { SCREEN_SIZES } from "../../constants/screen";
 
 const scrollMarginWidth = "40px";
 
-const PaintPage = styled.div`
+const Paint = styled.div`
   display: flex;
   justify-content: space-between;
 
@@ -62,4 +62,4 @@ const CanvasWrap = styled.div`
   }
 `;
 
-export { PaintPage, CanvasWrap };
+export { Paint, CanvasWrap };
