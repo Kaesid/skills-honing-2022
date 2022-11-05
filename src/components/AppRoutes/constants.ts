@@ -1,4 +1,4 @@
-import About from "../../modules/About/About";
+import About from "../About/About";
 import CountersPage from "../../modules/Counters/Counters";
 import Paint from "../../modules/Paint/Paint";
 import { IRoute } from "./interface";

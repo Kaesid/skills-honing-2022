@@ -1,4 +1,4 @@
-import { ICoordinates, IPaintEvent, ITool } from "../interface";
+import { ICanvasStates, ICoordinates, IPaintEvent, ITool } from "../interface";
 import { ToolNames } from "../SideMenu/constants";
 
 class Tool {
@@ -12,7 +12,7 @@ class Tool {
   protected tempCanvasData: ImageData | null;
   protected startPosition: ICoordinates;
   protected activeTool: React.MutableRefObject<ToolNames>;
-  protected canvasStates: ITool["canvasStatesRef"];
+  protected canvasStates: ICanvasStates;
   protected changePosition: ITool["changePosiiton"];
 
   constructor(props: ITool) {
@@ -20,7 +20,7 @@ class Tool {
     this.canvas = canvasRef.current as HTMLCanvasElement;
     this.ctx = ctxRef.current as CanvasRenderingContext2D;
     this.tempCanvasData = null;
-    this.canvasStates = canvasStatesRef;
+    this.canvasStates = canvasStatesRef.current;
     this.color = colorRef;
     this.activeTool = toolRef;
     this.position = { x: 0, y: 0 };
@@ -60,26 +60,26 @@ class Tool {
     this.handleToolDraw();
   }
 
-  saveStartPosition() {
+  private saveStartPosition() {
     [this.startPosition.x, this.startPosition.y] = [this.position.x, this.position.y];
   }
 
-  setColor() {
+  protected setColor() {
     this.ctx.strokeStyle = this.color.current;
     this.ctx.fillStyle = this.color.current;
   }
 
-  setLineWidth() {
+  private setLineWidth() {
     this.ctx.lineWidth = this.lineWidth;
   }
 
-  ProcessSingleClickToolAction() {
+  protected ProcessSingleClickToolAction() {
     if (!this.isToolMoving && this.position.x === this.startPosition.x && this.position.y === this.startPosition.y) {
       this.singleClickAction();
     }
   }
 
-  singleClickAction() {
+  protected singleClickAction() {
     this.ctx.fillRect(this.position.x, this.position.y, this.lineWidth, this.lineWidth);
   }
 
@@ -97,24 +97,25 @@ class Tool {
   }
 
   protected get canvasState() {
-    console.log(this.canvas.clientWidth);
-    console.log(this.canvas.clientHeight);
     return this.ctx.getImageData(0, 0, this.canvas.clientWidth, this.canvas.clientHeight);
   }
 
-  saveCanvasStateToList() {
-    if (this.canvasStates.current.data.length > this.canvasStates.current.position + 1) {
-      this.canvasStates.current.data.length = this.canvasStates.current.position + 1;
+  removeSavedStatesAfterCurrentPosition() {
+    if (this.canvasStates.data.length > this.canvasStates.position + 1) {
+      this.canvasStates.data.length = this.canvasStates.position + 1;
     }
-    this.canvasStates.current.data.push(this.canvasState);
-    if (this.canvasStates.current.data.length > 5) {
-      this.canvasStates.current.data.shift();
-    } else {
-      this.canvasStates.current.position += 1;
-      this.changePosition(this.canvasStates.current.position);
-    }
+  }
 
-    console.log(this.canvasStates.current);
+  saveCanvasStateToList() {
+    this.removeSavedStatesAfterCurrentPosition();
+
+    this.canvasStates.data.push(this.canvasState);
+    if (this.canvasStates.data.length > 5) {
+      this.canvasStates.data.shift();
+    } else {
+      this.canvasStates.position += 1;
+      this.changePosition(this.canvasStates.position);
+    }
   }
 
   restoreCanvasTempState() {

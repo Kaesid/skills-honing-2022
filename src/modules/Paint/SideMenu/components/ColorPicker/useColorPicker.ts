@@ -1,12 +1,11 @@
-import { useRef, useState } from "react";
+import { useState } from "react";
 import { useAppSelector } from "../../../../../redux/hooks";
-import { IColorPicker, IColorsName, IColorsPalette } from "../../../interface";
-import { getColorPalette, setColorPalette, setSelectedColorSlot } from "../../../paintSlice";
+import { IColorRef, IColorsName, IColorsPalette } from "../../../interface";
+import { setColorPalette, setSelectedColorSlot } from "../../../paintSlice";
 import { useAppDispatch } from "../../../../../redux/hooks";
 import { getPaintState } from "./../../../paintSlice";
-import { flushSync } from "react-dom";
 
-const useColorPicker = (props: IColorPicker) => {
+const useColorPicker = (props: IColorRef) => {
   const { colorRef } = props;
   const paintState = useAppSelector(getPaintState);
   const dispatch = useAppDispatch();

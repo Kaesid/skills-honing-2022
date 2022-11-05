@@ -20,11 +20,11 @@ interface ICoordinates {
   x: number;
   y: number;
 }
+
 interface ICanvasParamsList {
   canvasRef: React.RefObject<HTMLCanvasElement>;
   ctxRef: React.MutableRefObject<CanvasRenderingContext2D | null>;
   canvasParams: React.MutableRefObject<ISizeParams>;
-  savedCanvasDataRef: React.MutableRefObject<ImageData | null>;
   colorRef: React.MutableRefObject<string>;
   toolRef: React.MutableRefObject<ToolNames>;
   position: React.MutableRefObject<ICoordinates>;
@@ -43,6 +43,8 @@ type ICtxRef = Pick<ICanvasParamsList, "ctxRef">;
 
 type IPosition = Pick<ICanvasParamsList, "position">;
 
+type IColorRef = Pick<ICanvasParamsList, "colorRef">;
+
 type IResizeProps = ICanvasRef &
   ICtxRef &
   Pick<ICanvasParamsList, "canvasStatesRef" | "fillEmptyCanvas" | "resetSavedCanvasState">;
@@ -51,18 +53,12 @@ type ISaveCanvasProps = ICanvasRef & ICtxRef;
 
 type ITool = ICanvasRef &
   ICtxRef &
-  // Pick<ICanvasParamsList, "colorRef" | "savedCanvasDataRef" | "toolRef" | "canvasStatesRef" | "changePosiiton">;
-  Pick<ICanvasParamsList, "colorRef" | "toolRef" | "canvasStatesRef" | "changePosiiton">;
+  IColorRef &
+  Pick<ICanvasParamsList, "toolRef" | "canvasStatesRef" | "changePosiiton">;
 
 type IUndoRedo = ICtxRef & Pick<ICanvasParamsList, "canvasStatesRef" | "changePosiiton" | "redrawCanvasWithScale">;
 
-type IColorPicker = Pick<ICanvasParamsList, "colorRef">;
-
 type ITouchPosiitionGet = IPosition & { e: IPaintEvent };
-
-// type IToolsList = {
-//   [key in ToolNames]: Tool;
-// };
 
 type IToolsList = Record<ToolNames, Tool>;
 
@@ -90,7 +86,7 @@ export type {
   IPaintEvent,
   ITool,
   IToolsList,
-  IColorPicker,
+  IColorRef,
   ICanvasRef,
   ITouchPosiitionGet,
   IUndoRedo,

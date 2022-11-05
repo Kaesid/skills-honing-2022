@@ -7,6 +7,8 @@ enum DefaultColors {
   SIXTH = "#9f3cb9",
   SEVENTH = "#3cc6c7",
   EIGHTH = "#5ec164",
+  NINETH = "#caba8e",
+  TENTH = "#c68ad8",
 }
 
 export { DefaultColors };

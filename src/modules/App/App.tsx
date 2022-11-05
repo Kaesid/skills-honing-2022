@@ -1,15 +1,13 @@
 import { BrowserRouter } from "react-router-dom";
-import Header from "../../components/Header";
-import AppRoutes from "../../components/RoutesList/RoutesList";
-import "./styles.scss";
 import ErrorBoundary from "./../../components/ErrorBoundary/ErrorBoundary";
+import PageContent from "./components/PageContent";
+import "./styles.scss";
 
 const App = () => {
   return (
     <ErrorBoundary>
       <BrowserRouter>
-        <Header />
-        <AppRoutes />
+        <PageContent />
       </BrowserRouter>
     </ErrorBoundary>
   );

@@ -17,8 +17,6 @@ type IUseSideMenu = Pick<ISideMenu, "toolRef">;
 interface ButtonProps {
   tooltip: ToolNames;
   IconComponent: React.FC;
-  src: string;
-  size?: number;
 }
 
 export type { ISideMenu, ButtonProps, IUseSideMenu };

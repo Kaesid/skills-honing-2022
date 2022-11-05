@@ -2,6 +2,8 @@ import styled from "styled-components";
 import { scroll } from "../../assets/images/svgrepo";
 import { SCREEN_SIZES } from "../../constants/screen";
 
+const scrollMarginWidth = "40px";
+
 const PaintPage = styled.div`
   display: flex;
   justify-content: space-between;
@@ -10,8 +12,6 @@ const PaintPage = styled.div`
     flex-direction: column;
   }
 `;
-
-const scrollMarginWidth = "40px";
 
 const CanvasWrap = styled.div`
   max-width: 100vw;

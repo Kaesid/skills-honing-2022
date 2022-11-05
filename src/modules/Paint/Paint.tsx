@@ -13,9 +13,7 @@ const Paint = () => {
     usePaint();
 
   return (
-    <PaintPage
-    //  onContextMenu={e => e.preventDefault()}
-    >
+    <PaintPage>
       <SideMenu
         resetCanvas={resetCanvas}
         toolName={toolName}
