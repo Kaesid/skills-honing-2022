@@ -1,5 +1,5 @@
-import { ITool } from "../interface";
-import { Tool } from "./Tool";
+import { ITool } from "../../interface";
+import { Tool } from "../Tool";
 
 class Rectangle extends Tool {
   constructor(props: ITool) {
