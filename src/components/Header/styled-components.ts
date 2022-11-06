@@ -4,15 +4,15 @@ import { Link } from "react-router-dom";
 import { GrClose } from "react-icons/gr";
 import { FiAlignJustify } from "react-icons/fi";
 import { linkActiveColor, linkNonActiveColor } from "../../constants/styled-components";
+import { headerHeight } from "../../styles/styled-components/constants";
 
 const AppHeader = styled.header`
   display: flex;
   justify-content: space-between;
   align-items: center;
   background: linear-gradient(90deg, rgba(2, 0, 36, 1) 0%, rgba(9, 9, 121, 1) 68%, rgba(175, 0, 255, 1) 100%);
-  height: 40px;
+  height: ${headerHeight};
   padding: 0 40px;
-  margin-bottom: 40px;
 `;
 
 const NavBar = styled.nav`
@@ -62,8 +62,8 @@ const BurgerIcon = styled(FiAlignJustify)`
 `;
 
 const GlobalStyleOverflow = createGlobalStyle`
-  body {
-    overflow-y: ${(props: { readonly isBurgerOpen: boolean }) => (props.isBurgerOpen ? "hidden" : "unset")};
+  #root {
+    overflow-y: ${(props: { readonly isBurgerOpen: boolean }) => (props.isBurgerOpen ? "hidden" : "auto")};
   }
   `;
 
@@ -71,7 +71,7 @@ const BurgerMenu = styled.div`
   position: absolute;
   z-index: 100;
   right: 0;
-  top: 40px;
+  top: ${headerHeight};
   width: 100%;
   height: 100%;
   max-height: 100vh;

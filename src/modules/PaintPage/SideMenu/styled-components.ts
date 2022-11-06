@@ -1,14 +1,14 @@
 import styled, { css } from "styled-components";
 import { SCREEN_SIZES } from "../../../constants/screen";
+import { headerHeight } from "../../../styles/styled-components/constants";
 import { noTextHiglight } from "../../../styles/styled-components/helpers";
-import { metallicTheme } from "../../../styles/styled-components/themes";
+import { buttonStyles, metallicTheme } from "../../../styles/styled-components/styles";
 
 const SideMenuStyled = styled.div`
   background: #484854;
   color: white;
-  min-height: calc(100vh - 40px);
+  min-height: calc(100vh - ${headerHeight});
   width: 240px;
-  margin-top: -40px;
   ${noTextHiglight}
 
   @media (max-width: ${SCREEN_SIZES.TABLET}px) {
@@ -101,13 +101,8 @@ const SideMenuButtons = styled.div`
 `;
 
 const SideMenuButton = styled.a`
-  padding: 12px 40px;
-  max-width: 200px;
+  ${buttonStyles}
   ${metallicTheme}
-  border-radius: 8px;
-  color: black;
-  cursor: pointer;
-  font-weight: 700;
 `;
 
 export { SideMenuStyled, IconsBox, IconBox, SideMenuButton, SideMenuButtons, CanvasStateIcon, metallicTheme };

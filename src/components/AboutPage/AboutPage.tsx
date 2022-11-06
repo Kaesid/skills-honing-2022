@@ -1,15 +1,15 @@
 import { appName, Messages } from "../../constants/text";
-import { AboutTitle } from "./styled-components";
+import { DefaultOnePager, GradientTitle } from "../../styles/styled-components/basic";
 
 const AboutPage = () => {
   return (
-    <div>
-      <AboutTitle>{appName}</AboutTitle>
+    <DefaultOnePager>
+      <GradientTitle>{appName}</GradientTitle>
       <div>
         <p>{Messages.ABOUT__TECHNOLOGIES}</p>
         <p>{Messages.ABOUT__PARTING_WORDS}</p>
       </div>
-    </div>
+    </DefaultOnePager>
   );
 };
 

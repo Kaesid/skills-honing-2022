@@ -6,6 +6,7 @@ enum Messages {
   Styled-components for, well, styling, some units tests with the help of the Jest, and, obiously, a lot of canvas fun.
   Fully responsive app with mobile-first philosophy.`,
   ABOUT__PARTING_WORDS = `Hope you're enjoing using it as much as I had creating it.`,
+  HOME__BUTTON_TEXT = `Begin`,
 }
 
 export { appName, Messages };

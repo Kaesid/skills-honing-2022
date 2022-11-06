@@ -1,4 +1,5 @@
-import startImage from "./hello_world.png";
+import canvasImage from "./canvas.avif";
 import noMatchImage from "./lost.jpg";
+import backgroundImage from "./bg.avif";
 
-export { startImage, noMatchImage };
+export { canvasImage, noMatchImage, backgroundImage };

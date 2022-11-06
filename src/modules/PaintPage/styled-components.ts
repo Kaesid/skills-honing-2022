@@ -19,11 +19,12 @@ const CanvasWrap = styled.div`
   position: relative;
   display: flex;
   justify-content: center;
-  margin-bottom: 50px;
+  margin: auto 0;
 
   @media (max-width: ${SCREEN_SIZES.TABLET}px) {
     width: unset;
     margin-right: ${scrollMarginWidth};
+    margin-top: 0;
     margin-bottom: 5px;
 
     &::after {

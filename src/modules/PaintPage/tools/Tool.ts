@@ -1,5 +1,4 @@
 import { ICanvasStates, ICoordinates, IPaintEvent, ITool } from "../interface";
-import { ToolNames } from "../SideMenu/constants";
 
 class Tool {
   protected isDrawing: boolean;
@@ -11,7 +10,7 @@ class Tool {
   protected lineWidth: number;
   protected tempCanvasData: ImageData | null;
   protected startPosition: ICoordinates;
-  protected activeTool: React.MutableRefObject<ToolNames>;
+  protected activeTool: ITool["toolRef"];
   protected canvasStates: ICanvasStates;
   protected changePosition: ITool["changePosiiton"];
 
@@ -32,14 +31,20 @@ class Tool {
   }
 
   handleCursorMove(e: IPaintEvent) {
-    this.setTouchEventPosition(e);
-    if (e instanceof MouseEvent) [this.position.x, this.position.y] = [e.offsetX, e.offsetY];
-
+    this.setEventPosition(e);
     if (this.isDrawing) this.handleDraw();
   }
 
-  protected setTouchEventPosition(e: IPaintEvent) {
-    if (!window.TouchEvent || !(e instanceof TouchEvent)) return;
+  setEventPosition(e: IPaintEvent) {
+    if (e instanceof MouseEvent) this.setMouseEventPosition(e);
+    if (e instanceof TouchEvent && window.TouchEvent) this.setTouchEventPosition(e);
+  }
+
+  setMouseEventPosition(e: MouseEvent) {
+    [this.position.x, this.position.y] = [e.offsetX, e.offsetY];
+  }
+
+  protected setTouchEventPosition(e: TouchEvent) {
     const bcr = (e.target as HTMLElement).getBoundingClientRect();
     const x = e.targetTouches[0].clientX - bcr.x;
     const y = e.targetTouches[0].clientY - bcr.y;
@@ -50,7 +55,7 @@ class Tool {
     this.isDrawing = true;
     this.setColor();
     this.setLineWidth();
-    this.setTouchEventPosition(e);
+    this.setEventPosition(e);
     this.saveStartPosition();
     this.handleToolDrawActivation();
   }
