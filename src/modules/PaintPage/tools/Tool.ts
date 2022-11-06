@@ -37,7 +37,7 @@ class Tool {
 
   setEventPosition(e: IPaintEvent) {
     if (e instanceof MouseEvent) this.setMouseEventPosition(e);
-    if (e instanceof TouchEvent && window.TouchEvent) this.setTouchEventPosition(e);
+    if (window.TouchEvent && e instanceof TouchEvent) this.setTouchEventPosition(e);
   }
 
   setMouseEventPosition(e: MouseEvent) {
