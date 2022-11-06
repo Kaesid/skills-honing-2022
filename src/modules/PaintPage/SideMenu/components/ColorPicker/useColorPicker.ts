@@ -11,14 +11,11 @@ const useColorPicker = (props: IColorRef) => {
   const dispatch = useAppDispatch();
   const setSelectedPaletteSlot = (selectedSlot: IColorsName) => dispatch(setSelectedColorSlot(selectedSlot));
   const { selectedColorSlot, colorsPalette } = paintState;
-  const [renderedColor, setRenderedColor] = useState(colorRef.current);
   const setPaletteColors = (newPalette: IColorsPalette) => dispatch(setColorPalette(newPalette));
   const [isCollapsibleOpen, setIsCollapasibleOpen] = useState(true);
 
   const setActiveColor = (newColor: string) => {
     colorRef.current = newColor;
-    setRenderedColor(newColor);
-
     setPaletteColors({ ...colorsPalette, [selectedColorSlot]: newColor });
   };
 
@@ -40,10 +37,9 @@ const useColorPicker = (props: IColorRef) => {
   return {
     setActivePaletteSlot,
     setActiveColor,
-    paletteColors: colorsPalette,
-    renderedColor,
+    colorsPalette,
     collapsibleParams,
-    activePaletteSlot: selectedColorSlot,
+    selectedColorSlot,
   };
 };
 

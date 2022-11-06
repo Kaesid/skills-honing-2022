@@ -29,8 +29,7 @@ const GradientTitle = styled(BasicTitle)`
 `;
 
 const DefaultOnePager = styled.div`
-  height: 100%;
-  max-height: calc(100vh - ${headerHeight});
+  height: calc(100vh - ${headerHeight});
   background-image: url(${backgroundImage});
   background-repeat: no-repeat;
   background-size: cover;

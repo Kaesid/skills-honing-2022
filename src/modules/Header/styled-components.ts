@@ -61,7 +61,7 @@ const BurgerIcon = styled(FiAlignJustify)`
 `;
 
 const GlobalStyleOverflow = createGlobalStyle`
-  #root {
+  body {
     overflow-y: ${(props: { readonly isBurgerOpen: boolean }) => (props.isBurgerOpen ? "hidden" : "auto")};
   }
   `;
@@ -72,8 +72,7 @@ const BurgerMenu = styled.div`
   right: 0;
   top: ${headerHeight};
   width: 100%;
-  height: 100%;
-  max-height: 100vh;
+  height: 100vh;
   opacity: 0.9;
   background-color: rgba(2, 0, 36, 1);
   display: flex;
