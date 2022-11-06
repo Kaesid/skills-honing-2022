@@ -1,4 +1,6 @@
 const linkNonActiveColor = "ghostwhite";
 const linkActiveColor = "#53fbcd";
 
-export { linkNonActiveColor, linkActiveColor };
+const headerHeight = "40px";
+
+export { linkNonActiveColor, linkActiveColor, headerHeight };

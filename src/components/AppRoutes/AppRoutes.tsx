@@ -1,16 +1,6 @@
-import { Routes, Route, useLocation } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
 import NoMatch from "../NoMatch/NoMatch";
 import { routerPaths } from "./constants";
-
-export const LocationDisplay = () => {
-  const location = useLocation();
-
-  return (
-    <div style={{ display: "none" }} data-testid="location-display">
-      {location.pathname}
-    </div>
-  );
-};
 
 const AppRoutes = () => {
   return (
@@ -23,7 +13,6 @@ const AppRoutes = () => {
 
         <Route path="*" element={<NoMatch />} />
       </Routes>
-      <LocationDisplay />
     </>
   );
 };

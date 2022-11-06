@@ -1,6 +1,6 @@
 import styled, { css } from "styled-components";
 import { SCREEN_SIZES } from "../../../constants/screen";
-import { headerHeight } from "../../../styles/styled-components/constants";
+import { headerHeight } from "../../../constants/styled-components";
 import { noTextHiglight } from "../../../styles/styled-components/helpers";
 import { buttonStyles, metallicTheme } from "../../../styles/styled-components/styles";
 

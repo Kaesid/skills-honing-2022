@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import { backgroundImage } from "../../assets/images";
-import { headerHeight } from "./constants";
+import { headerHeight } from "../../constants/styled-components";
 
 const PageSizeImageWrap = styled.div`
   height: 70vh;

@@ -3,8 +3,7 @@ import { ReactComponent as Logo } from "../../assets/images/logo.svg";
 import { Link } from "react-router-dom";
 import { GrClose } from "react-icons/gr";
 import { FiAlignJustify } from "react-icons/fi";
-import { linkActiveColor, linkNonActiveColor } from "../../constants/styled-components";
-import { headerHeight } from "../../styles/styled-components/constants";
+import { headerHeight, linkActiveColor, linkNonActiveColor } from "../../constants/styled-components";
 
 const AppHeader = styled.header`
   display: flex;

@@ -1,12 +1,13 @@
 import { render, screen } from "@testing-library/react";
 import "@testing-library/jest-dom";
 import { BrowserRouter, MemoryRouter } from "react-router-dom";
-import { LocationDisplay } from "../../components/AppRoutes/AppRoutes";
 import PageContent from "./PageContent/PageContent";
 import { Provider } from "react-redux";
 import { store } from "./../../redux/store";
+import { RoutesPath } from "../../components/AppRoutes/constants";
+import { Messages } from "../../constants/text";
 
-test("full app rendering/navigating", async () => {
+test("initial page rendering", async () => {
   render(
     <Provider store={store}>
       <PageContent />
@@ -14,10 +15,11 @@ test("full app rendering/navigating", async () => {
 
     { wrapper: BrowserRouter }
   );
+  const text = Messages.HOME__BUTTON_TEXT;
   //   const user = userEvent.setup();
 
   // verify page content for default route
-  expect(screen.getByText(/Save/i)).toBeInTheDocument();
+  expect(screen.getByText(text)).toBeInTheDocument();
 
   //   // verify page content for expected route after navigating
   //   await user.click(screen.getByText(/about/i));
@@ -38,16 +40,19 @@ test("landing on a bad page", () => {
   expect(screen.getByText(/it seems/i)).toBeInTheDocument();
 });
 
-test("rendering a component that uses useLocation", () => {
-  const route = "/about";
+test("rendering a chosen page", () => {
+  const route = RoutesPath.CANVAS;
 
   // use <MemoryRouter> when you want to manually control the history
   render(
     <MemoryRouter initialEntries={[route]}>
-      <LocationDisplay />
+      <Provider store={store}>
+        <PageContent />
+      </Provider>
     </MemoryRouter>
   );
 
   // verify location display is rendered
-  expect(screen.getByTestId("location-display")).toHaveTextContent(route);
+  expect(screen.getByText(/Save/i)).toBeInTheDocument();
+  // expect(screen.getByTestId("location-display")).toHaveTextContent(route);
 });

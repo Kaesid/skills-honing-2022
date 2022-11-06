@@ -6,9 +6,3 @@ declare module "*.svg" {
   const src: string;
   export default src;
 }
-
-declare global {
-  namespace ReactNavigation {
-    interface RootParamList extends RootStackParamList {}
-  }
-}
