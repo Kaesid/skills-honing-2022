@@ -1,7 +1,7 @@
-import AboutPage from "../AboutPage/AboutPage";
-import Paint from "../../modules/PaintPage/PaintPage";
-import { IRoute } from "./interface";
-import HomePage from "../HomePage/HomePage";
+import { IRoute } from "../modules/App/AppRoutes/interface";
+import AboutPage from "../components/AboutPage/AboutPage";
+import HomePage from "../components/HomePage/HomePage";
+import PaintPage from "../modules/PaintPage/PaintPage";
 
 enum RoutesPath {
   CANVAS = "/canvas",
@@ -23,7 +23,7 @@ const routerPaths: IRoute[] = [
   {
     path: RoutesPath.CANVAS,
     text: "Canvas",
-    Component: Paint,
+    Component: PaintPage,
   },
 ];
 

@@ -11,10 +11,10 @@ import {
   RoutesLinksTab,
 } from "./styled-components";
 import { useMobileResolutionCheck } from "../../hooks/useMobileResolutionCheck";
-import RoutesLinksList from "../RoutesLinksList/RoutesLinksList";
+import RoutesLinksList from "./RoutesLinksList/RoutesLinksList";
 import { useLocation } from "react-router-dom";
 import { useBurger } from "./useBurger";
-import { RoutesPath } from "../AppRoutes/constants";
+import { RoutesPath } from "../../constants/routes";
 
 const Header = () => {
   const { isMobile } = useMobileResolutionCheck();

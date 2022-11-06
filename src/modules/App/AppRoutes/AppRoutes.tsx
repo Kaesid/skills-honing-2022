@@ -1,6 +1,6 @@
 import { Routes, Route } from "react-router-dom";
-import NoMatch from "../NoMatch/NoMatch";
-import { routerPaths } from "./constants";
+import NoMatchPage from "../../../components/NoMatchPage/NoMatchPage";
+import { routerPaths } from "../../../constants/routes";
 
 const AppRoutes = () => {
   return (
@@ -11,7 +11,7 @@ const AppRoutes = () => {
           return <Route path={path} key={path} element={<Component />} />;
         })}
 
-        <Route path="*" element={<NoMatch />} />
+        <Route path="*" element={<NoMatchPage />} />
       </Routes>
     </>
   );

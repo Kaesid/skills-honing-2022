@@ -4,8 +4,8 @@ import { BrowserRouter, MemoryRouter } from "react-router-dom";
 import PageContent from "./PageContent/PageContent";
 import { Provider } from "react-redux";
 import { store } from "./../../redux/store";
-import { RoutesPath } from "../../components/AppRoutes/constants";
 import { Messages } from "../../constants/text";
+import { RoutesPath } from "../../constants/routes";
 
 test("initial page rendering", async () => {
   render(

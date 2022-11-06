@@ -1,6 +1,6 @@
 import React from "react";
-import { MyLink } from "../Header/styled-components";
-import { routerPaths } from "../AppRoutes/constants";
+import { routerPaths } from "../../../constants/routes";
+import { MyLink } from "../styled-components";
 
 const RoutesLinksList = (props: { onClick?: () => void; pathname: string }) => {
   const { onClick, pathname } = props;

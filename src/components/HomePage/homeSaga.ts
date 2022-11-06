@@ -1,5 +1,5 @@
 import { takeEvery } from "redux-saga/effects";
-import { RoutesPath } from "../AppRoutes/constants";
+import { RoutesPath } from "../../constants/routes";
 import { redirectToCanvasActionName } from "./constants";
 import { ISagaAction } from "./interface";
 

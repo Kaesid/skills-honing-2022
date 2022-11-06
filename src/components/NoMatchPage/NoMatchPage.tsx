@@ -3,7 +3,7 @@ import { Messages } from "../../constants/text";
 import { PageSizeImageWrap } from "../../styles/styled-components/basic";
 import { NoMatchTitle } from "./styled-components";
 
-const NoMatch = () => {
+const NoMatchPage = () => {
   return (
     <div>
       <NoMatchTitle>{Messages.WRONG_PAGE}</NoMatchTitle>
@@ -14,4 +14,4 @@ const NoMatch = () => {
   );
 };
 
-export default NoMatch;
+export default NoMatchPage;

@@ -1,5 +1,5 @@
-import AppRoutes from "../../../components/AppRoutes/AppRoutes";
-import Header from "../../../components/Header";
+import AppRoutes from "../AppRoutes/AppRoutes";
+import Header from "../../Header";
 
 const PageContent = () => {
   return (
