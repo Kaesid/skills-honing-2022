@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { useRef } from "react";
 import { useAppSelector } from "../../../redux/hooks";
-import { changeSavedStatePosition, getPaintState, setCanvasStates } from "../paintSlice";
+import { changeSavedStatePosition, getPaintState, setCanvasStates, setSessionActive } from "../paintSlice";
 import { useCanvasResize } from "./useCanvasResize";
 import { useSaveCanvas } from "./useSaveCanvas";
 import { useAppDispatch } from "../../../redux/hooks";
@@ -14,7 +14,8 @@ const usePaint = () => {
   const dispatch = useAppDispatch();
 
   const { colorsPalette, toolName, canvasStates, selectedColorSlot } = paintState;
-  const saveCanvasStates = () => dispatch(setCanvasStates(canvasStatesRef.current));
+  const saveCanvasStatesToStore = () => dispatch(setCanvasStates(canvasStatesRef.current));
+  const setPaintSessionActive = () => dispatch(setSessionActive());
   const changePosiiton = (newPosition: number) => dispatch(changeSavedStatePosition(newPosition));
 
   const canvasStatesRef = useRef<ICanvasStates>({ ...canvasStates, data: [...canvasStates.data] });
@@ -45,7 +46,7 @@ const usePaint = () => {
     resetSavedCanvasState();
   };
 
-  const { adjustCanvasParams, width, height, redrawCanvasWithScale } = useCanvasResize({
+  const { setCanvasSizeValues, width, height, redrawCanvasWithScale } = useCanvasResize({
     ctxRef,
     canvasRef,
     canvasStatesRef,
@@ -64,8 +65,9 @@ const usePaint = () => {
 
   useEffect(() => {
     if (!canvasRef.current) return;
+    setPaintSessionActive();
     ctxRef.current = canvasRef.current.getContext("2d", { willReadFrequently: true });
-    adjustCanvasParams();
+    setCanvasSizeValues();
 
     const ToolsController = new Controller({
       canvasRef,
@@ -76,12 +78,12 @@ const usePaint = () => {
       changePosiiton,
     });
     ToolsController.setListeners();
-    window.addEventListener("resize", adjustCanvasParams);
+    window.addEventListener("resize", setCanvasSizeValues);
 
     return () => {
-      saveCanvasStates();
+      saveCanvasStatesToStore();
       ToolsController.removeListeners();
-      window.removeEventListener("resize", adjustCanvasParams);
+      window.removeEventListener("resize", setCanvasSizeValues);
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);

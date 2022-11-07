@@ -21,6 +21,12 @@ const BasicTitle = styled.p`
   font-weight: bold;
 `;
 
+const BasicText = styled.p`
+  font-size: min(calc(16px + 0.5vw), 21px);
+  line-height: 25px;
+  margin-bottom: 10px;
+`;
+
 const GradientTitle = styled(BasicTitle)`
   background: -webkit-linear-gradient(#43bd9d, #264fab);
   background-clip: text;
@@ -36,4 +42,4 @@ const DefaultOnePager = styled.div`
   background-size: cover;
 `;
 
-export { PageSizeImageWrap, BasicTitle, GradientTitle, DefaultOnePager };
+export { PageSizeImageWrap, BasicTitle, GradientTitle, DefaultOnePager, BasicText };

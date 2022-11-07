@@ -3,16 +3,16 @@ import { ICanvasStates, ICoordinates, IPaintEvent, ITool } from "../interface";
 class Tool {
   protected isDrawing: boolean;
   protected isToolMoving: boolean;
+  protected lineWidth: number;
+  protected tempCanvasData: ImageData | null;
   protected readonly canvas: HTMLCanvasElement;
   protected readonly ctx: CanvasRenderingContext2D;
   protected readonly position: ICoordinates;
   protected readonly color: ITool["colorRef"];
-  protected lineWidth: number;
-  protected tempCanvasData: ImageData | null;
-  protected startPosition: ICoordinates;
-  protected activeTool: ITool["toolRef"];
-  protected canvasStates: ICanvasStates;
-  protected changePosition: ITool["changePosiiton"];
+  protected readonly startPosition: ICoordinates;
+  protected readonly activeTool: ITool["toolRef"];
+  protected readonly canvasStates: ICanvasStates;
+  protected readonly changePosition: ITool["changePosiiton"];
 
   constructor(props: ITool) {
     const { canvasRef, ctxRef, colorRef, toolRef, canvasStatesRef, changePosiiton } = props;
@@ -45,10 +45,9 @@ class Tool {
   }
 
   protected setTouchEventPosition(e: TouchEvent) {
-    const bcr = (e.target as HTMLElement).getBoundingClientRect();
-    const x = e.targetTouches[0].clientX - bcr.x;
-    const y = e.targetTouches[0].clientY - bcr.y;
-    [this.position.x, this.position.y] = [x, y];
+    const { x, y } = (e.target as HTMLElement).getBoundingClientRect();
+    const { clientX, clientY } = e.targetTouches[0];
+    [this.position.x, this.position.y] = [clientX - x, clientY - y];
   }
 
   handleDrawActivation(e: IPaintEvent) {

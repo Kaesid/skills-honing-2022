@@ -52,7 +52,7 @@ class Controller extends Tool {
 
     this.canvas.removeEventListener("touchstart", (e: IPaintEvent) => this.selectedTool.handleDrawActivation(e));
 
-    this.canvas.removeEventListener("touchend", () => this.toolsList[this.activeTool.current].handleDrawFinish());
+    this.canvas.removeEventListener("touchend", () => this.selectedTool.handleDrawFinish());
 
     this.canvas.removeEventListener("touchmove", (e: IPaintEvent) => this.selectedTool.handleCursorMove(e));
 

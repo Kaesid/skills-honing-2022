@@ -9,7 +9,7 @@ const useCanvasResize = (props: IResizeProps) => {
   const isInitialRender = useRef(true);
   const [{ width, height }, setCanvasParams] = useState(getCanvasParamsValues(canvasRef.current));
 
-  const adjustCanvasParams = () => setCanvasParams(getCanvasParamsValues(canvasRef.current));
+  const setCanvasSizeValues = () => setCanvasParams(getCanvasParamsValues(canvasRef.current));
 
   useEffect(() => {
     if (!width || !height) return;
@@ -39,8 +39,7 @@ const useCanvasResize = (props: IResizeProps) => {
     const { data, position } = canvasStatesRef.current;
     const currentData = data[position];
     const tempCanvas = document.createElement("canvas");
-    tempCanvas.width = currentData.width;
-    tempCanvas.height = currentData.height;
+    [tempCanvas.width, tempCanvas.height] = [currentData.width, currentData.height];
     const tempCtx = tempCanvas.getContext("2d");
     if (!tempCtx) return;
     tempCtx.putImageData(currentData, 0, 0);
@@ -50,7 +49,7 @@ const useCanvasResize = (props: IResizeProps) => {
     ctxRef.current.restore();
   };
 
-  return { adjustCanvasParams, width, height, redrawCanvasWithScale };
+  return { setCanvasSizeValues, width, height, redrawCanvasWithScale };
 };
 
 export { useCanvasResize };

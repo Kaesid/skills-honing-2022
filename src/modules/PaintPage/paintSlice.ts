@@ -5,6 +5,7 @@ import { ICanvasStates, IColorsName, IColorsPalette } from "./interface";
 import { ToolNames } from "./SideMenu/constants";
 
 interface IPaintState {
+  isSessionActive: boolean;
   toolName: ToolNames;
   colorsPalette: IColorsPalette;
   canvasStates: ICanvasStates;
@@ -12,6 +13,7 @@ interface IPaintState {
 }
 
 const initialState: IPaintState = {
+  isSessionActive: false,
   toolName: ToolNames.PENCIL,
   colorsPalette: DefaultColors,
   canvasStates: {
@@ -26,6 +28,10 @@ export const paintSlice = createSlice({
   initialState,
 
   reducers: {
+    setSessionActive: state => {
+      state.isSessionActive = true;
+    },
+
     setSelectedColorSlot: (state, action: PayloadAction<IColorsName>) => {
       state.selectedColorSlot = action.payload;
     },
@@ -52,12 +58,19 @@ export const paintSlice = createSlice({
 });
 
 const getPaintToolName = (state: RootState) => state.paint.toolName;
+const getIsSessionActive = (state: RootState) => state.paint.isSessionActive;
 const getColorPalette = (state: RootState) => state.paint.colorsPalette;
 const getPaintState = (state: RootState) => state.paint;
 
-export const { setColorPalette, setPaintToolName, setCanvasStates, changeSavedStatePosition, setSelectedColorSlot } =
-  paintSlice.actions;
+export const {
+  setSessionActive,
+  setColorPalette,
+  setPaintToolName,
+  setCanvasStates,
+  changeSavedStatePosition,
+  setSelectedColorSlot,
+} = paintSlice.actions;
 
 export default paintSlice.reducer;
 
-export { getPaintToolName, getColorPalette, getPaintState };
+export { getPaintToolName, getColorPalette, getPaintState, getIsSessionActive };
