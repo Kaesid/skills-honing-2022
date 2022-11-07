@@ -1,9 +1,9 @@
 import styled, { css, createGlobalStyle } from "styled-components";
-import { ReactComponent as Logo } from "../../assets/images/logo.svg";
 import { Link } from "react-router-dom";
 import { GrClose } from "react-icons/gr";
 import { FiAlignJustify } from "react-icons/fi";
 import { headerHeight, linkActiveColor, linkNonActiveColor } from "../../constants/styled-components";
+import { Logo } from "../../assets/images";
 
 const AppHeader = styled.header`
   display: flex;

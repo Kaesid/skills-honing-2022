@@ -1,5 +1,5 @@
 import createSagaMiddleware from "redux-saga";
-import { configureStore, ThunkAction, Action } from "@reduxjs/toolkit";
+import { configureStore } from "@reduxjs/toolkit";
 import paintReducer from "../modules/PaintPage/paintSlice";
 import rootSaga from "./sagas";
 
@@ -18,4 +18,3 @@ sagaMiddleware.run(rootSaga);
 
 export type AppDispatch = typeof store.dispatch;
 export type RootState = ReturnType<typeof store.getState>;
-export type AppThunk<ReturnType = void> = ThunkAction<ReturnType, RootState, unknown, Action<string>>;

@@ -8,7 +8,7 @@ const HomeTitle = styled(GradientTitle)`
 
 const RedirectButton = styled.button`
   ${buttonStyles}
-  background-image: linear-gradient(158deg,rgb(110 104 203) 0%,rgb(80 80 151) 68%,rgb(173 122 197) 100%);
+  background-image: linear-gradient(158deg, rgb(110 104 203) 0%, rgb(80 80 151) 68%, rgb(173 122 197) 100%);
   color: white;
 `;
 
