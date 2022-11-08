@@ -2,12 +2,12 @@ import { useEffect } from "react";
 import { useRef } from "react";
 import { useAppSelector } from "../../../redux/hooks";
 import { changeSavedStatePosition, getPaintState, setCanvasStates, setSessionActive } from "../paintSlice";
+import { useAppDispatch } from "../../../redux/hooks";
 import { useCanvasResize } from "./useCanvasResize";
 import { useSaveCanvas } from "./useSaveCanvas";
-import { useAppDispatch } from "../../../redux/hooks";
+import { useUndoRedo } from "./useUndoRedo";
 import { Controller } from "../tools/Controller";
 import { ICanvasStates } from "../interface";
-import { useUndoRedo } from "./useUndoRedo";
 
 const usePaint = () => {
   const paintState = useAppSelector(getPaintState);
