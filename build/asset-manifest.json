@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/skills-honing-2022/static/css/main.827d0fda.css",
-    "main.js": "/skills-honing-2022/static/js/main.dd827699.js",
+    "main.js": "/skills-honing-2022/static/js/main.740d5f6f.js",
     "static/js/787.9969272d.chunk.js": "/skills-honing-2022/static/js/787.9969272d.chunk.js",
     "static/media/canvas.png": "/skills-honing-2022/static/media/canvas.7cb728e1a4b65ae1dda6.png",
     "static/media/bg.png": "/skills-honing-2022/static/media/bg.daed65869dc77f2b4ffe.png",
@@ -20,11 +20,11 @@
     "static/media/caption.svg": "/skills-honing-2022/static/media/caption.fd21c5f2a6108b14d8f6f20e748e089f.svg",
     "static/media/circle.svg": "/skills-honing-2022/static/media/circle.ba5aa4fab938176c8846c183f04a4c7a.svg",
     "main.827d0fda.css.map": "/skills-honing-2022/static/css/main.827d0fda.css.map",
-    "main.dd827699.js.map": "/skills-honing-2022/static/js/main.dd827699.js.map",
+    "main.740d5f6f.js.map": "/skills-honing-2022/static/js/main.740d5f6f.js.map",
     "787.9969272d.chunk.js.map": "/skills-honing-2022/static/js/787.9969272d.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.827d0fda.css",
-    "static/js/main.dd827699.js"
+    "static/js/main.740d5f6f.js"
   ]
 }
