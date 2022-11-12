@@ -11,4 +11,6 @@ enum DefaultColors {
   TENTH = "#c68ad8",
 }
 
-export { DefaultColors };
+const maxSavedCanvasStates = 5;
+
+export { DefaultColors, maxSavedCanvasStates };

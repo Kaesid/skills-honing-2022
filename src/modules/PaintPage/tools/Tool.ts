@@ -1,3 +1,4 @@
+import { maxSavedCanvasStates } from "../constants";
 import { ICanvasStates, ICoordinates, IPaintEvent, ITool } from "../interface";
 
 class Tool {
@@ -16,6 +17,7 @@ class Tool {
 
   constructor(props: ITool) {
     const { canvasRef, ctxRef, colorRef, toolRef, canvasStatesRef, changePosiiton } = props;
+    this.changePosition = changePosiiton;
     this.canvas = canvasRef.current as HTMLCanvasElement;
     this.ctx = ctxRef.current as CanvasRenderingContext2D;
     this.tempCanvasData = null;
@@ -27,7 +29,6 @@ class Tool {
     this.lineWidth = 1;
     this.isDrawing = false;
     this.isToolMoving = false;
-    this.changePosition = changePosiiton;
   }
 
   handleCursorMove(e: IPaintEvent) {
@@ -35,16 +36,16 @@ class Tool {
     if (this.isDrawing) this.handleDraw();
   }
 
-  setEventPosition(e: IPaintEvent) {
+  private setEventPosition(e: IPaintEvent) {
     if (e instanceof MouseEvent) this.setMouseEventPosition(e);
     if (window.TouchEvent && e instanceof TouchEvent) this.setTouchEventPosition(e);
   }
 
-  setMouseEventPosition(e: MouseEvent) {
+  private setMouseEventPosition(e: MouseEvent) {
     [this.position.x, this.position.y] = [e.offsetX, e.offsetY];
   }
 
-  protected setTouchEventPosition(e: TouchEvent) {
+  private setTouchEventPosition(e: TouchEvent) {
     const { x, y } = (e.target as HTMLElement).getBoundingClientRect();
     const { clientX, clientY } = e.targetTouches[0];
     [this.position.x, this.position.y] = [clientX - x, clientY - y];
@@ -77,7 +78,7 @@ class Tool {
     this.ctx.lineWidth = this.lineWidth;
   }
 
-  protected ProcessSingleClickToolAction() {
+  private ProcessSingleClickToolAction() {
     if (!this.isToolMoving && this.position.x === this.startPosition.x && this.position.y === this.startPosition.y) {
       this.singleClickAction();
     }
@@ -96,7 +97,7 @@ class Tool {
     this.handleToolDrawFinish();
   }
 
-  saveCanvasTempData() {
+  protected saveCanvasTempData() {
     this.tempCanvasData = this.canvasState;
   }
 
@@ -104,17 +105,17 @@ class Tool {
     return this.ctx.getImageData(0, 0, this.canvas.clientWidth, this.canvas.clientHeight);
   }
 
-  removeSavedStatesAfterCurrentPosition() {
+  protected removeSavedStatesAfterCurrentPosition() {
     if (this.canvasStates.data.length > this.canvasStates.position + 1) {
       this.canvasStates.data.length = this.canvasStates.position + 1;
     }
   }
 
-  saveCanvasStateToList() {
+  protected saveCanvasStateToList() {
     this.removeSavedStatesAfterCurrentPosition();
 
     this.canvasStates.data.push(this.canvasState);
-    if (this.canvasStates.data.length > 5) {
+    if (this.canvasStates.data.length > maxSavedCanvasStates) {
       this.canvasStates.data.shift();
     } else {
       this.canvasStates.position += 1;
@@ -122,7 +123,7 @@ class Tool {
     }
   }
 
-  restoreCanvasTempState() {
+  protected restoreCanvasTempState() {
     if (this.tempCanvasData) this.ctx.putImageData(this.tempCanvasData, 0, 0);
   }
 
