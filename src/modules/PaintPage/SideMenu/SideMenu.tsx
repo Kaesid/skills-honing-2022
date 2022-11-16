@@ -15,13 +15,18 @@ const SideMenu = (props: ISideMenu) => {
       <UndoRedo undo={undo} redo={redo} canvasStatesRef={canvasStatesRef} />
       <IconsBox>
         {toolsList.map(({ IconComponent, tooltip }) => (
-          <IconBox onClick={() => setToolName(tooltip)} $isActive={tooltip === toolName} key={tooltip}>
+          <IconBox
+            data-testid={tooltip}
+            onClick={() => setToolName(tooltip)}
+            $isActive={tooltip === toolName}
+            key={tooltip}
+          >
             <IconComponent />
           </IconBox>
         ))}
       </IconsBox>
       <SideMenuButtons>
-        <SideMenuButton download="image.png" onClick={saveCanvas} href={dataUrl}>
+        <SideMenuButton data-testid="save" download="image.png" onClick={saveCanvas} href={dataUrl}>
           Save
         </SideMenuButton>
         <SideMenuButton onClick={resetCanvas}>Reset</SideMenuButton>

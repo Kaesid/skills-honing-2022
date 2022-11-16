@@ -11,7 +11,11 @@ const UndoRedo = (props: UndoRedoViewProps) => {
 
   return (
     <IconsBox>
-      <CanvasStateIcon $isBlocked={!Boolean(canvasStatesRef.current.data[canvasStates.position - 1])} onClick={undo}>
+      <CanvasStateIcon
+        data-testid="undo"
+        $isBlocked={!Boolean(canvasStatesRef.current.data[canvasStates.position - 1])}
+        onClick={undo}
+      >
         <Undo />
       </CanvasStateIcon>
       <CanvasStateIcon $isBlocked={!Boolean(canvasStatesRef.current.data[canvasStates.position + 1])} onClick={redo}>

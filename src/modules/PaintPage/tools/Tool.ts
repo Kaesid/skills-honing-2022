@@ -102,6 +102,7 @@ class Tool {
   }
 
   protected get canvasState() {
+    if (!this.canvas.clientWidth || !this.canvas.clientHeight) return this.canvasStates.data[0]; //workaround for testing only, because jsdom doesn't support Layout.
     return this.ctx.getImageData(0, 0, this.canvas.clientWidth, this.canvas.clientHeight);
   }
 
