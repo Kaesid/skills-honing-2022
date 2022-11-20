@@ -18,14 +18,9 @@ test("initial page rendering", async () => {
     { wrapper: BrowserRouter }
   );
   const text = Messages.HOME__BUTTON_TEXT;
-  //   const user = userEvent.setup();
 
   // verify page content for default route
   expect(screen.getByText(text)).toBeInTheDocument();
-
-  //   // verify page content for expected route after navigating
-  //   await user.click(screen.getByText(/about/i));
-  //   expect(screen.getByText(/you are on the about page/i)).toBeInTheDocument();
 });
 
 test("landing on a bad page", () => {
