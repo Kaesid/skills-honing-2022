@@ -6,6 +6,7 @@ const Canvas = (props: ICanvas) => {
 
   return (
     <CanvasStyled
+      data-testid="canvas"
       width={width}
       height={height}
       // style={cursor ? { cursor: `url(${cursor}), auto` } : undefined}

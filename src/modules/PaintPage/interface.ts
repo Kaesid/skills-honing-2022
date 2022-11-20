@@ -4,13 +4,6 @@ import { DefaultColors } from "./constants";
 
 type IPaintEvent = TouchEvent | MouseEvent;
 
-interface IHandlers {
-  handleDrawActivation: (e: IPaintEvent) => void;
-  handleDrawFinish: () => void;
-  handleCursorOut: () => void;
-  handleCursorMove: (e: IPaintEvent) => void;
-}
-
 interface ISizeParams {
   width: number;
   height: number;
@@ -21,7 +14,7 @@ interface ICoordinates {
   y: number;
 }
 
-interface ICanvasParamsList {
+interface ICanvasParams {
   canvasRef: React.RefObject<HTMLCanvasElement>;
   ctxRef: React.MutableRefObject<CanvasRenderingContext2D | null>;
   canvasParams: React.MutableRefObject<ISizeParams>;
@@ -29,6 +22,9 @@ interface ICanvasParamsList {
   toolRef: React.MutableRefObject<ToolNames>;
   position: React.MutableRefObject<ICoordinates>;
   canvasStatesRef: React.MutableRefObject<ICanvasStates>;
+}
+
+interface ICanvasMethods {
   fillEmptyCanvas: () => void;
   resetSavedCanvasState: () => void;
   undo: () => void;
@@ -37,28 +33,17 @@ interface ICanvasParamsList {
   redrawCanvasWithScale: () => void;
 }
 
-type ICanvasRef = Pick<ICanvasParamsList, "canvasRef">;
+type IResizeProps = Pick<ICanvasParams, "canvasRef" | "ctxRef" | "canvasStatesRef"> &
+  Pick<ICanvasMethods, "fillEmptyCanvas" | "resetSavedCanvasState">;
 
-type ICtxRef = Pick<ICanvasParamsList, "ctxRef">;
+type ISaveCanvasProps = Pick<ICanvasParams, "canvasRef" | "ctxRef">;
 
-type IPosition = Pick<ICanvasParamsList, "position">;
+type ITool = Omit<ICanvasParams, "position" | "canvasParams"> & Pick<ICanvasMethods, "changePosiiton">;
 
-type IColorRef = Pick<ICanvasParamsList, "colorRef">;
+type IUndoRedo = Pick<ICanvasParams, "ctxRef" | "canvasStatesRef"> &
+  Pick<ICanvasMethods, "changePosiiton" | "redrawCanvasWithScale">;
 
-type IResizeProps = ICanvasRef &
-  ICtxRef &
-  Pick<ICanvasParamsList, "canvasStatesRef" | "fillEmptyCanvas" | "resetSavedCanvasState">;
-
-type ISaveCanvasProps = ICanvasRef & ICtxRef;
-
-type ITool = ICanvasRef &
-  ICtxRef &
-  IColorRef &
-  Pick<ICanvasParamsList, "toolRef" | "canvasStatesRef" | "changePosiiton">;
-
-type IUndoRedo = ICtxRef & Pick<ICanvasParamsList, "canvasStatesRef" | "changePosiiton" | "redrawCanvasWithScale">;
-
-type ITouchPosiitionGet = IPosition & { e: IPaintEvent };
+type ITouchPosiitionGet = Pick<ICanvasParams, "position"> & { e: IPaintEvent };
 
 type IToolsList = Record<ToolNames, Tool>;
 
@@ -77,17 +62,15 @@ interface ICanvasStates {
 }
 
 export type {
-  IHandlers,
   ICoordinates,
   ISizeParams,
-  ICanvasParamsList,
+  ICanvasParams,
+  ICanvasMethods,
   IResizeProps,
   ISaveCanvasProps,
   IPaintEvent,
   ITool,
   IToolsList,
-  IColorRef,
-  ICanvasRef,
   ITouchPosiitionGet,
   IUndoRedo,
   IColorsName,

@@ -1,7 +1,7 @@
-import { ICanvasParamsList } from "../interface";
+import { ICanvasParams } from "../interface";
 import { ToolNames } from "./constants";
 
-type ISideMenuTools = Pick<ICanvasParamsList, "colorRef" | "toolRef" | "canvasStatesRef">;
+type ISideMenuTools = Pick<ICanvasParams, "colorRef" | "toolRef" | "canvasStatesRef">;
 
 type ISideMenu = ISideMenuTools & {
   toolName: string;

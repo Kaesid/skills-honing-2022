@@ -1,4 +1,4 @@
-import { BrowserRouter } from "react-router-dom";
+import { HashRouter as Router } from "react-router-dom";
 import ErrorBoundary from "./../../components/ErrorBoundary/ErrorBoundary";
 import PageContent from "./PageContent/PageContent";
 import "./styles.scss";
@@ -6,9 +6,9 @@ import "./styles.scss";
 const App = () => {
   return (
     <ErrorBoundary>
-      <BrowserRouter>
+      <Router>
         <PageContent />
-      </BrowserRouter>
+      </Router>
     </ErrorBoundary>
   );
 };
